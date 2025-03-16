@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "csc325-food-recipe-platform",
+  "private_key_id": "bbd390c0cdbd7a94dfa514c5fb42e2530ccf84c1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCaBrNy/6EoE8td\nBGIkSfvGSZdlDiEBEGk8QondcVJCizfWiPD6p4yYMzIDXjhwzuqNL4TerEG10vEd\nXw9L2cb6XHSqELlSzJ1Pgff6ZJ3f5IBH9ergOTUalRE0T+CfYq/5PgkUyNWi98v0\nzzsN6VvrT5zEeaYQCTe8YBl5sMZwd438prO8ed1aLvtSufz9JI97eNFItzAosocU\n8DTkhd/X94QSOBqPKAMYh2sbXSqY+SsTJZsCPuciJ48aO4XAqW+kIsoXzCDtOyr4\nMUFvFwprVYM4dvvlgz4CNKHeO0LDnQonIyDcDTBFO25bT4AQM0chXTabzXVk7F+r\nGbZNfkSBAgMBAAECggEAAQ+eiY5e5l+6qIJcXIYKQgondOgsxl8OBcbSwDTWxm26\n/LlDvVMJbZJpleUCnx2wh0h7aCEWPLrcR3+4R01HuvF/Ye0WmPo/A5tWY2wZS5+t\nYduE/LJ1sAQ0pKZPxprMee9bSsBweu5tdis917JsuEB7oMWKkSLuXm/AOKy05P0l\n2oap6BddV4I+VBrPMhcBgNejm9LPixQfwwcLgkvq03w99Oo6lf7p8Xsv3JRWLZWI\nyV/uFeJTz6M7667fR6HhZ5EagCwJ7nLn4zlYSlSNl49o8yeUa7i0GaURAi3wb7tW\nX8oii/e8saM24X3xrinLhBJeRAMvaVojXPqkc0xuAQKBgQDS9U0nGvnR/bNG1BSy\nr8vlna9MAZkGmda7jWr0kQr30BnCHCAIowgAuEn4yFsJ8zyBERpqIdHmueSfjdxK\nlQomFni0ssb9TYrRZRw/AIi5EQPCptBIMDd65P8Exr38US4jlxuQqFq/4XCBFgfQ\nOAcSkfbFEiAL4gffm3oefYS3gQKBgQC66ZHHh/q57WgeX1yQJtTk0fLofWW0c9ZZ\nDGI0tiePHrIr4GxChspJBDSRsG8PdYgkjYqG3V/E0vL01zDDJYGesfFRP7/EO3BC\nQGYnE3s2+37ardPq4zORgv2MJzpwO4oD2D6W/iKbal/ttjlMLSOWx/D3+v4lU/nP\nqEYipqgNAQKBgBwnFFbFqNU3UDeBkgmOoF1SP9Sa2fshiKCa7M0aliYgJW/cJQJC\nD41ZCrYittOLHGX1DFthjAuIf1QzsFRbs3EFyrICsb+YG5B6N9zIi3Z3KNNPQ7h+\nhsjlyoquoygLBWdGgS066nF0+nifogdNktQNmqsOEizDy10x+IgdJBsBAoGAc4VS\ndUjkvK8vb74unmVxpS7he7Gs/1esvgK6W6vNTVaCdj3Ri1h1g6VWvEiYi6xvhW/5\nkxsVSre6M3sghywSLbv60uWcpzK5UiktOa9/st7Da3KODJl50NBt1oaURrN1vKSV\nIotVZkrbmTbLuPoZCeLvWsTE+NsrBZ4SIu5v5QECgYAHg1oh6uQD5m7iLMsQWpJN\nj2YXJOV97jP6oVCnV5+Ktv54LYGhn6be4NN6eKI2i/e1Gfpxfl48vC5xutKXwTEE\nlZNqqQYE4Bv8Wx9BjTRmmRk/L1tYNScwYFolOnVDd2U/dvuuP6CJHPWTNcenN2Gz\nQ6Naynw9oZb+IizML7HBIg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@csc325-food-recipe-platform.iam.gserviceaccount.com",
+  "client_id": "105492445304572141999",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40csc325-food-recipe-platform.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
