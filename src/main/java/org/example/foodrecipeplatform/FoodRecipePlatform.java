@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+// testing commit to see if it still hides the key
 public class FoodRecipePlatform extends Application {
     public static Scene scene;
 
