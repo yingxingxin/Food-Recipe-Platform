@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 public class SignInController
 {
-    // to connenct buttons, make sure the the id is fx:id= & make sure the controller is set to this class
+    // to connenct buttons, make sure that the id is fx:id= & make sure the controller is set to this class
     @FXML
     private Button sign_inButton;
 
@@ -70,93 +70,12 @@ public class SignInController
 
 
     @FXML
-    void registerButtonClicked (ActionEvent event)
-    {
-        System.out.println("register in clicked");
-        if (registerUser())
-            addUser();
-    }
-
-    /*
-        - MAKE SURE YOU ENABLE EMAIL ON AUTHENTICATION TO USE THIS
-        - phone email and phone number needs to be unique for register to work
-        - email is format checked to see if there's an @ & .com
-        - phone number is checked to see if length is correct
-        - phone number needs to be in this format +12344567899 -> +1 123 123 1234
-        - password needs to be at least 6 letters long
-    */
-    public boolean registerUser() {
-        try
-        {
-            UserRecord.CreateRequest request = new UserRecord.CreateRequest()
-                    .setEmail(usernameTextField.getText())
-                    .setEmailVerified(false)
-                    .setPassword(passwordTextField.getText())
-                    .setDisabled(false);
-
-//        UserRecord.CreateRequest request = new UserRecord.CreateRequest();
-//
-//        try
-//        {
-//            request.setEmail(usernameTextField.getText()).setEmailVerified(false)
-//                    .setPassword(passwordTextField.getText()).setDisabled(false);
-//        }
-//        catch (IllegalArgumentException e)
-//        {
-//            System.out.println(e.getMessage());
-//            return false;
-//        }
-
-
-            UserRecord userRecord;
-
-            userRecord = FoodRecipePlatform.fauth.createUser(request);
-            System.out.println("Successfully created new user with Firebase Uid: " + userRecord.getUid()
-                    + " check Firebase > Authentication > Users tab");
-            return true;
-
-        }
-
-//        catch (FirebaseAuthException ex)
-//        {
-//            // Logger.getLogger(FirestoreContext.class.getName()).log(Level.SEVERE, null, ex);
-//            System.out.println("Error creating a new user in the firebase");
-//            return false;
-//        }
-        catch (IllegalArgumentException | FirebaseAuthException e)
-        {
-            String message = e.getMessage();
-            if (message != null && message.contains("exists"))
-            {
-                System.out.println("Email already in use");
-                messageText.setText("Email already in use");
-            }
-            else
-            {
-                System.out.println("Email not in valid format or password length must be >6");
-                messageText.setText("Email not in valid format or password length must be >6");
-            }
-
-            return false;
-        }
+    void registerButtonClicked (ActionEvent event) throws IOException {
+        switchToRegisterScreen();
     }
 
 
-    /*
-        add user
-    */
-    public void addUser() {
-        // creates the Users collection in the db
-        DocumentReference docRef = FoodRecipePlatform.fstore.collection("Users").document(UUID.randomUUID().toString());
 
-        // creates the fields in the Users collection
-        Map<String, Object> data = new HashMap<>();
-        data.put("UserName", usernameTextField.getText());
-        data.put("Password", passwordTextField.getText());
-
-        //asynchronously write data
-        ApiFuture<WriteResult> result = docRef.set(data);
-    }
 
 
     /*
@@ -212,5 +131,11 @@ public class SignInController
     private void switchToPrimary() throws IOException {
         FoodRecipePlatform.setRoot("HomeScreen");
     }
+
+
+    private void switchToRegisterScreen() throws IOException {
+        FoodRecipePlatform.setRoot("RegistrationScreen");
+    }
+
 
 }

@@ -25,7 +25,7 @@ public class FoodRecipePlatform extends Application {
 
         scene = new Scene(loadFXML("SignIn"), 640, 480);
 
-        stage.setTitle("Hello!");
+        stage.setTitle("The Flavor Vault !");
 
         stage.setScene(scene);
         stage.show();
