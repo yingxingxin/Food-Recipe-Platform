@@ -58,6 +58,30 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency> <!-- YOU NEED TO CLICK ON SYNC DEPENDENCIES IN ORDER TO ADD THESE -->
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>9.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-firestore</artifactId>
+            <version>3.6.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-core</artifactId>
+            <version>1.70.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.auth</groupId>
+            <artifactId>google-auth-library-oauth2-http</artifactId>
+            <version>1.11.0</version>
+            <type>jar</type>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -80,7 +104,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.example.foodrecipeplatform/org.example.foodrecipeplatform.HelloApplication
+                            <mainClass>org.example.foodrecipeplatform/org.example.foodrecipeplatform.FoodRecipePlatform
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

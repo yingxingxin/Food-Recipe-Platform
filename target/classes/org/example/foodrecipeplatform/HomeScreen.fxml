@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.HomeScreenController">
+   <children>
+      <BorderPane prefHeight="400.0" prefWidth="600.0">
+         <top>
+            <AnchorPane prefHeight="76.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField layoutX="200.0" layoutY="25.0" prefHeight="26.0" prefWidth="200.0" promptText="Search" />
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="682.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutY="-1.0" prefHeight="316.0" prefWidth="600.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Top Recipes" underline="true" />
+                        <HBox prefHeight="121.0" prefWidth="600.0">
+                           <children>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Top Recipes" underline="true" />
+                        <HBox prefHeight="121.0" prefWidth="600.0">
+                           <children>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
