@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.TempFilterScreenController">
+   <children>
+      <TextArea fx:id="resultsTextArea" layoutX="220.0" layoutY="56.0" prefHeight="189.0" prefWidth="356.0" />
+      <TextField fx:id="countryTextField" layoutX="14.0" layoutY="109.0" promptText="Country: Italy,France,.." />
+      <TextField fx:id="ingredientsTextField" layoutX="15.0" layoutY="167.0" promptText="Ingredients: chicken,rice,.." />
+      <SplitMenuButton fx:id="caloriesSplitMenuButton" layoutX="57.0" layoutY="220.0" mnemonicParsing="false" text="calories">
+        <items>
+            <MenuItem fx:id="AscendingMenuItem" mnemonicParsing="false" text="Ascending" />
+            <MenuItem fx:id="DescendingMenuItem" mnemonicParsing="false" text="Descending" />
+            <MenuItem fx:id="OffMenuItem" mnemonicParsing="false" text="Off" />
+        </items>
+      </SplitMenuButton>
+      <Button fx:id="readFoodButton" layoutX="63.0" layoutY="56.0" mnemonicParsing="false" onAction="#readFoodButtonClicked" text="Read food" />
+   </children>
+</AnchorPane>
