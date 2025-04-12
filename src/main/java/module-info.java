@@ -14,6 +14,7 @@ module org.example.foodrecipeplatform {
     requires com.google.api.apicommon;
     requires org.checkerframework.checker.qual;
     requires java.desktop;
+    requires json.simple;
 
     opens org.example.foodrecipeplatform to javafx.fxml;
     exports org.example.foodrecipeplatform;
