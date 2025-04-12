@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.RegistrationScreenController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RegistrationScreenController">
    <children>
       <TextField fx:id="DisplayName" layoutX="200.0" layoutY="76.0" prefHeight="26.0" prefWidth="200.0" promptText="Enter Display Name" />
       <TextField fx:id="EmailTextField" layoutX="200.0" layoutY="114.0" prefHeight="26.0" prefWidth="200.0" promptText="Email" />
