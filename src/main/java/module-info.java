@@ -12,6 +12,9 @@ module org.example.foodrecipeplatform {
     requires google.cloud.firestore;
     requires google.cloud.core;
     requires com.google.api.apicommon;
+    requires org.json;
+    requires static java.sql;
+
 
     opens org.example.foodrecipeplatform to javafx.fxml;
     exports org.example.foodrecipeplatform;

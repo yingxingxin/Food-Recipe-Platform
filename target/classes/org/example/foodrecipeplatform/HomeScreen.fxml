@@ -12,9 +12,10 @@
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0">
          <top>
-            <AnchorPane prefHeight="76.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField layoutX="200.0" layoutY="25.0" prefHeight="26.0" prefWidth="200.0" promptText="Search" />
+                  <TextField fx:id="searchBar" layoutX="200.0" layoutY="25.0" prefHeight="26.0" prefWidth="200.0" promptText="Search" />
+                  <Text fx:id="resultText" layoutX="200.0" layoutY="60.0" wrappingWidth="400.0" />
                </children>
             </AnchorPane>
          </top>
@@ -28,23 +29,23 @@
                            <children>
                               <Pane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
-                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
-                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                    <Text layoutX="65.0" layoutY="33.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" text="Description" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
-                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
-                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                    <Text layoutX="65.0" layoutY="33.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" text="Description" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
-                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
-                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                    <Text layoutX="65.0" layoutY="33.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" text="Description" />
                                  </children>
                               </Pane>
                            </children>
@@ -54,23 +55,23 @@
                            <children>
                               <Pane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
-                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
-                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                    <Text layoutX="65.0" layoutY="33.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" text="Description" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
-                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
-                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                    <Text layoutX="65.0" layoutY="33.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" text="Description" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Text layoutX="65.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe name" />
-                                    <Text layoutX="83.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
-                                    <Text layoutX="69.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                                    <Text layoutX="65.0" layoutY="33.0" text="Recipe name" />
+                                    <Text layoutX="83.0" layoutY="65.0" text="Image" />
+                                    <Text layoutX="69.0" layoutY="92.0" text="Description" />
                                  </children>
                               </Pane>
                            </children>
