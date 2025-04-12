@@ -93,7 +93,7 @@ public class MealDbAPI {
                 JSONObject meal = (JSONObject) item;
                 String mealId = (String) meal.get("idMeal");
                 String mealName = (String) meal.get("strMeal");
-                String mealThumb = (String) meal.get("strMealThumb");
+                String mealImage = (String) meal.get("strMealImage");
                 String mealInstructions = (String) meal.get("strInstructions");
 
                 // Limit description length
@@ -101,7 +101,7 @@ public class MealDbAPI {
                         (mealInstructions.length() > 100 ? mealInstructions.substring(0, 97) + "..." : mealInstructions) :
                         "No description available";
 
-                CardData cardData = new CardData(mealName, description, mealThumb);
+                CardData cardData = new CardData(mealName, description, mealImage);
                 cardData.setMealId(mealId);
                 meals.add(cardData);
             }
@@ -130,9 +130,9 @@ public class MealDbAPI {
                 JSONObject meal = (JSONObject) item;
                 String mealId = (String) meal.get("idMeal");
                 String mealName = (String) meal.get("strMeal");
-                String mealThumb = (String) meal.get("strMealThumb");
+                String mealImage = (String) meal.get("strMealImage");
 
-                CardData cardData = new CardData(mealName, "Click for details", mealThumb);
+                CardData cardData = new CardData(mealName, "Click for details", mealImage);
                 cardData.setMealId(mealId);
                 meals.add(cardData);
             }
