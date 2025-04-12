@@ -9,5 +9,6 @@
 
 key.json
 test.json
+gitKey.txt.env
 
 src/main/resources/org/example/foodrecipeplatform/key.json
