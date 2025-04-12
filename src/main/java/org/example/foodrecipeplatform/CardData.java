@@ -9,6 +9,7 @@ public class CardData {
     private String foodName;
     private String description;
     private String imageURL;
+    private String mealId;
 
     // Parametrized Constructor
     public CardData(String foodName, String description, String imageURL) {
@@ -36,5 +37,7 @@ public class CardData {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
+    public String getMealId() { return mealId; }
+    public void setMealId(String mealId) { this.mealId = mealId; }
 
 }   // End Card Data class
