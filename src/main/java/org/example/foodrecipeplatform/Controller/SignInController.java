@@ -8,7 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 
 import java.io.IOException;
@@ -33,8 +37,31 @@ public class SignInController
     @FXML
     private Text messageText;
 
-    void initialize()
+    @FXML
+    private ImageView SignInLogo;
+
+    @FXML
+    private AnchorPane sceneAnchor;
+
+    @FXML
+    private VBox MainVbox;
+
+
+
+
+    public void initialize()
     {
+        sceneAnchor.setStyle("-fx-background-color: #fff");
+
+        MainVbox.setStyle("-fx-background-color: #ff0");
+
+
+
+        //fitWidthProperty().bind(MainVbox.widthProperty());
+
+
+
+
         //AccessDataView accessDataViewModel = new AccessDataView();
         //usernameTextField.textProperty().bindBidirectional(accessDataViewModel.personNameProperty());
         //register.disableProperty().bind(accessDataViewModel.isWritePossibleProperty().not());

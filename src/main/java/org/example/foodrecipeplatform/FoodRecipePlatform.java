@@ -28,6 +28,7 @@ public class FoodRecipePlatform extends Application {
         stage.setTitle("The Flavor Vault !");
 
         stage.setScene(scene);
+        stage.setResizable(true);
         stage.show();
     }
 
