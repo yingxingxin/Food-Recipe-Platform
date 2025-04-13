@@ -51,13 +51,11 @@ public class SignInController
 
     public void initialize()
     {
-        sceneAnchor.setStyle("-fx-background-color: #fff");
 
-        MainVbox.setStyle("-fx-background-color: #ff0");
-
-
+        //MainVbox.setStyle("-fx-background-color: #ff0");
 
         //fitWidthProperty().bind(MainVbox.widthProperty());
+
 
 
 

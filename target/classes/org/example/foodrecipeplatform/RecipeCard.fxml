@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="200.0" prefWidth="225.0" stylesheets="@../../../Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeCardController">
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeCardController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="11.0" prefHeight="200.0" prefWidth="225.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER">
          <children>
-            <HBox prefHeight="30.0" prefWidth="225.0">
+            <HBox alignment="CENTER">
                <children>
-                  <Pane prefHeight="30.0" prefWidth="235.0">
-                     <children>
-                        <Label fx:id="recipeName" alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="2.0" prefHeight="30.0" prefWidth="100.0" stylesheets="@../../../Style.css" text="Recipe Name">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
+                  <Label fx:id="recipeName" alignment="CENTER" contentDisplay="CENTER" stylesheets="@../../../Style.css" text="Recipe Name">
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
-            <ImageView fx:id="img" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+            <ImageView fx:id="img" fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                <image>
                   <Image url="@../../../images/image.png" />
                </image>
@@ -39,20 +34,20 @@
                <viewport>
                   <Rectangle2D />
                </viewport>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
             <HBox prefHeight="40.0" prefWidth="225.0">
                <children>
-                  <Label fx:id="recipeDesc" contentDisplay="CENTER" prefHeight="30.0" prefWidth="225.0" text="Recipe Desc">
+                  <Label fx:id="recipeDesc" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="40.0" prefWidth="311.0" text="Recipe Desc">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="2.0" />
-                     </padding></Label>
+                     </padding>
+                  </Label>
                </children>
             </HBox>
          </children>
       </VBox>
    </children>
-   <styleClass>
-      <String fx:value="CardData-RecipeCard" />
-      <String fx:value="shadow" />
-   </styleClass>
 </AnchorPane>

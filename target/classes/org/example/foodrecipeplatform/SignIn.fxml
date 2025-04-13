@@ -1,63 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="MainVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.SignInController">
+<VBox fx:id="MainVbox" alignment="CENTER" prefHeight="400.0" prefWidth="640.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.SignInController">
    <children>
-      <HBox VBox.vgrow="ALWAYS" />
-      <HBox VBox.vgrow="ALWAYS">
-         <children>
-            <VBox HBox.hgrow="ALWAYS" />
-            <VBox HBox.hgrow="ALWAYS">
-               <children>
-                  <AnchorPane fx:id="sceneAnchor" maxHeight="400.0" maxWidth="640.0" minHeight="400.0" minWidth="640.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ImageView fx:id="SignInLogo" fitHeight="194.0" fitWidth="249.0" layoutX="223.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../images/baked_with_love___care-removebg-preview.png" />
-                           </image>
-                           <viewport>
-                              <Rectangle2D />
-                           </viewport>
-                        </ImageView>
-                          <Button fx:id="registerButton" layoutX="244.0" layoutY="337.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="26.0" prefWidth="160.0" text="register" />
-                        <Hyperlink layoutX="244.0" layoutY="307.0" text="Forgot Password?" underline="true" />
-                          <Button fx:id="sign_inButton" layoutX="244.0" layoutY="281.0" mnemonicParsing="false" onAction="#sign_inButtonClicked" prefHeight="26.0" prefWidth="160.0" text="sign in" />
-                          <TextField fx:id="usernameTextField" layoutX="224.0" layoutY="200.0" prefHeight="26.0" prefWidth="200.0" promptText="Email" />
-                        <ImageView fitHeight="54.0" fitWidth="38.0" layoutX="186.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../images/Adobe Express - file.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="32.0" fitWidth="38.0" layoutX="186.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../images/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector-removebg-preview.png" />
-                           </image>
-                        </ImageView>
-                          <Text fx:id="messageText" fill="#e14444" layoutX="174.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="299.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                          <PasswordField fx:id="passwordTextField" layoutX="224.0" layoutY="236.0" prefHeight="26.0" prefWidth="200.0" promptText="Password" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </VBox>
-            <VBox HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-      <HBox maxHeight="100.0" VBox.vgrow="ALWAYS" />
+      <VBox alignment="CENTER" spacing="10.0">
+         <ImageView fx:id="SignInLogo" fitHeight="194.0" fitWidth="249.0" preserveRatio="true">
+            <image>
+               <Image url="@../../../images/baked_with_love___care-removebg-preview.png" />
+            </image>
+         </ImageView>
+
+         <HBox alignment="CENTER" spacing="10.0">
+            <ImageView fitHeight="32.0" fitWidth="38.0" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="usernameTextField" prefHeight="26.0" prefWidth="250.0" promptText="Email" />
+         </HBox>
+
+         <HBox alignment="CENTER" spacing="10.0">
+            <ImageView fitHeight="54.0" fitWidth="38.0" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/Adobe Express - file.png" />
+               </image>
+            </ImageView>
+            <PasswordField fx:id="passwordTextField" prefHeight="26.0" prefWidth="250.0" promptText="Password" />
+         </HBox>
+
+         <Button fx:id="sign_inButton" mnemonicParsing="false" onAction="#sign_inButtonClicked" prefHeight="26.0" prefWidth="120.0" text="sign in" />
+
+         <Hyperlink text="Forgot Password?" underline="true" />
+
+         <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="26.0" prefWidth="120.0" text="register" />
+
+         <Text fx:id="messageText" fill="#e14444" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300.0">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Text>
+      </VBox>
    </children>
 </VBox>

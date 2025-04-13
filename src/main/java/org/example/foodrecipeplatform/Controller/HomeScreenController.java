@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import org.example.foodrecipeplatform.CardData;
+import org.example.foodrecipeplatform.MealDbAPI;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +35,7 @@ public class HomeScreenController implements Initializable
         List<CardData> cards = new ArrayList<>();
         CardData card;
 
-        for (int i=0;i<6;i++){
+        for (int i=0;i<16;i++){
             // Default Card will be a Burger for now will turn into empty slot soon
             // ADD to Homepage should be the way the cards which are in the favorite screen should be added
             card = new CardData("Burger",
@@ -57,9 +58,10 @@ public class HomeScreenController implements Initializable
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        grid.getChildren().clear();
         cards.addAll(getData());
 
-        int row = 0;
+        int row = 1;
         int col = 0;
 
         try {
@@ -86,6 +88,8 @@ public class HomeScreenController implements Initializable
 
                 grid.add(anchorPane, col++, row);
                 GridPane.setMargin(anchorPane, new Insets(10));
+
+
             }
         } catch (IOException e) {
             System.out.println("Failed to load RecipeCard.fxml");
