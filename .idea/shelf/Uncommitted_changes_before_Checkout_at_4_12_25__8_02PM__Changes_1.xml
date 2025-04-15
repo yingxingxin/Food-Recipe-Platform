@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1" date="1744502552393" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/12/25, 8:02 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/module-info.class" />
+    <option name="AFTER_PATH" value="target/classes/module-info.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/module-info.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/HomeScreenController.class" />
+    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/HomeScreenController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/HomeScreenController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/CardData.class" />
+    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/CardData.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/CardData.class" />
+  </binary>
+</changelist>
