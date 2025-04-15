@@ -23,11 +23,12 @@ public class FoodRecipePlatform extends Application {
         fstore = contxtFirebase.firebase();
         fauth = FirebaseAuth.getInstance();
 
-        scene = new Scene(loadFXML("SignIn"), 640, 480);
+        scene = new Scene(loadFXML("SignIn"), 1000, 800);
 
         stage.setTitle("The Flavor Vault !");
 
         stage.setScene(scene);
+        stage.setResizable(true);
         stage.show();
     }
 
