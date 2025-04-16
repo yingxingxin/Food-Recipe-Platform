@@ -1,5 +1,6 @@
 package org.example.foodrecipeplatform.Controller;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,19 +16,25 @@ public class RecipeSearchScreenController
     @FXML
     public Button RandomFoodButton;
     @FXML
+    public Button IngredientButton;
+    @FXML
+    public ComboBox<String> CountryComboBox;
+
+    @FXML
     public TextArea resultTextArea;
     @FXML
     public TextField searchTextField;
+    @FXML
+    public TextField IngredientTextField;
+
     @FXML
     public Hyperlink shoppingHyperlink;
     @FXML
     public Hyperlink HomePageHyperlink;
     @FXML
     public Hyperlink profileHyperlink;
-    @FXML
-    public ComboBox<String> FirstLetterComboBox;
-    @FXML
-    public ComboBox<String> CountryComboBox;
+
+
 
     MealDbAPI api;
 
@@ -35,6 +42,33 @@ public class RecipeSearchScreenController
     void initialize()
     {
         api = new MealDbAPI();
+
+        // adding countries to the country combobox button
+        // selecting Country will reset it
+        String[] countries = { "Off",
+                "American", "British", "Canadian", "Chinese", "Croatian", "Dutch", "Egyptian",
+                "Filipino", "French", "Greek", "Indian", "Irish", "Italian", "Jamaican", "Japanese", "Kenyan",
+                "Malaysian", "Mexican", "Moroccan", "Polish", "Portuguese", "Russian", "Spanish", "Thai", "Tunisian",
+                "Turkish", "Ukrainian", "Uruguayan", "Vietnamese"
+        };
+        CountryComboBox.getItems().addAll(countries);
+
+        System.out.println(CountryComboBox.getSelectionModel().getSelectedItem());
+
+        CountryComboBox.setOnAction(event ->
+        {
+            String country = CountryComboBox.getSelectionModel().getSelectedItem();
+            if (country.equals("Off"))
+            {
+                System.out.println("Selected: " + country);
+            }
+            else
+            {
+                countryRecipe(country);
+                System.out.println("Selected: " + country);
+            }
+
+        });
     }
 
     @FXML
@@ -62,28 +96,33 @@ public class RecipeSearchScreenController
     // gets recipe based on the search bar which calls the recipe api that searches based on the name
     public void getRecipe()
     {
-
         //List<CardData> results = api.getMealsByFirstLetter('a');
-        List<CardData> results = api.searchMealsByName(searchTextField.getText());
+        List<CardData> results = null; // = api.searchMealsByName(searchTextField.getText());
 
-
-        // if the search bar isn't empty
+        // checks if input is correct
         if (!checkSearchBar(searchTextField))
         {
-            if (results.isEmpty())
-                resultTextArea.setText("No results found\n");
+            resultTextArea.clear();
+
+            // uses the first letter search from api if the input is one letter
+            if (searchTextField.getText().length() == 1)
+            {
+                results = api.getMealsByFirstLetter(searchTextField.getText().charAt(0));
+            }
+            // uses name search if input is more than one letter
             else
             {
-                resultTextArea.clear();
-                for (CardData cardData : results)
-                {
-                    resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
-                }
+                results = api.searchMealsByName(searchTextField.getText());
             }
+            for (CardData cardData : results)
+            {
+                resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
+            }
+
         }
-        else // if there is nothing in the search bar
+        else // if input for search bar is incorrect: empty or numbers
         {
-            resultTextArea.setText("Search bar is empty or doesn't contain only letters\n");
+            resultTextArea.setText("Error: Search bar is empty or input contain non-letter values..\n");
         }
 
     }
@@ -96,5 +135,18 @@ public class RecipeSearchScreenController
         resultTextArea.setText(card.getFoodName() + ", food id:" + card.getMealId());
     }
 
+    public void countryRecipe(String country)
+    {
+        System.out.println("HERE " + country);
+
+        List<CardData> results = api.getMealsByCountry(country);
+
+        resultTextArea.clear();
+        for (CardData cardData : results)
+        {
+            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
+        }
+
+    }
 
 }
