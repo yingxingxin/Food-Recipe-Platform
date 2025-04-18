@@ -53,6 +53,12 @@ public class MealDbAPI {
         return fetchMealsFromFilter(endpoint);
     }
 
+    // Get meals by country
+    public List<CardData> getMealsByCountry(String Country) {
+        String endpoint = API_BASE_URL + "filter.php?a=" + Country;
+        return fetchMeals(endpoint);
+    }
+
     // Gets meals by all categories
     public List<String> getAllCategories() {
         String endpoint = API_BASE_URL + "list.php?c=list";
