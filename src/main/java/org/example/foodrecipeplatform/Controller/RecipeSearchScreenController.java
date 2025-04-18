@@ -1,6 +1,8 @@
 package org.example.foodrecipeplatform.Controller;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -34,6 +36,10 @@ public class RecipeSearchScreenController
     @FXML
     public Hyperlink profileHyperlink;
 
+    @FXML
+    public TextField ingredientTextField;
+    @FXML
+    public ListView<String> ingredientListView;
 
 
     MealDbAPI api;
@@ -44,7 +50,7 @@ public class RecipeSearchScreenController
         api = new MealDbAPI();
 
         // adding countries to the country combobox button
-        // selecting Country will reset it
+        // selecting off will inactivate it
         String[] countries = { "Off",
                 "American", "British", "Canadian", "Chinese", "Croatian", "Dutch", "Egyptian",
                 "Filipino", "French", "Greek", "Indian", "Irish", "Italian", "Jamaican", "Japanese", "Kenyan",
@@ -62,6 +68,7 @@ public class RecipeSearchScreenController
             {
                 System.out.println("Selected: " + country);
             }
+            // only search recipe by country if the selection picked isn't Off
             else
             {
                 countryRecipe(country);
@@ -69,6 +76,30 @@ public class RecipeSearchScreenController
             }
 
         });
+
+
+        // creating list view for showing ingredients
+        ObservableList<String> ingredientsList = FXCollections.observableArrayList
+                ("Chicken", "Salmon", "Beef", "Avocado", "Pork", "Asparagus", "Bread", "Broccoli");
+
+        FilteredList<String> filtered = new FilteredList<>(ingredientsList, s -> true);
+
+        ingredientTextField.textProperty().addListener((obs, oldVal, newVal) -> {
+            filtered.setPredicate(item -> item.toLowerCase().contains(newVal.toLowerCase()));
+        });
+
+        ingredientListView.setItems(filtered);
+
+        ingredientListView.setOnMouseClicked(e -> {
+            String selected = ingredientListView.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                System.out.println("Selected: " + selected);
+
+                // Do something with it (e.g. update a label or pass to another scene)
+                ingredientRecipe(selected);
+            }
+        });
+
     }
 
     @FXML
@@ -83,6 +114,13 @@ public class RecipeSearchScreenController
     {
         System.out.println("Random Food Button Clicked");
         randomRecipe();
+    }
+
+    @FXML
+    void IngredientButtonClicked(ActionEvent event)
+    {
+        System.out.println("Ingredient Button Clicked");
+        ingredientRecipe(IngredientTextField.getText());
     }
 
     // make sure the search bar input is valid: no empty string, numbers
@@ -114,6 +152,7 @@ public class RecipeSearchScreenController
             {
                 results = api.searchMealsByName(searchTextField.getText());
             }
+
             for (CardData cardData : results)
             {
                 resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
@@ -146,7 +185,17 @@ public class RecipeSearchScreenController
         {
             resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
         }
-
     }
 
+    public void ingredientRecipe(String ingredient)
+    {
+        System.out.println("ingredientRecipe: " + ingredient);
+        List<CardData> results = api.getMealsByIngredient(ingredient);
+
+        resultTextArea.clear();
+        for (CardData cardData : results)
+        {
+            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
+        }
+    }
 }
