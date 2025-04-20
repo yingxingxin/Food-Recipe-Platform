@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Update_at_4_15_2025_12_59_PM_[Changes]" date="1744736399960" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_15_2025_12_59_PM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 4/15/2025 12:59 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/module-info.class" />
+    <option name="AFTER_PATH" value="target/classes/module-info.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_15_2025_12_59_PM_[Changes]/module-info.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/CardData.class" />
+    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/CardData.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_15_2025_12_59_PM_[Changes]/CardData.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/FoodRecipePlatform.class" />
+    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/FoodRecipePlatform.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_15_2025_12_59_PM_[Changes]/FoodRecipePlatform.class" />
+  </binary>
+</changelist>

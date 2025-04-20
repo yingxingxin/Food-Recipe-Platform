@@ -1,0 +1,174 @@
+Index: src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.foodrecipeplatform;\r\n\r\nimport com.google.cloud.firestore.Firestore;\r\nimport com.google.firebase.auth.FirebaseAuth;\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\n// testing commit to see if it still hides the key\r\npublic class FoodRecipePlatform extends Application {\r\n    public static Scene scene;\r\n\r\n    public static Firestore fstore;\r\n    public static FirebaseAuth fauth;\r\n    private final FirestoreContext contxtFirebase = new FirestoreContext();\r\n\r\n    @Override\r\n    public void start(Stage stage) throws IOException {\r\n        fstore = contxtFirebase.firebase();\r\n        fauth = FirebaseAuth.getInstance();\r\n\r\n        scene = new Scene(loadFXML(\"SignIn\"), 1000, 800);\r\n\r\n        stage.setTitle(\"The Flavor Vault !\");\r\n\r\n        stage.setScene(scene);\r\n        stage.setResizable(true);\r\n        stage.show();\r\n    }\r\n\r\n    // need public static Scene, loadFXML\r\n    public static void setRoot(String fxml) throws IOException {\r\n        scene.setRoot(loadFXML(fxml));\r\n    }\r\n\r\n    private static Parent loadFXML(String fxml) throws IOException {\r\n        FXMLLoader fxmlLoader = new FXMLLoader(FoodRecipePlatform.class.getResource(fxml + \".fxml\"));\r\n        return fxmlLoader.load();\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java b/src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java
+--- a/src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java	(revision c62d2a8e8cdfacca99ee02e9f11965ef4b42269a)
++++ b/src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java	(date 1744738589163)
+@@ -23,7 +23,7 @@
+         fstore = contxtFirebase.firebase();
+         fauth = FirebaseAuth.getInstance();
+ 
+-        scene = new Scene(loadFXML("SignIn"), 1000, 800);
++        scene = new Scene(loadFXML("RecipeSearchScreen"), 1000, 800);
+ 
+         stage.setTitle("The Flavor Vault !");
+ 
+Index: src/main/resources/org/example/foodrecipeplatform/RecipeSearchScreen.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/org/example/foodrecipeplatform/RecipeSearchScreen.fxml b/src/main/resources/org/example/foodrecipeplatform/RecipeSearchScreen.fxml
+new file mode 100644
+--- /dev/null	(date 1744816515053)
++++ b/src/main/resources/org/example/foodrecipeplatform/RecipeSearchScreen.fxml	(date 1744816515053)
+@@ -0,0 +1,61 @@
++<?xml version="1.0" encoding="UTF-8"?>
++
++<?import javafx.scene.control.Button?>
++<?import javafx.scene.control.ComboBox?>
++<?import javafx.scene.control.Hyperlink?>
++<?import javafx.scene.control.TextArea?>
++<?import javafx.scene.control.TextField?>
++<?import javafx.scene.layout.AnchorPane?>
++<?import javafx.scene.layout.BorderPane?>
++<?import javafx.scene.text.Font?>
++<?import javafx.scene.text.Text?>
++
++<AnchorPane prefHeight="695.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeSearchScreenController">
++   <children>
++      <BorderPane layoutX="140.0" layoutY="126.0" prefHeight="441.0" prefWidth="579.0">
++         <top>
++            <AnchorPane prefHeight="91.0" prefWidth="579.0" BorderPane.alignment="CENTER">
++               <children>
++                  <Button fx:id="searchButton" layoutX="128.0" layoutY="50.0" mnemonicParsing="false" onAction="#searchButtonClicked" text="Search" />
++                  <TextField fx:id="searchTextField" layoutX="180.0" layoutY="50.0" prefHeight="26.0" prefWidth="262.0" promptText="Enter recipe name" />
++                  <Text layoutX="210.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Generator" wrappingWidth="135.20339965820312">
++                     <font>
++                        <Font name="System Bold" size="18.0" />
++                     </font>
++                  </Text>
++                  <Hyperlink fx:id="profileHyperlink" layoutX="14.0" layoutY="26.0" text="Profile">
++                     <font>
++                        <Font size="13.0" />
++                     </font>
++                  </Hyperlink>
++                  <Hyperlink fx:id="shoppingHyperlink" layoutX="499.0" layoutY="15.0" text="Shopping List" />
++                  <Hyperlink fx:id="HomePageHyperlink" layoutX="14.0" layoutY="52.0" text="Home Page">
++                     <font>
++                        <Font size="13.0" />
++                     </font>
++                  </Hyperlink>
++                  <Hyperlink layoutX="121.0" layoutY="16.0" text="Hyperlink" />
++               </children>
++            </AnchorPane>
++         </top>
++         <center>
++            <AnchorPane prefHeight="350.0" prefWidth="580.0" BorderPane.alignment="CENTER">
++               <children>
++                  <TextArea fx:id="resultTextArea" layoutX="59.0" layoutY="70.0" prefHeight="209.0" prefWidth="303.0" />
++               </children>
++            </AnchorPane>
++         </center>
++         <left>
++            <AnchorPane prefHeight="350.0" prefWidth="87.0" BorderPane.alignment="CENTER">
++               <children>
++                  <Button fx:id="RandomFoodButton" layoutY="14.0" mnemonicParsing="false" text="Random food" />
++                  <ComboBox layoutX="-1.0" layoutY="57.0" prefHeight="26.0" prefWidth="98.0" promptText="First letter" />
++                  <ComboBox layoutX="1.0" layoutY="105.0" prefHeight="26.0" prefWidth="86.0" promptText="Country" />
++                  <Button layoutX="-1.0" layoutY="149.0" mnemonicParsing="false" text="Ingredient" />
++                  <TextField layoutX="1.0" layoutY="182.0" prefHeight="26.0" prefWidth="94.0" />
++               </children>
++            </AnchorPane>
++         </left>
++      </BorderPane>
++   </children>
++</AnchorPane>
+Index: src/main/java/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.java b/src/main/java/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.java
+new file mode 100644
+--- /dev/null	(date 1744816738138)
++++ b/src/main/java/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.java	(date 1744816738138)
+@@ -0,0 +1,74 @@
++package org.example.foodrecipeplatform.Controller;
++
++import javafx.event.ActionEvent;
++import javafx.fxml.FXML;
++import javafx.scene.control.Button;
++import javafx.scene.control.Hyperlink;
++import javafx.scene.control.TextArea;
++import javafx.scene.control.TextField;
++import org.example.foodrecipeplatform.CardData;
++import org.example.foodrecipeplatform.MealDbAPI;
++
++import java.util.List;
++
++public class RecipeSearchScreenController
++{
++    @FXML
++    public Button searchButton;
++    @FXML
++    public TextArea resultTextArea;
++    @FXML
++    public TextField searchTextField;
++    @FXML
++    public Hyperlink shoppingHyperlink;
++    @FXML
++    public Hyperlink HomePageHyperlink;
++    @FXML
++    public Button RandomFoodButton;
++    @FXML
++    public Hyperlink profileHyperlink;
++
++
++    @FXML
++    void searchButtonClicked(ActionEvent event)
++    {
++        System.out.println("Get Button clicked");
++        getRecipe();
++    }
++
++    public void getRecipe()
++    {
++        MealDbAPI api = new MealDbAPI();
++        //List<CardData> results = api.getMealsByFirstLetter('a');
++        List<CardData> results = api.searchMealsByName(searchTextField.getText());
++
++
++        // if the search bar isn't empty
++        if (!checkSearchBar(searchTextField))
++        {
++            if (results.isEmpty())
++                resultTextArea.setText("No results found\n");
++            else
++            {
++                resultTextArea.clear();
++                for (CardData cardData : results)
++                {
++                    resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
++                }
++            }
++        }
++        else // if there is nothing in the search bar
++        {
++            resultTextArea.setText("Search bar is empty or doesn't contain only letters\n");
++        }
++
++    }
++
++    // make sure the search bar input is valid: no empty string, numbers
++    // returns false if empty
++    // returns false if string matches letters, false bc it's going to negate it in the if statement in getRecipe method
++    private boolean checkSearchBar(TextField searchTextField)
++    {
++        return searchTextField.getText().isEmpty() || !searchTextField.getText().matches("[a-zA-Z]*");
++    }
++}
