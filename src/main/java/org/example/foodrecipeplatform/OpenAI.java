@@ -11,7 +11,7 @@ import org.json.JSONObject;
 public class OpenAI {
 
     // Replace with your actual API key (consider moving to env var for safety)
-    private static String API_KEY = System.getenv("INSERT KEY HERE");
+    private static String API_KEY = System.getenv("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");
     private static final String API_URL = "https://api.openai.com/v1/chat/completions";
 
     public static String getFoodInfo(String foodName) {
