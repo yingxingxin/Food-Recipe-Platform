@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.json.simple.JSONArray;
@@ -54,15 +53,9 @@ public class MealDbAPI {
         return fetchMealsFromFilter(endpoint);
     }
 
- 
-    // Get detailed meal information by ID
-    public List<CardData> getMealDetails(String mealId) {
-        String endpoint = API_BASE_URL + "lookup.php?i=" + mealId;
-
     // Get meals by country
     public List<CardData> getMealsByCountry(String Country) {
         String endpoint = API_BASE_URL + "filter.php?a=" + Country;
-
         return fetchMeals(endpoint);
     }
 
@@ -86,37 +79,6 @@ public class MealDbAPI {
         }
 
         return categories;
-    }
-
-    public Map<String, String> getMealIngredients(String mealId) {
-        Map<String, String> ingredients = new HashMap<>();
-        String endpoint = API_BASE_URL + "lookup.php?i=" + mealId;
-
-        try {
-            String jsonResponse = makeApiRequest(endpoint);
-            JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(jsonResponse);
-            JSONArray mealsArray = (JSONArray) json.get("meals");
-
-            if (mealsArray == null || mealsArray.isEmpty()) {
-                return ingredients;
-            }
-
-            JSONObject meal = (JSONObject) mealsArray.get(0);
-
-            for (int i = 1; i <= 20; i++) {
-                String ingredient = (String) meal.get("strIngredient" + i);
-                String measure = (String) meal.get("strMeasure" + i);
-
-                if (ingredient != null && !ingredient.trim().isEmpty() && !ingredient.equals("null")) {
-                    ingredients.put(ingredient.trim(), measure != null ? measure.trim() : "");
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return ingredients;
     }
 
     // Helper method to fetch meals from search and lookup endpoints
@@ -174,9 +136,9 @@ public class MealDbAPI {
                 JSONObject meal = (JSONObject) item;
                 String mealId = (String) meal.get("idMeal");
                 String mealName = (String) meal.get("strMeal");
-                String mealThumbnail = (String) meal.get("strMealThumbnail");
+                String mealThumb = (String) meal.get("strMealThumb");
 
-                CardData cardData = new CardData(mealName, "Click for details", mealThumbnail);
+                CardData cardData = new CardData(mealName, "Click for details", mealThumb);
                 cardData.setMealId(mealId);
                 meals.add(cardData);
             }
