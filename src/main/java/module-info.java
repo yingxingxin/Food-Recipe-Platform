@@ -15,6 +15,7 @@ module org.example.foodrecipeplatform {
     requires org.checkerframework.checker.qual;
     requires java.desktop;
     requires json.simple;
+    requires org.json;
 
     opens org.example.foodrecipeplatform to javafx.fxml;
     exports org.example.foodrecipeplatform;

@@ -9,5 +9,7 @@
 
 key.json
 test.json
+openai_key.json
+.env
 
 src/main/resources/org/example/foodrecipeplatform/key.json

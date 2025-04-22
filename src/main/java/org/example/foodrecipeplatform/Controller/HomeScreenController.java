@@ -1,5 +1,6 @@
 package org.example.foodrecipeplatform.Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,23 @@ import java.util.ResourceBundle;
 
 public class HomeScreenController implements Initializable
 {
+
+
+    @FXML
+    void OpenFoodGeneratorScreen(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OpenProfileScreen(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OpenShoppingListScreen(ActionEvent event) {
+
+    }
+
 
     @FXML
     private ScrollPane scroll;
