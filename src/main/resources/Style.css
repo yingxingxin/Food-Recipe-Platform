@@ -1,0 +1,18 @@
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 5.0 , 0.0 , 0.0 , 5.0) ;
+}
+
+
+
+
+
+.CardData-RecipeCard{
+    -fx-content-display: flex;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30;
+}

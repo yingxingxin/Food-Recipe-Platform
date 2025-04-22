@@ -1,24 +1,22 @@
-package org.example.foodrecipeplatform;
+package org.example.foodrecipeplatform.Controller;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
-import com.google.cloud.firestore.WriteResult;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.UserRecord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
+import org.example.foodrecipeplatform.FoodRecipePlatform;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class SignInController
@@ -39,8 +37,29 @@ public class SignInController
     @FXML
     private Text messageText;
 
-    void initialize()
+    @FXML
+    private ImageView SignInLogo;
+
+    @FXML
+    private AnchorPane sceneAnchor;
+
+    @FXML
+    private VBox MainVbox;
+
+
+
+
+    public void initialize()
     {
+
+        //MainVbox.setStyle("-fx-background-color: #ff0");
+
+        //fitWidthProperty().bind(MainVbox.widthProperty());
+
+
+
+
+
         //AccessDataView accessDataViewModel = new AccessDataView();
         //usernameTextField.textProperty().bindBidirectional(accessDataViewModel.personNameProperty());
         //register.disableProperty().bind(accessDataViewModel.isWritePossibleProperty().not());

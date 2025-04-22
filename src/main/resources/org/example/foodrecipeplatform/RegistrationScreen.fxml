@@ -1,26 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.RegistrationScreenController">
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RegistrationScreenController">
    <children>
-      <TextField fx:id="DisplayName" layoutX="200.0" layoutY="76.0" prefHeight="26.0" prefWidth="200.0" promptText="Enter Display Name" />
-      <TextField fx:id="EmailTextField" layoutX="200.0" layoutY="114.0" prefHeight="26.0" prefWidth="200.0" promptText="Email" />
-      <TextField fx:id="Pass1TextField" layoutX="201.0" layoutY="156.0" prefHeight="26.0" prefWidth="200.0" promptText="Password" />
-      <TextField fx:id="Pass2TextField" layoutX="200.0" layoutY="197.0" prefHeight="26.0" prefWidth="200.0" promptText="Confirm Password" />
-      <Button fx:id="CreateAccountBttn" layoutX="200.0" layoutY="253.0" mnemonicParsing="false" onAction="#CreateAccountButtonClicked" prefHeight="26.0" prefWidth="200.0" text="Create Account" />
-      <Text layoutX="242.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
+
+      <!-- Title -->
+      <Text text="Sign Up">
          <font>
-            <Font size="30.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="210.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account ?" />
-      <Hyperlink fx:id="Login_Redirect" layoutX="353.0" layoutY="295.0" onAction="#Login_RedirectBttn" text="Login" underline="true" />
-      <Text fx:id="messageTextRS" layoutX="200.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="200.0" />
+
+      <!-- Display Name -->
+      <TextField fx:id="DisplayName" prefHeight="26.0" prefWidth="200.0" promptText="Enter Display Name">
+         <VBox.margin>
+            <Insets left="200.0" right="200.0" />
+         </VBox.margin></TextField>
+
+      <!-- Email -->
+      <TextField fx:id="EmailTextField" prefHeight="26.0" prefWidth="200.0" promptText="Email">
+         <VBox.margin>
+            <Insets left="200.0" right="200.0" />
+         </VBox.margin></TextField>
+
+      <!-- Password -->
+      <TextField fx:id="Pass1TextField" prefHeight="26.0" prefWidth="200.0" promptText="Password">
+         <VBox.margin>
+            <Insets left="200.0" right="200.0" />
+         </VBox.margin></TextField>
+
+      <!-- Confirm Password -->
+      <TextField fx:id="Pass2TextField" prefHeight="26.0" prefWidth="200.0" promptText="Confirm Password">
+         <VBox.margin>
+            <Insets left="200.0" right="200.0" />
+         </VBox.margin></TextField>
+
+      <!-- Message Text -->
+      <Text fx:id="messageTextRS" wrappingWidth="300.0" />
+
+      <!-- Create Account Button -->
+      <Button fx:id="CreateAccountBttn" mnemonicParsing="false" onAction="#CreateAccountButtonClicked" prefHeight="26.0" prefWidth="160.0" text="Create Account" />
+
+      <!-- Already have an account -->
+      <VBox alignment="CENTER">
+         <Text text="Already have an account ?" />
+         <Hyperlink fx:id="Login_Redirect" onAction="#Login_RedirectBttn" text="Login" underline="true" />
+      </VBox>
+
    </children>
-</AnchorPane>
+</VBox>

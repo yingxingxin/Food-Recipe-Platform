@@ -1,4 +1,4 @@
-package org.example.foodrecipeplatform;
+package org.example.foodrecipeplatform.Controller;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import org.example.foodrecipeplatform.FoodRecipePlatform;
 
 import java.io.IOException;
 import java.util.HashMap;

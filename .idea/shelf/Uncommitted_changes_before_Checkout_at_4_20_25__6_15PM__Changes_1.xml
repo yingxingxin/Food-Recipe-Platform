@@ -1,0 +1,9 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_4_20_25,_6_15 PM_[Changes]1" date="1745187311132" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_20_25,_6_15 PM_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/20/25, 6:15 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/MealDbAPI.class" />
+    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/MealDbAPI.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_20_25,_6_15 PM_[Changes]1/MealDbAPI.class" />
+  </binary>
+</changelist>
