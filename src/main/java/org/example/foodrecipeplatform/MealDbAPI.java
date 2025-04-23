@@ -58,6 +58,8 @@ public class MealDbAPI {
     // Get detailed meal information by ID
     public List<CardData> getMealDetails(String mealId) {
         String endpoint = API_BASE_URL + "lookup.php?i=" + mealId;
+        return fetchMealsFromFilter(endpoint);
+    }
 
     // Get meals by country
     public List<CardData> getMealsByCountry(String Country) {
@@ -143,7 +145,7 @@ public class MealDbAPI {
                 // Limit description length
                 String description = mealInstructions != null ?
                         (mealInstructions.length() > 100 ? mealInstructions.substring(0, 97) + "..." : mealInstructions) :
-                        "No description available";
+                        "No description available"; // this is storing the instructions as decription, why?
 
                 CardData cardData = new CardData(mealName, description, mealThumb);
                 cardData.setMealId(mealId);
