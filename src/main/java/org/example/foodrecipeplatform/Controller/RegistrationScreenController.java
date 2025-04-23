@@ -14,10 +14,7 @@ import javafx.scene.text.Text;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class RegistrationScreenController
 {
@@ -55,18 +52,6 @@ public class RegistrationScreenController
         FoodRecipePlatform.setRoot("SignIn");
     }
 
-
-//    @FXML
-//    void CreateAccountButtonClicked(ActionEvent event) {
-//
-//    }
-
-
-
-
-
-
-
     @FXML
     void CreateAccountButtonClicked (ActionEvent event)
     {
@@ -84,10 +69,7 @@ public class RegistrationScreenController
         - password needs to be at least 6 letters long
     */
     public boolean registerUser() {
-
         // Need to implement userName Text-field will be (Profiles userName)
-
-
         try
         {
             // Check if Passwords Match
@@ -166,23 +148,12 @@ public class RegistrationScreenController
         data.put("UserName", EmailTextField.getText());
         data.put("Password", Pass1TextField.getText());
         data.put("DisplayName", DisplayName.getText());
+        data.put("Friends", new ArrayList<>());
 
         //asynchronously write data
         ApiFuture<WriteResult> result = docRef.set(data);
     }
-
-
-
-
-
-
-
-
 } // End RegistrationScreenController
-
-
-
-
 
 //    @FXML
 //    void registerButtonClicked (ActionEvent event)

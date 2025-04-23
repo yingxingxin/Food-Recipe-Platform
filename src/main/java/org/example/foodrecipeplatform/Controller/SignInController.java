@@ -21,6 +21,9 @@ import java.util.concurrent.ExecutionException;
 
 public class SignInController
 {
+
+    public static String currentUserEmail;
+
     // to connenct buttons, make sure that the id is fx:id= & make sure the controller is set to this class
     @FXML
     private Button sign_inButton;
