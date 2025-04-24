@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import org.example.foodrecipeplatform.CardData;
+import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.MealDbAPI;
 
 import java.io.IOException;
@@ -112,9 +113,43 @@ public class RecipeSearchScreenController
                 ingredientRecipe(selected);
             }
         });
-
     }
 
+
+    @FXML
+    void searchButtonClicked(ActionEvent event)
+    {
+        System.out.println("Get Button clicked");
+        getRecipe();
+    }
+
+    @FXML
+    void randomFoodButtonClicked(ActionEvent event)
+    {
+        System.out.println("Random Food Button Clicked");
+        randomRecipe();
+    }
+
+    @FXML
+    void IngredientButtonClicked(ActionEvent event)
+    {
+        System.out.println("Ingredient Button Clicked");
+        ingredientRecipe(IngredientTextField.getText());
+    }
+
+    @FXML
+    void homePageHyperlinkClicked(ActionEvent event) throws IOException
+    {
+        FoodRecipePlatform.setRoot("HomeScreen");
+    }
+
+    @FXML
+    void setHomePageHyperlinkClicked(ActionEvent event) throws IOException
+    {
+        FoodRecipePlatform.setRoot("ShoppingScreen");
+    }
+
+    @FXML
     private void setGrid(List<CardData> inputCardList) {
         // testing grid
         resultGridPlain.getChildren().clear();
@@ -155,28 +190,6 @@ public class RecipeSearchScreenController
             System.out.println("General error in initialize");
             e.printStackTrace();
         }
-    }
-
-
-    @FXML
-    void searchButtonClicked(ActionEvent event)
-    {
-        System.out.println("Get Button clicked");
-        getRecipe();
-    }
-
-    @FXML
-    void randomFoodButtonClicked(ActionEvent event)
-    {
-        System.out.println("Random Food Button Clicked");
-        randomRecipe();
-    }
-
-    @FXML
-    void IngredientButtonClicked(ActionEvent event)
-    {
-        System.out.println("Ingredient Button Clicked");
-        ingredientRecipe(IngredientTextField.getText());
     }
 
     // make sure the search bar input is valid: no empty string, numbers
@@ -251,11 +264,14 @@ public class RecipeSearchScreenController
     {
         System.out.println("ingredientRecipe: " + ingredient);
         List<CardData> results = api.getMealsByIngredient(ingredient);
-        setGrid(results); // TESTING
+
         resultTextArea.clear();
         for (CardData cardData : results)
         {
             resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
         }
+
+        //System.out.println(results.get(0).getImageURL());
+        setGrid(results); // TESTING
     }
 }
