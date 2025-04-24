@@ -5,11 +5,19 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import org.example.foodrecipeplatform.CardData;
 import org.example.foodrecipeplatform.MealDbAPI;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class RecipeSearchScreenController
 {
@@ -41,11 +49,16 @@ public class RecipeSearchScreenController
     @FXML
     public ListView<String> ingredientListView;
 
+    @FXML
+    public ScrollPane resultScrollPlain;
+    @FXML
+    public GridPane resultGridPlain;
+    List<CardData> cards = new ArrayList<>();
 
     MealDbAPI api;
 
     @FXML
-    void initialize()
+    void initialize() // clean up initialize method by putting stuff below into a method
     {
         api = new MealDbAPI();
 
@@ -102,6 +115,49 @@ public class RecipeSearchScreenController
 
     }
 
+    private void setGrid(List<CardData> inputCardList) {
+        // testing grid
+        resultGridPlain.getChildren().clear();
+        //cards.addAll(getData());
+        cards = inputCardList;
+
+        int row = 1;
+        int col = 0;
+
+        try {
+            for (int i = 0; i < cards.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                URL fxmlPath = getClass().getResource("/org/example/foodrecipeplatform/RecipeCard.fxml");
+                // System.out.println("FXML path = " + fxmlPath); // Debug
+
+                if (fxmlPath == null) {
+                    System.out.println("Could not find RecipeCard.fxml");
+                    continue;
+                }
+
+                fxmlLoader.setLocation(fxmlPath);
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                RecipeCardController recipeCardController = fxmlLoader.getController();
+                recipeCardController.setData(cards.get(i));
+
+                if (col == 3) {
+                    col = 0;
+                    row++;
+                }
+                resultGridPlain.add(anchorPane, col++, row);
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to load RecipeCard.fxml");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("General error in initialize");
+            e.printStackTrace();
+        }
+    }
+
+
     @FXML
     void searchButtonClicked(ActionEvent event)
     {
@@ -152,7 +208,7 @@ public class RecipeSearchScreenController
             {
                 results = api.searchMealsByName(searchTextField.getText());
             }
-
+            setGrid(results); // TESTING
             for (CardData cardData : results)
             {
                 resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
@@ -170,8 +226,12 @@ public class RecipeSearchScreenController
     public void randomRecipe()
     {
         resultTextArea.clear();
-        CardData card = api.getRandomMeal().getFirst();
-        resultTextArea.setText(card.getFoodName() + ", food id:" + card.getMealId());
+        List<CardData> results = api.getRandomMeal();
+        setGrid(results); // TESTING
+        for (CardData cardData : results)
+        {
+            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
+        }
     }
 
     public void countryRecipe(String country)
@@ -179,7 +239,7 @@ public class RecipeSearchScreenController
         System.out.println("HERE " + country);
 
         List<CardData> results = api.getMealsByCountry(country);
-
+        setGrid(results); // TESTING
         resultTextArea.clear();
         for (CardData cardData : results)
         {
@@ -191,7 +251,7 @@ public class RecipeSearchScreenController
     {
         System.out.println("ingredientRecipe: " + ingredient);
         List<CardData> results = api.getMealsByIngredient(ingredient);
-
+        setGrid(results); // TESTING
         resultTextArea.clear();
         for (CardData cardData : results)
         {

@@ -22,7 +22,8 @@ public class RecipeCardController {
     public void setData(CardData cardData) {
         this.cardData = cardData;
         recipeName.setText(cardData.getFoodName());
-        Image image = new Image(getClass().getResourceAsStream( cardData.getImageURL()));
+        //Image image = new Image(getClass().getResourceAsStream( cardData.getImageURL()));
+        Image image = new Image(cardData.getImageURL());
         img.setImage(image);
         recipeDesc.setText(cardData.getDescription());
     }
