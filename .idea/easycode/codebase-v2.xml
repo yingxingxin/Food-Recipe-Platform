@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/src/main/java/org/example/foodrecipeplatform/FirestoreContext.java;/Users/gabriel/Food-Recipe-Platform/src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java;/Users/gabriel/Food-Recipe-Platform/src/main/java/org/example/foodrecipeplatform/HomeScreenController.java;/Users/gabriel/Food-Recipe-Platform/src/main/java/org/example/foodrecipeplatform/RegistrationScreenController.java;/Users/gabriel/Food-Recipe-Platform/src/main/java/org/example/foodrecipeplatform/SignInController.java;/Users/gabriel/Food-Recipe-Platform/src/main/java/module-info.java;/Users/gabriel/Food-Recipe-Platform/README.md" />
+  </component>
+</project>
