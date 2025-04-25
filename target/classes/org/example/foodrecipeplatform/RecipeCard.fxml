@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeCardController">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeCardController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -21,6 +22,9 @@
                      <font>
                         <Font name="System Italic" size="18.0" />
                      </font>
+                     <tooltip>
+                        <Tooltip fx:id="nameTooltip" opacity="0.75" text="Empty Tooltip" />
+                     </tooltip>
                   </Label>
                </children>
             </HBox>
