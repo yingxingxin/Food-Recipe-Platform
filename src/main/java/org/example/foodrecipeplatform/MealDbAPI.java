@@ -121,6 +121,29 @@ public class MealDbAPI {
         return ingredients;
     }
 
+    public Map<String, String> getIngredientIdMap() {
+        Map<String, String> ingredientIdMap = new HashMap<>();
+        String endpoint = API_BASE_URL + "list.php?i=list";
+
+        try {
+            String jsonResponse = makeApiRequest(endpoint);
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(jsonResponse);
+            JSONArray ingredientsArray = (JSONArray) json.get("meals");
+
+            for (Object item : ingredientsArray) {
+                JSONObject ingredient = (JSONObject) item;
+                String name = ((String) ingredient.get("strIngredient")).trim();
+                String id = ((String) ingredient.get("idIngredient")).trim();
+                ingredientIdMap.put(name, id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ingredientIdMap;
+    }
+
     // Helper method to fetch meals from search and lookup endpoints
     private List<CardData> fetchMeals(String endpoint) {
         List<CardData> meals = new ArrayList<>();
@@ -176,9 +199,9 @@ public class MealDbAPI {
                 JSONObject meal = (JSONObject) item;
                 String mealId = (String) meal.get("idMeal");
                 String mealName = (String) meal.get("strMeal");
-                String mealThumbnail = (String) meal.get("strMealThumbnail");
+                String mealThumb = (String) meal.get("strMealThumb");
 
-                CardData cardData = new CardData(mealName, "Click for details", mealThumbnail);
+                CardData cardData = new CardData(mealName, "Click for details", mealThumb);
                 cardData.setMealId(mealId);
                 meals.add(cardData);
             }

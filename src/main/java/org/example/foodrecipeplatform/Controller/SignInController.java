@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import org.example.foodrecipeplatform.Controller.SessionManager;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 
 import java.io.IOException;
@@ -132,6 +133,8 @@ public class SignInController
 
                     // exits the method and returns true when matching username & password was found
                     if (username.equals(user) && password.equals(pass))
+                        SessionManager.setUserId(document.getId());
+                    System.out.println("Logged in as: " + user + " (Doc ID: " + document.getId() + ")");
                         return true;
                 }
             }
