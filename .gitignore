@@ -6,7 +6,7 @@
 !.idea/codeStyles/
 !.idea/inspectionProfiles/
 !.idea/runConfigurations/
-.idea/shelf/  # ✅ this line ensures shelved changes are ignored
+.idea/shelf/
 *.iml
 
 # Editor-based HTTP Client requests
