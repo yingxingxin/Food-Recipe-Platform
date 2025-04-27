@@ -1,0 +1,25 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_4_22_2025_8_43_PM_[Changes]" date="1745368993093" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_22_2025_8_43_PM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/22/2025 8:43 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/RegistrationScreenController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/HomeScreenController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/SignInController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/module-info.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/RecipeCardController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/FoodRecipePlatform.class" />
+  </binary>
+</changelist>
