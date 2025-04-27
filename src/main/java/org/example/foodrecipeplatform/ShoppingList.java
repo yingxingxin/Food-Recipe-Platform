@@ -9,15 +9,53 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class ShoppingList {
-    private static ShoppingList instance;
     private final Map<String, ShoppingItem> shoppingList = new HashMap<>();
     private final MealDbAPI mealDbAPI = new MealDbAPI();
 
     public ShoppingList() {
-
+        loadExistingItems();
     }
 
-    // Adds recipe's ingredients to the shopping list
+    // Loads existing items from Firebase
+    private void loadExistingItems() {
+        String userId = SessionManager.getUserId();
+        if (userId == null || userId.isEmpty()) {
+            return;
+        }
+
+        try {
+            CollectionReference shoppingListRef = FirestoreClient.getFirestore()
+                    .collection("Users")
+                    .document(userId)
+                    .collection("ShoppingList");
+
+            ApiFuture<QuerySnapshot> future = shoppingListRef.get();
+            QuerySnapshot snapshot = future.get();
+
+            for (DocumentSnapshot doc : snapshot.getDocuments()) {
+                String ingredientName = doc.getString("ingredientName");
+                String quantity = doc.getString("quantity");
+                Boolean checked = doc.getBoolean("checked");
+                String idIngredient = doc.getString("idIngredient");
+
+                if (idIngredient == null) {
+                    idIngredient = ingredientName;
+                }
+
+                ShoppingItem item = new ShoppingItem(ingredientName, quantity);
+                if (checked != null) {
+                    item.setChecked(checked);
+                }
+
+                shoppingList.put(idIngredient, item);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("Failed to load existing shopping items");
+            e.printStackTrace();
+        }
+    }
+
+    // Adds recipe's ingredients to the shopping list and saves to Firestore
     public void addIngredients(String mealId) {
         Map<String, String> ingredientsMap = mealDbAPI.getMealIngredients(mealId);
         Map<String, String> ingredientIdMap = mealDbAPI.getIngredientIdMap();
@@ -32,29 +70,14 @@ public class ShoppingList {
                 shoppingList.put(idIngredient, item);
                 saveShoppingItemToFirebase(idIngredient, item);
             } else {
-                System.out.print("Error when adding idIngredients together.");
-                // Optionally, aggregate quantities here if needed
+                System.out.print("Ingredient already exists.");
+                // Will aggregate quantities next
             }
         }
         System.out.println("Added ingredients to shopping list: " + shoppingList.keySet());
     }
 
-//    // Removes ingredient from shopping list
-//    public void removeIngredient(String ingredientName) {
-//        shoppingList.remove(ingredientName);
-//        //saveShoppingListToFirebase();
-//    }
-
-//    // Clears all ingredients from shopping list
-//    public void clearShoppingList() {
-//        // To be implemented: method to clear the shopping list
-//    }
-
-//    // Sets ingredient status to checked
-//    public void setIngredientChecked(String ingredientName, boolean checked) {
-//        // To be implemented: method that sets ingredient status to checked
-//    }
-
+    // saves shopping item to Firebase
     private void saveShoppingItemToFirebase(String idIngredient, ShoppingItem item) {
 
         String userId = SessionManager.getUserId();
@@ -86,17 +109,5 @@ public class ShoppingList {
             e.printStackTrace();
         }
     }
-
-//    // Updates status of shopping ingredients when checked (saving to Firebase)
-//    public void saveShoppingListToFirebase(String ingredientName, boolean checked) {
-//        // To be implemented: method to save current shopping list to Firebase
-//    }
-
-    // Gets current shopping list
-    //public List<ShoppingItem> getShoppingList() {
-    //    To be implemented: method to load current shopping list
-    //}
-
-
 
 }
