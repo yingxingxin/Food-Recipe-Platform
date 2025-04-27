@@ -1,0 +1,291 @@
+Index: src/main/java/org/example/foodrecipeplatform/MealDbAPI.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.foodrecipeplatform;\n\nimport java.io.BufferedReader;\nimport java.io.IOException;\nimport java.io.InputStreamReader;\nimport java.net.HttpURLConnection;\nimport java.net.URL;\nimport java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\nimport org.json.simple.JSONArray;\nimport org.json.simple.JSONObject;\nimport org.json.simple.parser.JSONParser;\nimport org.json.simple.parser.ParseException;\n\npublic class MealDbAPI {\n\n    private static final String API_BASE_URL = \"https://www.themealdb.com/api/json/v1/1/\";\n\n    // Search meals by name\n    public List<CardData> searchMealsByName(String mealName) {\n        String endpoint = API_BASE_URL + \"search.php?s=\" + mealName.replace(\" \", \"%20\");\n        return fetchMeals(endpoint);\n    }\n\n    // Get meals by first letter\n    public List<CardData> getMealsByFirstLetter(char firstLetter) {\n        String endpoint = API_BASE_URL + \"search.php?f=\" + firstLetter;\n        return fetchMeals(endpoint);\n    }\n\n    // Gets a random meal\n    public List<CardData> getRandomMeal() {\n        String endpoint = API_BASE_URL + \"random.php\";\n        return fetchMeals(endpoint);\n    }\n\n    // Gets meal by category\n    public List<CardData> getMealsByCategory(String category) {\n        String endpoint = API_BASE_URL + \"filter.php?c=\" + category.replace(\" \", \"%20\");\n        return fetchMealsFromFilter(endpoint);\n    }\n\n    // Gets meals by cuisine\n    public List<CardData> getMealsByCuisine(String area) {\n        String endpoint = API_BASE_URL + \"filter.php?a=\" + area.replace(\" \", \"%20\");\n        return fetchMealsFromFilter(endpoint);\n    }\n\n    // Gets meals by main ingredient\n    public List<CardData> getMealsByIngredient(String ingredient) {\n        String endpoint = API_BASE_URL + \"filter.php?i=\" + ingredient.replace(\" \", \"%20\");\n        return fetchMealsFromFilter(endpoint);\n    }\n\n \n    // Get detailed meal information by ID\n    public List<CardData> getMealDetails(String mealId) {\n        String endpoint = API_BASE_URL + \"lookup.php?i=\" + mealId;\n\n    // Get meals by country\n    public List<CardData> getMealsByCountry(String Country) {\n        String endpoint = API_BASE_URL + \"filter.php?a=\" + Country;\n\n        return fetchMeals(endpoint);\n    }\n\n    // Gets meals by all categories\n    public List<String> getAllCategories() {\n        String endpoint = API_BASE_URL + \"list.php?c=list\";\n        List<String> categories = new ArrayList<>();\n\n        try {\n            String jsonResponse = makeApiRequest(endpoint);\n            JSONParser parser = new JSONParser();\n            JSONObject json = (JSONObject) parser.parse(jsonResponse);\n            JSONArray categoriesArray = (JSONArray) json.get(\"meals\");\n\n            for (Object item : categoriesArray) {\n                JSONObject category = (JSONObject) item;\n                categories.add((String) category.get(\"strCategory\"));\n            }\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n\n        return categories;\n    }\n\n    public Map<String, String> getMealIngredients(String mealId) {\n        Map<String, String> ingredients = new HashMap<>();\n        String endpoint = API_BASE_URL + \"lookup.php?i=\" + mealId;\n\n        try {\n            String jsonResponse = makeApiRequest(endpoint);\n            JSONParser parser = new JSONParser();\n            JSONObject json = (JSONObject) parser.parse(jsonResponse);\n            JSONArray mealsArray = (JSONArray) json.get(\"meals\");\n\n            if (mealsArray == null || mealsArray.isEmpty()) {\n                return ingredients;\n            }\n\n            JSONObject meal = (JSONObject) mealsArray.get(0);\n\n            for (int i = 1; i <= 20; i++) {\n                String ingredient = (String) meal.get(\"strIngredient\" + i);\n                String measure = (String) meal.get(\"strMeasure\" + i);\n\n                if (ingredient != null && !ingredient.trim().isEmpty() && !ingredient.equals(\"null\")) {\n                    ingredients.put(ingredient.trim(), measure != null ? measure.trim() : \"\");\n                }\n            }\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n\n        return ingredients;\n    }\n\n    // Helper method to fetch meals from search and lookup endpoints\n    private List<CardData> fetchMeals(String endpoint) {\n        List<CardData> meals = new ArrayList<>();\n\n        try {\n            String jsonResponse = makeApiRequest(endpoint);\n            JSONParser parser = new JSONParser();\n            JSONObject json = (JSONObject) parser.parse(jsonResponse);\n            JSONArray mealsArray = (JSONArray) json.get(\"meals\");\n\n            if (mealsArray == null) {\n                return meals;\n            }\n\n            for (Object item : mealsArray) {\n                JSONObject meal = (JSONObject) item;\n                String mealId = (String) meal.get(\"idMeal\");\n                String mealName = (String) meal.get(\"strMeal\");\n                String mealThumb = (String) meal.get(\"strMealThumb\");\n                String mealInstructions = (String) meal.get(\"strInstructions\");\n\n                // Limit description length\n                String description = mealInstructions != null ?\n                        (mealInstructions.length() > 100 ? mealInstructions.substring(0, 97) + \"...\" : mealInstructions) :\n                        \"No description available\";\n\n                CardData cardData = new CardData(mealName, description, mealThumb);\n                cardData.setMealId(mealId);\n                meals.add(cardData);\n            }\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n\n        return meals;\n    }\n\n    // Helper method to fetch meals from filter endpoints\n    private List<CardData> fetchMealsFromFilter(String endpoint) {\n        List<CardData> meals = new ArrayList<>();\n\n        try {\n            String jsonResponse = makeApiRequest(endpoint);\n            JSONParser parser = new JSONParser();\n            JSONObject json = (JSONObject) parser.parse(jsonResponse);\n            JSONArray mealsArray = (JSONArray) json.get(\"meals\");\n\n            if (mealsArray == null) {\n                return meals; // Return empty list if no meals found\n            }\n\n            for (Object item : mealsArray) {\n                JSONObject meal = (JSONObject) item;\n                String mealId = (String) meal.get(\"idMeal\");\n                String mealName = (String) meal.get(\"strMeal\");\n                String mealThumbnail = (String) meal.get(\"strMealThumbnail\");\n\n                CardData cardData = new CardData(mealName, \"Click for details\", mealThumbnail);\n                cardData.setMealId(mealId);\n                meals.add(cardData);\n            }\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n\n        return meals;\n    }\n\n    // Make HTTP request to API and return response as string\n    private String makeApiRequest(String endpoint) throws IOException {\n        URL url = new URL(endpoint);\n        HttpURLConnection connection = (HttpURLConnection) url.openConnection();\n        connection.setRequestMethod(\"GET\");\n\n        int responseCode = connection.getResponseCode();\n        if (responseCode != 200) {\n            throw new IOException(\"HTTP error code: \" + responseCode);\n        }\n\n        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));\n        StringBuilder response = new StringBuilder();\n        String line;\n\n        while ((line = reader.readLine()) != null) {\n            response.append(line);\n        }\n        reader.close();\n\n        return response.toString();\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/foodrecipeplatform/MealDbAPI.java b/src/main/java/org/example/foodrecipeplatform/MealDbAPI.java
+--- a/src/main/java/org/example/foodrecipeplatform/MealDbAPI.java	(revision c1ad12ed65155c7d61a83ec1d7b00f7dd300b477)
++++ b/src/main/java/org/example/foodrecipeplatform/MealDbAPI.java	(date 1745355855427)
+@@ -54,159 +54,160 @@
+         return fetchMealsFromFilter(endpoint);
+     }
+ 
+- 
++
+     // Get detailed meal information by ID
+     public List<CardData> getMealDetails(String mealId) {
+         String endpoint = API_BASE_URL + "lookup.php?i=" + mealId;
+ 
+-    // Get meals by country
+-    public List<CardData> getMealsByCountry(String Country) {
+-        String endpoint = API_BASE_URL + "filter.php?a=" + Country;
++        // Get meals by country
++        public List<CardData> getMealsByCountry (String Country){
++            String endpoint = API_BASE_URL + "filter.php?a=" + Country;
+ 
+-        return fetchMeals(endpoint);
+-    }
++            return fetchMeals(endpoint);
++        }
+ 
+-    // Gets meals by all categories
+-    public List<String> getAllCategories() {
+-        String endpoint = API_BASE_URL + "list.php?c=list";
+-        List<String> categories = new ArrayList<>();
++        // Gets meals by all categories
++        public List<String> getAllCategories () {
++            String endpoint = API_BASE_URL + "list.php?c=list";
++            List<String> categories = new ArrayList<>();
+ 
+-        try {
+-            String jsonResponse = makeApiRequest(endpoint);
+-            JSONParser parser = new JSONParser();
+-            JSONObject json = (JSONObject) parser.parse(jsonResponse);
+-            JSONArray categoriesArray = (JSONArray) json.get("meals");
++            try {
++                String jsonResponse = makeApiRequest(endpoint);
++                JSONParser parser = new JSONParser();
++                JSONObject json = (JSONObject) parser.parse(jsonResponse);
++                JSONArray categoriesArray = (JSONArray) json.get("meals");
+ 
+-            for (Object item : categoriesArray) {
+-                JSONObject category = (JSONObject) item;
+-                categories.add((String) category.get("strCategory"));
+-            }
+-        } catch (Exception e) {
+-            e.printStackTrace();
+-        }
++                for (Object item : categoriesArray) {
++                    JSONObject category = (JSONObject) item;
++                    categories.add((String) category.get("strCategory"));
++                }
++            } catch (Exception e) {
++                e.printStackTrace();
++            }
+ 
+-        return categories;
+-    }
++            return categories;
++        }
+ 
+-    public Map<String, String> getMealIngredients(String mealId) {
+-        Map<String, String> ingredients = new HashMap<>();
+-        String endpoint = API_BASE_URL + "lookup.php?i=" + mealId;
++        public Map<String, String> getMealIngredients (String mealId){
++            Map<String, String> ingredients = new HashMap<>();
++            String endpoint = API_BASE_URL + "lookup.php?i=" + mealId;
+ 
+-        try {
+-            String jsonResponse = makeApiRequest(endpoint);
+-            JSONParser parser = new JSONParser();
+-            JSONObject json = (JSONObject) parser.parse(jsonResponse);
+-            JSONArray mealsArray = (JSONArray) json.get("meals");
++            try {
++                String jsonResponse = makeApiRequest(endpoint);
++                JSONParser parser = new JSONParser();
++                JSONObject json = (JSONObject) parser.parse(jsonResponse);
++                JSONArray mealsArray = (JSONArray) json.get("meals");
+ 
+-            if (mealsArray == null || mealsArray.isEmpty()) {
+-                return ingredients;
+-            }
++                if (mealsArray == null || mealsArray.isEmpty()) {
++                    return ingredients;
++                }
+ 
+-            JSONObject meal = (JSONObject) mealsArray.get(0);
++                JSONObject meal = (JSONObject) mealsArray.get(0);
+ 
+-            for (int i = 1; i <= 20; i++) {
+-                String ingredient = (String) meal.get("strIngredient" + i);
+-                String measure = (String) meal.get("strMeasure" + i);
++                for (int i = 1; i <= 20; i++) {
++                    String ingredient = (String) meal.get("strIngredient" + i);
++                    String measure = (String) meal.get("strMeasure" + i);
+ 
+-                if (ingredient != null && !ingredient.trim().isEmpty() && !ingredient.equals("null")) {
+-                    ingredients.put(ingredient.trim(), measure != null ? measure.trim() : "");
+-                }
+-            }
+-        } catch (Exception e) {
+-            e.printStackTrace();
+-        }
++                    if (ingredient != null && !ingredient.trim().isEmpty() && !ingredient.equals("null")) {
++                        ingredients.put(ingredient.trim(), measure != null ? measure.trim() : "");
++                    }
++                }
++            } catch (Exception e) {
++                e.printStackTrace();
++            }
+ 
+-        return ingredients;
+-    }
++            return ingredients;
++        }
+ 
+-    // Helper method to fetch meals from search and lookup endpoints
+-    private List<CardData> fetchMeals(String endpoint) {
+-        List<CardData> meals = new ArrayList<>();
++        // Helper method to fetch meals from search and lookup endpoints
++        private List<CardData> fetchMeals (String endpoint){
++            List<CardData> meals = new ArrayList<>();
+ 
+-        try {
+-            String jsonResponse = makeApiRequest(endpoint);
+-            JSONParser parser = new JSONParser();
+-            JSONObject json = (JSONObject) parser.parse(jsonResponse);
+-            JSONArray mealsArray = (JSONArray) json.get("meals");
++            try {
++                String jsonResponse = makeApiRequest(endpoint);
++                JSONParser parser = new JSONParser();
++                JSONObject json = (JSONObject) parser.parse(jsonResponse);
++                JSONArray mealsArray = (JSONArray) json.get("meals");
+ 
+-            if (mealsArray == null) {
+-                return meals;
+-            }
++                if (mealsArray == null) {
++                    return meals;
++                }
+ 
+-            for (Object item : mealsArray) {
+-                JSONObject meal = (JSONObject) item;
+-                String mealId = (String) meal.get("idMeal");
+-                String mealName = (String) meal.get("strMeal");
+-                String mealThumb = (String) meal.get("strMealThumb");
+-                String mealInstructions = (String) meal.get("strInstructions");
++                for (Object item : mealsArray) {
++                    JSONObject meal = (JSONObject) item;
++                    String mealId = (String) meal.get("idMeal");
++                    String mealName = (String) meal.get("strMeal");
++                    String mealThumb = (String) meal.get("strMealThumb");
++                    String mealInstructions = (String) meal.get("strInstructions");
+ 
+-                // Limit description length
+-                String description = mealInstructions != null ?
+-                        (mealInstructions.length() > 100 ? mealInstructions.substring(0, 97) + "..." : mealInstructions) :
+-                        "No description available";
++                    // Limit description length
++                    String description = mealInstructions != null ?
++                            (mealInstructions.length() > 100 ? mealInstructions.substring(0, 97) + "..." : mealInstructions) :
++                            "No description available";
+ 
+-                CardData cardData = new CardData(mealName, description, mealThumb);
+-                cardData.setMealId(mealId);
+-                meals.add(cardData);
+-            }
+-        } catch (Exception e) {
+-            e.printStackTrace();
+-        }
++                    CardData cardData = new CardData(mealName, description, mealThumb);
++                    cardData.setMealId(mealId);
++                    meals.add(cardData);
++                }
++            } catch (Exception e) {
++                e.printStackTrace();
++            }
+ 
+-        return meals;
+-    }
++            return meals;
++        }
+ 
+-    // Helper method to fetch meals from filter endpoints
+-    private List<CardData> fetchMealsFromFilter(String endpoint) {
+-        List<CardData> meals = new ArrayList<>();
++        // Helper method to fetch meals from filter endpoints
++        private List<CardData> fetchMealsFromFilter (String endpoint){
++            List<CardData> meals = new ArrayList<>();
+ 
+-        try {
+-            String jsonResponse = makeApiRequest(endpoint);
+-            JSONParser parser = new JSONParser();
+-            JSONObject json = (JSONObject) parser.parse(jsonResponse);
+-            JSONArray mealsArray = (JSONArray) json.get("meals");
++            try {
++                String jsonResponse = makeApiRequest(endpoint);
++                JSONParser parser = new JSONParser();
++                JSONObject json = (JSONObject) parser.parse(jsonResponse);
++                JSONArray mealsArray = (JSONArray) json.get("meals");
+ 
+-            if (mealsArray == null) {
+-                return meals; // Return empty list if no meals found
+-            }
++                if (mealsArray == null) {
++                    return meals; // Return empty list if no meals found
++                }
+ 
+-            for (Object item : mealsArray) {
+-                JSONObject meal = (JSONObject) item;
+-                String mealId = (String) meal.get("idMeal");
+-                String mealName = (String) meal.get("strMeal");
+-                String mealThumbnail = (String) meal.get("strMealThumbnail");
++                for (Object item : mealsArray) {
++                    JSONObject meal = (JSONObject) item;
++                    String mealId = (String) meal.get("idMeal");
++                    String mealName = (String) meal.get("strMeal");
++                    String mealThumbnail = (String) meal.get("strMealThumbnail");
+ 
+-                CardData cardData = new CardData(mealName, "Click for details", mealThumbnail);
+-                cardData.setMealId(mealId);
+-                meals.add(cardData);
+-            }
+-        } catch (Exception e) {
+-            e.printStackTrace();
+-        }
++                    CardData cardData = new CardData(mealName, "Click for details", mealThumbnail);
++                    cardData.setMealId(mealId);
++                    meals.add(cardData);
++                }
++            } catch (Exception e) {
++                e.printStackTrace();
++            }
+ 
+-        return meals;
+-    }
++            return meals;
++        }
+ 
+-    // Make HTTP request to API and return response as string
+-    private String makeApiRequest(String endpoint) throws IOException {
+-        URL url = new URL(endpoint);
+-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+-        connection.setRequestMethod("GET");
++        // Make HTTP request to API and return response as string
++        private String makeApiRequest (String endpoint) throws IOException {
++            URL url = new URL(endpoint);
++            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
++            connection.setRequestMethod("GET");
+ 
+-        int responseCode = connection.getResponseCode();
+-        if (responseCode != 200) {
+-            throw new IOException("HTTP error code: " + responseCode);
+-        }
++            int responseCode = connection.getResponseCode();
++            if (responseCode != 200) {
++                throw new IOException("HTTP error code: " + responseCode);
++            }
+ 
+-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+-        StringBuilder response = new StringBuilder();
+-        String line;
++            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
++            StringBuilder response = new StringBuilder();
++            String line;
+ 
+-        while ((line = reader.readLine()) != null) {
+-            response.append(line);
+-        }
+-        reader.close();
++            while ((line = reader.readLine()) != null) {
++                response.append(line);
++            }
++            reader.close();
+ 
+-        return response.toString();
++            return response.toString();
++        }
+     }
+ }

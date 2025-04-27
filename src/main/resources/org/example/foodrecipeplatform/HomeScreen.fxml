@@ -26,7 +26,7 @@
                               <Image url="@../../../images/download.png" />
                            </image>
                         </ImageView>
-                        <Hyperlink layoutX="15.0" layoutY="67.0" text="Profile">
+                        <Hyperlink layoutX="15.0" layoutY="67.0" onAction="#OpenProfileScreen" text="Profile">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -41,7 +41,7 @@
                               <Image url="@../../../images/basket-cart-icon-27.png" />
                            </image>
                         </ImageView>
-                        <Hyperlink layoutX="878.0" layoutY="67.0" text="Shopping List">
+                        <Hyperlink layoutX="878.0" layoutY="67.0" onAction="#OpenShoppingListScreen" text="Shopping List">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -51,7 +51,7 @@
                               <Image url="@../../../images/png-clipart-paper-box-computer-icons-symbol-random-icons-miscellaneous-angle.png" />
                            </image>
                         </ImageView>
-                        <Hyperlink layoutX="477.0" layoutY="108.0" text="Food Generator">
+                        <Hyperlink layoutX="477.0" layoutY="108.0" onAction="#OpenFoodGeneratorScreen" text="Food Generator">
                            <font>
                               <Font size="16.0" />
                            </font>
