@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import org.example.foodrecipeplatform.CardData;
+import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.MealDbAPI;
 
 import java.io.IOException;
@@ -23,24 +24,21 @@ public class HomeScreenController implements Initializable
 
 
     @FXML
-    void OpenFoodGeneratorScreen(ActionEvent event) {
-
+    void OpenFoodGeneratorScreen(ActionEvent event) throws IOException {
+        FoodRecipePlatform.setRoot("RecipeSearchScreen");
     }
-
     @FXML
-    void OpenProfileScreen(ActionEvent event) {
-
+    void OpenProfileScreen(ActionEvent event) throws IOException {
+        FoodRecipePlatform.setRoot("ProfilePage");
     }
-
     @FXML
-    void OpenShoppingListScreen(ActionEvent event) {
-
+    void OpenShoppingListScreen(ActionEvent event) throws IOException {
+        FoodRecipePlatform.setRoot("ShoppingScreen");
     }
 
 
     @FXML
     private ScrollPane scroll;
-
     @FXML
     private GridPane grid;
 
