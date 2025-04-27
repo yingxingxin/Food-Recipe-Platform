@@ -1,0 +1,20 @@
+Index: src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.foodrecipeplatform;\r\n\r\nimport com.google.cloud.firestore.Firestore;\r\nimport com.google.firebase.auth.FirebaseAuth;\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\n// testing commit to see if it still hides the key\r\npublic class FoodRecipePlatform extends Application {\r\n    public static Scene scene;\r\n\r\n    public static Firestore fstore;\r\n    public static FirebaseAuth fauth;\r\n    private final FirestoreContext contxtFirebase = new FirestoreContext();\r\n\r\n    @Override\r\n    public void start(Stage stage) throws IOException {\r\n        fstore = contxtFirebase.firebase();\r\n        fauth = FirebaseAuth.getInstance();\r\n\r\n        scene = new Scene(loadFXML(\"RecipeSearchScreen\"), 1000, 800);\r\n\r\n        stage.setTitle(\"The Flavor Vault !\");\r\n\r\n        stage.setScene(scene);\r\n        stage.setResizable(true);\r\n        stage.show();\r\n    }\r\n\r\n    // need public static Scene, loadFXML\r\n    public static void setRoot(String fxml) throws IOException {\r\n        scene.setRoot(loadFXML(fxml));\r\n    }\r\n\r\n    private static Parent loadFXML(String fxml) throws IOException {\r\n        FXMLLoader fxmlLoader = new FXMLLoader(FoodRecipePlatform.class.getResource(fxml + \".fxml\"));\r\n        return fxmlLoader.load();\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java b/src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java
+--- a/src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java	(revision 29d189629c007ae391fe5b98625db26e99687ab7)
++++ b/src/main/java/org/example/foodrecipeplatform/FoodRecipePlatform.java	(date 1745189154497)
+@@ -23,7 +23,8 @@
+         fstore = contxtFirebase.firebase();
+         fauth = FirebaseAuth.getInstance();
+ 
+-        scene = new Scene(loadFXML("RecipeSearchScreen"), 1000, 800);
++        scene = new Scene(loadFXML("SignIn"), 1000, 800);
++        //scene = new Scene(loadFXML("RecipeSearchScreen"), 1000, 800);
+ 
+         stage.setTitle("The Flavor Vault !");
+ 

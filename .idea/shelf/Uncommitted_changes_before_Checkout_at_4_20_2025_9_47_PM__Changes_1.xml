@@ -1,0 +1,14 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_4_20_2025_9_47_PM_[Changes]1" date="1745200121970" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_20_2025_9_47_PM_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/20/2025 9:47 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.class" />
+    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_20_2025_9_47_PM_[Changes]1/RecipeSearchScreenController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/FoodRecipePlatform.class" />
+    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/FoodRecipePlatform.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_20_2025_9_47_PM_[Changes]1/FoodRecipePlatform.class" />
+  </binary>
+</changelist>
