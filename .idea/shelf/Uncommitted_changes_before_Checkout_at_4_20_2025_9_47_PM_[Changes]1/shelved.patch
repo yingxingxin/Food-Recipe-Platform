@@ -1,0 +1,81 @@
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch	(revision 29d189629c007ae391fe5b98625db26e99687ab7)
++++ /dev/null	(revision 29d189629c007ae391fe5b98625db26e99687ab7)
+@@ -1,47 +0,0 @@
+-Index: src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.example.foodrecipeplatform.Controller;\n\nimport javafx.fxml.FXML;\nimport javafx.fxml.FXMLLoader;\nimport javafx.fxml.Initializable;\nimport javafx.geometry.Insets;\nimport javafx.scene.control.ScrollPane;\nimport javafx.scene.layout.AnchorPane;\nimport javafx.scene.layout.GridPane;\nimport javafx.scene.layout.Region;\nimport org.example.foodrecipeplatform.CardData;\n\nimport java.io.IOException;\nimport java.net.URL;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.ResourceBundle;\n\npublic class HomeScreenController implements Initializable\n{\n\n    @FXML\n    private ScrollPane scroll;\n\n    @FXML\n    private GridPane grid;\n\n\n    // example implement - hard code\n    List<CardData> cards = new ArrayList<>();\n\n\n    private List<CardData> getData(){\n        List<CardData> cards = new ArrayList<>();\n        CardData card;\n\n        for (int i=0;i<6;i++){\n            // Default Card will be a Burger for now will turn into empty slot soon\n            // ADD to Homepage should be the way the cards which are in the favorite screen should be added\n            card = new CardData(\"Burger\",\n                    \"This the New Krabby Patty Burger Recipe\",\n                    \"/images/image.png\");\n            cards.add(card);\n        }\n        return cards;\n    }\n\n    /**\n     *\n     * @param location\n     * The location used to resolve relative paths for the root object, or\n     * {@code null} if the location is not known.\n     *\n     * @param resources\n     * The resources used to localize the root object, or {@code null} if\n     * the root object was not localized.\n     */\n    @Override\n    public void initialize(URL location, ResourceBundle resources) {\n        cards.addAll(getData());\n\n        int row = 0;\n        int col = 0;\n\n        try {\n            for (int i = 0; i < cards.size(); i++) {\n                FXMLLoader fxmlLoader = new FXMLLoader();\n                URL fxmlPath = getClass().getResource(\"/org/example/foodrecipeplatform/RecipeCard.fxml\");\n                // System.out.println(\"FXML path = \" + fxmlPath); // Debug\n\n                if (fxmlPath == null) {\n                    System.out.println(\"Could not find RecipeCard.fxml\");\n                    continue;\n                }\n\n                fxmlLoader.setLocation(fxmlPath);\n                AnchorPane anchorPane = fxmlLoader.load();\n\n                RecipeCardController recipeCardController = fxmlLoader.getController();\n                recipeCardController.setData(cards.get(i));\n\n                if (col == 3) {\n                    col = 0;\n                    row++;\n                }\n\n                grid.add(anchorPane, col++, row);\n                GridPane.setMargin(anchorPane, new Insets(10));\n            }\n        } catch (IOException e) {\n            System.out.println(\"Failed to load RecipeCard.fxml\");\n            e.printStackTrace();\n        } catch (Exception e) {\n            System.out.println(\"General error in initialize\");\n            e.printStackTrace();\n        }\n    }\n\n\n\n\n\n\n}\n\n\n\n\n//implement needed\n        /*\n    private List<CardData> loadCards(String fileName){\n        List<CardData> cards = new ArrayList<>();\n        try {\n            // needs implementation\n        }\n        catch (Exception e){\n            e.printStackTrace();\n        }\n        return cards;\n    }\n\n         */\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java b/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java
+---- a/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java	(revision e6e68aa06616c8a05f8932e24a3c5eb64d5163c4)
+-+++ b/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java	(date 1744501807330)
+-@@ -34,6 +34,7 @@
+-         List<CardData> cards = new ArrayList<>();
+-         CardData card;
+- 
+-+
+-         for (int i=0;i<6;i++){
+-             // Default Card will be a Burger for now will turn into empty slot soon
+-             // ADD to Homepage should be the way the cards which are in the favorite screen should be added
+-@@ -41,6 +42,7 @@
+-                     "This the New Krabby Patty Burger Recipe",
+-                     "/images/image.png");
+-             cards.add(card);
+-+
+-         }
+-         return cards;
+-     }
+-Index: src/main/java/org/example/foodrecipeplatform/CardData.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.example.foodrecipeplatform;\n\n/**\n * Card Data Class\n */\npublic class CardData {\n\n    // Privater Member Variables\n    private String foodName;\n    private String description;\n    private String imageURL;\n    private String mealId;\n\n    // Parametrized Constructor\n    public CardData(String foodName, String description, String imageURL) {\n        this.foodName = foodName;\n        this.description = description;\n        this.imageURL = imageURL;\n    }\n\n    // Getter and Setter Methods\n    public String getFoodName() {\n        return foodName;\n    }\n    public void setFoodName(String foodName) {\n        this.foodName = foodName;\n    }\n    public String getDescription() {\n        return description;\n    }\n    public void setDescription(String description) {\n        this.description = description;\n    }\n    public String getImageURL() {\n        return imageURL;\n    }\n    public void setImageURL(String imageURL) {\n        this.imageURL = imageURL;\n    }\n    public String getMealId() { return mealId; }\n    public void setMealId(String mealId) { this.mealId = mealId; }\n\n}   // End Card Data class
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/example/foodrecipeplatform/CardData.java b/src/main/java/org/example/foodrecipeplatform/CardData.java
+---- a/src/main/java/org/example/foodrecipeplatform/CardData.java	(revision e6e68aa06616c8a05f8932e24a3c5eb64d5163c4)
+-+++ b/src/main/java/org/example/foodrecipeplatform/CardData.java	(date 1744501688627)
+-@@ -11,6 +11,10 @@
+-     private String imageURL;
+-     private String mealId;
+- 
+-+    // unParametrized Constructor
+-+    public CardData() {
+-+    }
+-+
+-     // Parametrized Constructor
+-     public CardData(String foodName, String description, String imageURL) {
+-         this.foodName = foodName;
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25__8_02PM__Changes_1.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25__8_02PM__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25__8_02PM__Changes_1.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25__8_02PM__Changes_1.xml	(revision 29d189629c007ae391fe5b98625db26e99687ab7)
++++ /dev/null	(revision 29d189629c007ae391fe5b98625db26e99687ab7)
+@@ -1,19 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1" date="1744502552393" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/12/25, 8:02 PM [Changes]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/module-info.class" />
+-    <option name="AFTER_PATH" value="target/classes/module-info.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/module-info.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/HomeScreenController.class" />
+-    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/HomeScreenController.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/HomeScreenController.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/CardData.class" />
+-    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/CardData.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/CardData.class" />
+-  </binary>
+-</changelist>
+\ No newline at end of file

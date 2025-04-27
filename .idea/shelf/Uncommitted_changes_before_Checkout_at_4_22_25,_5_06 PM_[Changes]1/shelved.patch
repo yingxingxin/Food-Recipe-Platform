@@ -1,0 +1,196 @@
+Index: src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.foodrecipeplatform.Controller;\n\nimport javafx.fxml.FXML;\nimport javafx.fxml.FXMLLoader;\nimport javafx.fxml.Initializable;\nimport javafx.geometry.Insets;\nimport javafx.scene.control.ScrollPane;\nimport javafx.scene.layout.AnchorPane;\nimport javafx.scene.layout.GridPane;\nimport javafx.scene.layout.Region;\nimport org.example.foodrecipeplatform.CardData;\nimport org.example.foodrecipeplatform.MealDbAPI;\n\nimport java.io.IOException;\nimport java.net.URL;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.ResourceBundle;\n\npublic class HomeScreenController implements Initializable\n{\n\n    @FXML\n    private ScrollPane scroll;\n\n    @FXML\n    private GridPane grid;\n\n\n    // example implement - hard code\n    List<CardData> cards = new ArrayList<>();\n\n\n    private List<CardData> getData(){\n        List<CardData> cards = new ArrayList<>();\n        CardData card;\n\n        for (int i=0;i<16;i++){\n            // Default Card will be a Burger for now will turn into empty slot soon\n            // ADD to Homepage should be the way the cards which are in the favorite screen should be added\n            card = new CardData(\"Burger\",\n                    \"This the New Krabby Patty Burger Recipe\",\n                    \"/images/image.png\");\n            cards.add(card);\n        }\n        return cards;\n    }\n\n    /**\n     *\n     * @param location\n     * The location used to resolve relative paths for the root object, or\n     * {@code null} if the location is not known.\n     *\n     * @param resources\n     * The resources used to localize the root object, or {@code null} if\n     * the root object was not localized.\n     */\n    @Override\n    public void initialize(URL location, ResourceBundle resources) {\n        grid.getChildren().clear();\n        cards.addAll(getData());\n\n        int row = 1;\n        int col = 0;\n\n        try {\n            for (int i = 0; i < cards.size(); i++) {\n                FXMLLoader fxmlLoader = new FXMLLoader();\n                URL fxmlPath = getClass().getResource(\"/org/example/foodrecipeplatform/RecipeCard.fxml\");\n                // System.out.println(\"FXML path = \" + fxmlPath); // Debug\n\n                if (fxmlPath == null) {\n                    System.out.println(\"Could not find RecipeCard.fxml\");\n                    continue;\n                }\n\n                fxmlLoader.setLocation(fxmlPath);\n                AnchorPane anchorPane = fxmlLoader.load();\n\n                RecipeCardController recipeCardController = fxmlLoader.getController();\n                recipeCardController.setData(cards.get(i));\n\n                if (col == 3) {\n                    col = 0;\n                    row++;\n                }\n\n                grid.add(anchorPane, col++, row);\n                GridPane.setMargin(anchorPane, new Insets(10));\n\n\n            }\n        } catch (IOException e) {\n            System.out.println(\"Failed to load RecipeCard.fxml\");\n            e.printStackTrace();\n        } catch (Exception e) {\n            System.out.println(\"General error in initialize\");\n            e.printStackTrace();\n        }\n    }\n\n\n\n\n\n\n}\n\n\n\n\n//implement needed\n        /*\n    private List<CardData> loadCards(String fileName){\n        List<CardData> cards = new ArrayList<>();\n        try {\n            // needs implementation\n        }\n        catch (Exception e){\n            e.printStackTrace();\n        }\n        return cards;\n    }\n\n         */\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java b/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java
+--- a/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java	(revision c1ad12ed65155c7d61a83ec1d7b00f7dd300b477)
++++ b/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java	(date 1745343111363)
+@@ -1,5 +1,6 @@
+ package org.example.foodrecipeplatform.Controller;
+ 
++import javafx.event.ActionEvent;
+ import javafx.fxml.FXML;
+ import javafx.fxml.FXMLLoader;
+ import javafx.fxml.Initializable;
+@@ -20,6 +21,23 @@
+ public class HomeScreenController implements Initializable
+ {
+ 
++
++    @FXML
++    void OpenFoodGeneratorScreen(ActionEvent event) {
++
++    }
++
++    @FXML
++    void OpenProfileScreen(ActionEvent event) {
++
++    }
++
++    @FXML
++    void OpenShoppingListScreen(ActionEvent event) {
++
++    }
++
++
+     @FXML
+     private ScrollPane scroll;
+ 
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch	(revision c1ad12ed65155c7d61a83ec1d7b00f7dd300b477)
++++ /dev/null	(revision c1ad12ed65155c7d61a83ec1d7b00f7dd300b477)
+@@ -1,47 +0,0 @@
+-Index: src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.example.foodrecipeplatform.Controller;\n\nimport javafx.fxml.FXML;\nimport javafx.fxml.FXMLLoader;\nimport javafx.fxml.Initializable;\nimport javafx.geometry.Insets;\nimport javafx.scene.control.ScrollPane;\nimport javafx.scene.layout.AnchorPane;\nimport javafx.scene.layout.GridPane;\nimport javafx.scene.layout.Region;\nimport org.example.foodrecipeplatform.CardData;\n\nimport java.io.IOException;\nimport java.net.URL;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.ResourceBundle;\n\npublic class HomeScreenController implements Initializable\n{\n\n    @FXML\n    private ScrollPane scroll;\n\n    @FXML\n    private GridPane grid;\n\n\n    // example implement - hard code\n    List<CardData> cards = new ArrayList<>();\n\n\n    private List<CardData> getData(){\n        List<CardData> cards = new ArrayList<>();\n        CardData card;\n\n        for (int i=0;i<6;i++){\n            // Default Card will be a Burger for now will turn into empty slot soon\n            // ADD to Homepage should be the way the cards which are in the favorite screen should be added\n            card = new CardData(\"Burger\",\n                    \"This the New Krabby Patty Burger Recipe\",\n                    \"/images/image.png\");\n            cards.add(card);\n        }\n        return cards;\n    }\n\n    /**\n     *\n     * @param location\n     * The location used to resolve relative paths for the root object, or\n     * {@code null} if the location is not known.\n     *\n     * @param resources\n     * The resources used to localize the root object, or {@code null} if\n     * the root object was not localized.\n     */\n    @Override\n    public void initialize(URL location, ResourceBundle resources) {\n        cards.addAll(getData());\n\n        int row = 0;\n        int col = 0;\n\n        try {\n            for (int i = 0; i < cards.size(); i++) {\n                FXMLLoader fxmlLoader = new FXMLLoader();\n                URL fxmlPath = getClass().getResource(\"/org/example/foodrecipeplatform/RecipeCard.fxml\");\n                // System.out.println(\"FXML path = \" + fxmlPath); // Debug\n\n                if (fxmlPath == null) {\n                    System.out.println(\"Could not find RecipeCard.fxml\");\n                    continue;\n                }\n\n                fxmlLoader.setLocation(fxmlPath);\n                AnchorPane anchorPane = fxmlLoader.load();\n\n                RecipeCardController recipeCardController = fxmlLoader.getController();\n                recipeCardController.setData(cards.get(i));\n\n                if (col == 3) {\n                    col = 0;\n                    row++;\n                }\n\n                grid.add(anchorPane, col++, row);\n                GridPane.setMargin(anchorPane, new Insets(10));\n            }\n        } catch (IOException e) {\n            System.out.println(\"Failed to load RecipeCard.fxml\");\n            e.printStackTrace();\n        } catch (Exception e) {\n            System.out.println(\"General error in initialize\");\n            e.printStackTrace();\n        }\n    }\n\n\n\n\n\n\n}\n\n\n\n\n//implement needed\n        /*\n    private List<CardData> loadCards(String fileName){\n        List<CardData> cards = new ArrayList<>();\n        try {\n            // needs implementation\n        }\n        catch (Exception e){\n            e.printStackTrace();\n        }\n        return cards;\n    }\n\n         */\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java b/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java
+---- a/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java	(revision e6e68aa06616c8a05f8932e24a3c5eb64d5163c4)
+-+++ b/src/main/java/org/example/foodrecipeplatform/Controller/HomeScreenController.java	(date 1744501807330)
+-@@ -34,6 +34,7 @@
+-         List<CardData> cards = new ArrayList<>();
+-         CardData card;
+- 
+-+
+-         for (int i=0;i<6;i++){
+-             // Default Card will be a Burger for now will turn into empty slot soon
+-             // ADD to Homepage should be the way the cards which are in the favorite screen should be added
+-@@ -41,6 +42,7 @@
+-                     "This the New Krabby Patty Burger Recipe",
+-                     "/images/image.png");
+-             cards.add(card);
+-+
+-         }
+-         return cards;
+-     }
+-Index: src/main/java/org/example/foodrecipeplatform/CardData.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.example.foodrecipeplatform;\n\n/**\n * Card Data Class\n */\npublic class CardData {\n\n    // Privater Member Variables\n    private String foodName;\n    private String description;\n    private String imageURL;\n    private String mealId;\n\n    // Parametrized Constructor\n    public CardData(String foodName, String description, String imageURL) {\n        this.foodName = foodName;\n        this.description = description;\n        this.imageURL = imageURL;\n    }\n\n    // Getter and Setter Methods\n    public String getFoodName() {\n        return foodName;\n    }\n    public void setFoodName(String foodName) {\n        this.foodName = foodName;\n    }\n    public String getDescription() {\n        return description;\n    }\n    public void setDescription(String description) {\n        this.description = description;\n    }\n    public String getImageURL() {\n        return imageURL;\n    }\n    public void setImageURL(String imageURL) {\n        this.imageURL = imageURL;\n    }\n    public String getMealId() { return mealId; }\n    public void setMealId(String mealId) { this.mealId = mealId; }\n\n}   // End Card Data class
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/example/foodrecipeplatform/CardData.java b/src/main/java/org/example/foodrecipeplatform/CardData.java
+---- a/src/main/java/org/example/foodrecipeplatform/CardData.java	(revision e6e68aa06616c8a05f8932e24a3c5eb64d5163c4)
+-+++ b/src/main/java/org/example/foodrecipeplatform/CardData.java	(date 1744501688627)
+-@@ -11,6 +11,10 @@
+-     private String imageURL;
+-     private String mealId;
+- 
+-+    // unParametrized Constructor
+-+    public CardData() {
+-+    }
+-+
+-     // Parametrized Constructor
+-     public CardData(String foodName, String description, String imageURL) {
+-         this.foodName = foodName;
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25__8_02PM__Changes_1.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25__8_02PM__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25__8_02PM__Changes_1.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25__8_02PM__Changes_1.xml	(revision c1ad12ed65155c7d61a83ec1d7b00f7dd300b477)
++++ /dev/null	(revision c1ad12ed65155c7d61a83ec1d7b00f7dd300b477)
+@@ -1,19 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1" date="1744502552393" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/12/25, 8:02 PM [Changes]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/module-info.class" />
+-    <option name="AFTER_PATH" value="target/classes/module-info.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/module-info.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/HomeScreenController.class" />
+-    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/Controller/HomeScreenController.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/HomeScreenController.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/org/example/foodrecipeplatform/CardData.class" />
+-    <option name="AFTER_PATH" value="target/classes/org/example/foodrecipeplatform/CardData.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_12_25,_8_02 PM_[Changes]1/CardData.class" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: target/classes/org/example/foodrecipeplatform/HomeScreen.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<?import javafx.geometry.Insets?>\n<?import javafx.scene.control.Hyperlink?>\n<?import javafx.scene.control.ScrollPane?>\n<?import javafx.scene.image.Image?>\n<?import javafx.scene.image.ImageView?>\n<?import javafx.scene.layout.AnchorPane?>\n<?import javafx.scene.layout.GridPane?>\n<?import javafx.scene.layout.HBox?>\n<?import javafx.scene.layout.RowConstraints?>\n<?import javafx.scene.layout.VBox?>\n<?import javafx.scene.text.Font?>\n<?import javafx.scene.text.Text?>\n\n<AnchorPane xmlns=\"http://javafx.com/javafx/21\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"org.example.foodrecipeplatform.Controller.HomeScreenController\">\n   <children>\n      <VBox layoutX=\"5.0\" prefHeight=\"800.0\" prefWidth=\"1000.0\">\n         <children>\n            <HBox alignment=\"CENTER\" prefHeight=\"100.0\" prefWidth=\"200.0\" spacing=\"10.0\" style=\"-fx-background-color: #f5f5f5;\" VBox.vgrow=\"ALWAYS\">\n               <children>\n                  <AnchorPane HBox.hgrow=\"ALWAYS\">\n                     <children>\n                        <ImageView fitHeight=\"60.0\" fitWidth=\"60.0\" layoutX=\"11.0\" layoutY=\"8.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\n                           <image>\n                              <Image url=\"@../../../images/download.png\" />\n                           </image>\n                        </ImageView>\n                        <Hyperlink layoutX=\"15.0\" layoutY=\"67.0\" text=\"Profile\">\n                           <font>\n                              <Font size=\"16.0\" />\n                           </font>\n                        </Hyperlink>\n                        <Text layoutX=\"344.0\" layoutY=\"76.0\" strokeType=\"OUTSIDE\" strokeWidth=\"0.0\" text=\"Favorited Recipes\">\n                           <font>\n                              <Font name=\"System Bold Italic\" size=\"48.0\" />\n                           </font>\n                        </Text>\n                        <ImageView fitHeight=\"60.0\" fitWidth=\"60.0\" layoutX=\"897.0\" layoutY=\"8.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\n                           <image>\n                              <Image url=\"@../../../images/basket-cart-icon-27.png\" />\n                           </image>\n                        </ImageView>\n                        <Hyperlink layoutX=\"878.0\" layoutY=\"67.0\" text=\"Shopping List\">\n                           <font>\n                              <Font size=\"16.0\" />\n                           </font>\n                        </Hyperlink>\n                        <ImageView fitHeight=\"60.0\" fitWidth=\"60.0\" layoutX=\"428.0\" layoutY=\"105.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\n                           <image>\n                              <Image url=\"@../../../images/png-clipart-paper-box-computer-icons-symbol-random-icons-miscellaneous-angle.png\" />\n                           </image>\n                        </ImageView>\n                        <Hyperlink layoutX=\"477.0\" layoutY=\"108.0\" text=\"Food Generator\">\n                           <font>\n                              <Font size=\"16.0\" />\n                           </font>\n                        </Hyperlink>\n                     </children>\n                  </AnchorPane>\n               </children>\n               <padding>\n                  <Insets bottom=\"10.0\" left=\"10.0\" right=\"10.0\" top=\"10.0\" />\n               </padding>\n            </HBox>\n            <HBox alignment=\"CENTER\" VBox.vgrow=\"ALWAYS\">\n               <VBox.margin>\n                  <Insets bottom=\"20.0\" left=\"20.0\" right=\"20.0\" />\n               </VBox.margin>\n               <children>\n                  <ScrollPane fx:id=\"scroll\" fitToHeight=\"true\" fitToWidth=\"true\" prefHeight=\"600.0\" prefWidth=\"960.0\">\n                     <content>\n                        <GridPane fx:id=\"grid\" alignment=\"CENTER\" prefHeight=\"0.0\" prefWidth=\"50.0\">\n                           <padding>\n                              <Insets bottom=\"10.0\" left=\"10.0\" right=\"10.0\" top=\"10.0\" />\n                           </padding>\n                           <rowConstraints>\n                              <RowConstraints minHeight=\"10.0\" prefHeight=\"30.0\" />\n                           </rowConstraints>\n                        </GridPane>\n                     </content>\n                     <padding>\n                        <Insets bottom=\"20.0\" left=\"20.0\" right=\"20.0\" top=\"20.0\" />\n                     </padding>\n                  </ScrollPane>\n               </children>\n            </HBox>\n         </children>\n      </VBox>\n   </children>\n</AnchorPane>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/org/example/foodrecipeplatform/HomeScreen.fxml b/target/classes/org/example/foodrecipeplatform/HomeScreen.fxml
+--- a/target/classes/org/example/foodrecipeplatform/HomeScreen.fxml	(revision c1ad12ed65155c7d61a83ec1d7b00f7dd300b477)
++++ b/target/classes/org/example/foodrecipeplatform/HomeScreen.fxml	(date 1745355287934)
+@@ -26,7 +26,7 @@
+                               <Image url="@../../../images/download.png" />
+                            </image>
+                         </ImageView>
+-                        <Hyperlink layoutX="15.0" layoutY="67.0" text="Profile">
++                        <Hyperlink layoutX="15.0" layoutY="67.0" onAction="#OpenProfileScreen" text="Profile">
+                            <font>
+                               <Font size="16.0" />
+                            </font>
+@@ -41,7 +41,7 @@
+                               <Image url="@../../../images/basket-cart-icon-27.png" />
+                            </image>
+                         </ImageView>
+-                        <Hyperlink layoutX="878.0" layoutY="67.0" text="Shopping List">
++                        <Hyperlink layoutX="878.0" layoutY="67.0" onAction="#OpenShoppingListScreen" text="Shopping List">
+                            <font>
+                               <Font size="16.0" />
+                            </font>
+@@ -51,7 +51,7 @@
+                               <Image url="@../../../images/png-clipart-paper-box-computer-icons-symbol-random-icons-miscellaneous-angle.png" />
+                            </image>
+                         </ImageView>
+-                        <Hyperlink layoutX="477.0" layoutY="108.0" text="Food Generator">
++                        <Hyperlink layoutX="477.0" layoutY="108.0" onAction="#OpenFoodGeneratorScreen" text="Food Generator">
+                            <font>
+                               <Font size="16.0" />
+                            </font>
+Index: src/main/resources/org/example/foodrecipeplatform/HomeScreen.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<?import javafx.geometry.Insets?>\n<?import javafx.scene.control.Hyperlink?>\n<?import javafx.scene.control.ScrollPane?>\n<?import javafx.scene.image.Image?>\n<?import javafx.scene.image.ImageView?>\n<?import javafx.scene.layout.AnchorPane?>\n<?import javafx.scene.layout.GridPane?>\n<?import javafx.scene.layout.HBox?>\n<?import javafx.scene.layout.RowConstraints?>\n<?import javafx.scene.layout.VBox?>\n<?import javafx.scene.text.Font?>\n<?import javafx.scene.text.Text?>\n\n<AnchorPane xmlns=\"http://javafx.com/javafx/21\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"org.example.foodrecipeplatform.Controller.HomeScreenController\">\n   <children>\n      <VBox layoutX=\"5.0\" prefHeight=\"800.0\" prefWidth=\"1000.0\">\n         <children>\n            <HBox alignment=\"CENTER\" prefHeight=\"100.0\" prefWidth=\"200.0\" spacing=\"10.0\" style=\"-fx-background-color: #f5f5f5;\" VBox.vgrow=\"ALWAYS\">\n               <children>\n                  <AnchorPane HBox.hgrow=\"ALWAYS\">\n                     <children>\n                        <ImageView fitHeight=\"60.0\" fitWidth=\"60.0\" layoutX=\"11.0\" layoutY=\"8.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\n                           <image>\n                              <Image url=\"@../../../images/download.png\" />\n                           </image>\n                        </ImageView>\n                        <Hyperlink layoutX=\"15.0\" layoutY=\"67.0\" text=\"Profile\">\n                           <font>\n                              <Font size=\"16.0\" />\n                           </font>\n                        </Hyperlink>\n                        <Text layoutX=\"344.0\" layoutY=\"76.0\" strokeType=\"OUTSIDE\" strokeWidth=\"0.0\" text=\"Favorited Recipes\">\n                           <font>\n                              <Font name=\"System Bold Italic\" size=\"48.0\" />\n                           </font>\n                        </Text>\n                        <ImageView fitHeight=\"60.0\" fitWidth=\"60.0\" layoutX=\"897.0\" layoutY=\"8.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\n                           <image>\n                              <Image url=\"@../../../images/basket-cart-icon-27.png\" />\n                           </image>\n                        </ImageView>\n                        <Hyperlink layoutX=\"878.0\" layoutY=\"67.0\" text=\"Shopping List\">\n                           <font>\n                              <Font size=\"16.0\" />\n                           </font>\n                        </Hyperlink>\n                        <ImageView fitHeight=\"60.0\" fitWidth=\"60.0\" layoutX=\"428.0\" layoutY=\"105.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\n                           <image>\n                              <Image url=\"@../../../images/png-clipart-paper-box-computer-icons-symbol-random-icons-miscellaneous-angle.png\" />\n                           </image>\n                        </ImageView>\n                        <Hyperlink layoutX=\"477.0\" layoutY=\"108.0\" text=\"Food Generator\">\n                           <font>\n                              <Font size=\"16.0\" />\n                           </font>\n                        </Hyperlink>\n                     </children>\n                  </AnchorPane>\n               </children>\n               <padding>\n                  <Insets bottom=\"10.0\" left=\"10.0\" right=\"10.0\" top=\"10.0\" />\n               </padding>\n            </HBox>\n            <HBox alignment=\"CENTER\" VBox.vgrow=\"ALWAYS\">\n               <VBox.margin>\n                  <Insets bottom=\"20.0\" left=\"20.0\" right=\"20.0\" />\n               </VBox.margin>\n               <children>\n                  <ScrollPane fx:id=\"scroll\" fitToHeight=\"true\" fitToWidth=\"true\" prefHeight=\"600.0\" prefWidth=\"960.0\">\n                     <content>\n                        <GridPane fx:id=\"grid\" alignment=\"CENTER\" prefHeight=\"0.0\" prefWidth=\"50.0\">\n                           <padding>\n                              <Insets bottom=\"10.0\" left=\"10.0\" right=\"10.0\" top=\"10.0\" />\n                           </padding>\n                           <rowConstraints>\n                              <RowConstraints minHeight=\"10.0\" prefHeight=\"30.0\" />\n                           </rowConstraints>\n                        </GridPane>\n                     </content>\n                     <padding>\n                        <Insets bottom=\"20.0\" left=\"20.0\" right=\"20.0\" top=\"20.0\" />\n                     </padding>\n                  </ScrollPane>\n               </children>\n            </HBox>\n         </children>\n      </VBox>\n   </children>\n</AnchorPane>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/org/example/foodrecipeplatform/HomeScreen.fxml b/src/main/resources/org/example/foodrecipeplatform/HomeScreen.fxml
+--- a/src/main/resources/org/example/foodrecipeplatform/HomeScreen.fxml	(revision c1ad12ed65155c7d61a83ec1d7b00f7dd300b477)
++++ b/src/main/resources/org/example/foodrecipeplatform/HomeScreen.fxml	(date 1745343074371)
+@@ -26,7 +26,7 @@
+                               <Image url="@../../../images/download.png" />
+                            </image>
+                         </ImageView>
+-                        <Hyperlink layoutX="15.0" layoutY="67.0" text="Profile">
++                        <Hyperlink layoutX="15.0" layoutY="67.0" onAction="#OpenProfileScreen" text="Profile">
+                            <font>
+                               <Font size="16.0" />
+                            </font>
+@@ -41,7 +41,7 @@
+                               <Image url="@../../../images/basket-cart-icon-27.png" />
+                            </image>
+                         </ImageView>
+-                        <Hyperlink layoutX="878.0" layoutY="67.0" text="Shopping List">
++                        <Hyperlink layoutX="878.0" layoutY="67.0" onAction="#OpenShoppingListScreen" text="Shopping List">
+                            <font>
+                               <Font size="16.0" />
+                            </font>
+@@ -51,7 +51,7 @@
+                               <Image url="@../../../images/png-clipart-paper-box-computer-icons-symbol-random-icons-miscellaneous-angle.png" />
+                            </image>
+                         </ImageView>
+-                        <Hyperlink layoutX="477.0" layoutY="108.0" text="Food Generator">
++                        <Hyperlink layoutX="477.0" layoutY="108.0" onAction="#OpenFoodGeneratorScreen" text="Food Generator">
+                            <font>
+                               <Font size="16.0" />
+                            </font>

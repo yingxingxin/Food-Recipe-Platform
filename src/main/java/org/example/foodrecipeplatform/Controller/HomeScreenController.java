@@ -1,5 +1,6 @@
 package org.example.foodrecipeplatform.Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import org.example.foodrecipeplatform.CardData;
+import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.MealDbAPI;
 
 import java.io.IOException;
@@ -20,9 +22,23 @@ import java.util.ResourceBundle;
 public class HomeScreenController implements Initializable
 {
 
+
+    @FXML
+    void OpenFoodGeneratorScreen(ActionEvent event) throws IOException {
+        FoodRecipePlatform.setRoot("RecipeSearchScreen");
+    }
+    @FXML
+    void OpenProfileScreen(ActionEvent event) throws IOException {
+        FoodRecipePlatform.setRoot("ProfilePage");
+    }
+    @FXML
+    void OpenShoppingListScreen(ActionEvent event) throws IOException {
+        FoodRecipePlatform.setRoot("ShoppingScreen");
+    }
+
+
     @FXML
     private ScrollPane scroll;
-
     @FXML
     private GridPane grid;
 
