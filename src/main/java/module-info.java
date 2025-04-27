@@ -21,4 +21,5 @@ module org.example.foodrecipeplatform {
     exports org.example.foodrecipeplatform;
     exports org.example.foodrecipeplatform.Controller;
     opens org.example.foodrecipeplatform.Controller to javafx.fxml;
+    opens org.example.foodrecipeplatform.Model to javafx.base;
 }
