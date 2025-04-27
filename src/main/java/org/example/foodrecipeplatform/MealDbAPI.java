@@ -176,7 +176,7 @@ public class MealDbAPI {
                 JSONObject meal = (JSONObject) item;
                 String mealId = (String) meal.get("idMeal");
                 String mealName = (String) meal.get("strMeal");
-                String mealThumbnail = (String) meal.get("strMealThumbnail");
+                String mealThumbnail = (String) meal.get("strMealThumb");
 
                 CardData cardData = new CardData(mealName, "Click for details", mealThumbnail);
                 cardData.setMealId(mealId);

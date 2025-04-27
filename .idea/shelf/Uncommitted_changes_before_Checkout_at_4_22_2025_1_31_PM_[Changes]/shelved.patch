@@ -1,0 +1,281 @@
+Index: src/main/java/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.foodrecipeplatform.Controller;\r\n\r\nimport javafx.collections.FXCollections;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.collections.transformation.FilteredList;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.*;\r\nimport org.example.foodrecipeplatform.CardData;\r\nimport org.example.foodrecipeplatform.MealDbAPI;\r\n\r\nimport java.util.List;\r\n\r\npublic class RecipeSearchScreenController\r\n{\r\n    @FXML\r\n    public Button searchButton;\r\n    @FXML\r\n    public Button RandomFoodButton;\r\n    @FXML\r\n    public Button IngredientButton;\r\n    @FXML\r\n    public ComboBox<String> CountryComboBox;\r\n\r\n    @FXML\r\n    public TextArea resultTextArea;\r\n    @FXML\r\n    public TextField searchTextField;\r\n    @FXML\r\n    public TextField IngredientTextField;\r\n\r\n    @FXML\r\n    public Hyperlink shoppingHyperlink;\r\n    @FXML\r\n    public Hyperlink HomePageHyperlink;\r\n    @FXML\r\n    public Hyperlink profileHyperlink;\r\n\r\n    @FXML\r\n    public TextField ingredientTextField;\r\n    @FXML\r\n    public ListView<String> ingredientListView;\r\n\r\n\r\n    MealDbAPI api;\r\n\r\n    @FXML\r\n    void initialize()\r\n    {\r\n        api = new MealDbAPI();\r\n\r\n        // adding countries to the country combobox button\r\n        // selecting off will inactivate it\r\n        String[] countries = { \"Off\",\r\n                \"American\", \"British\", \"Canadian\", \"Chinese\", \"Croatian\", \"Dutch\", \"Egyptian\",\r\n                \"Filipino\", \"French\", \"Greek\", \"Indian\", \"Irish\", \"Italian\", \"Jamaican\", \"Japanese\", \"Kenyan\",\r\n                \"Malaysian\", \"Mexican\", \"Moroccan\", \"Polish\", \"Portuguese\", \"Russian\", \"Spanish\", \"Thai\", \"Tunisian\",\r\n                \"Turkish\", \"Ukrainian\", \"Uruguayan\", \"Vietnamese\"\r\n        };\r\n        CountryComboBox.getItems().addAll(countries);\r\n\r\n        System.out.println(CountryComboBox.getSelectionModel().getSelectedItem());\r\n\r\n        CountryComboBox.setOnAction(event ->\r\n        {\r\n            String country = CountryComboBox.getSelectionModel().getSelectedItem();\r\n            if (country.equals(\"Off\"))\r\n            {\r\n                System.out.println(\"Selected: \" + country);\r\n            }\r\n            // only search recipe by country if the selection picked isn't Off\r\n            else\r\n            {\r\n                countryRecipe(country);\r\n                System.out.println(\"Selected: \" + country);\r\n            }\r\n\r\n        });\r\n\r\n\r\n        // creating list view for showing ingredients\r\n        ObservableList<String> ingredientsList = FXCollections.observableArrayList\r\n                (\"Chicken\", \"Salmon\", \"Beef\", \"Avocado\", \"Pork\", \"Asparagus\", \"Bread\", \"Broccoli\");\r\n\r\n        FilteredList<String> filtered = new FilteredList<>(ingredientsList, s -> true);\r\n\r\n        ingredientTextField.textProperty().addListener((obs, oldVal, newVal) -> {\r\n            filtered.setPredicate(item -> item.toLowerCase().contains(newVal.toLowerCase()));\r\n        });\r\n\r\n        ingredientListView.setItems(filtered);\r\n\r\n        ingredientListView.setOnMouseClicked(e -> {\r\n            String selected = ingredientListView.getSelectionModel().getSelectedItem();\r\n            if (selected != null) {\r\n                System.out.println(\"Selected: \" + selected);\r\n\r\n                // Do something with it (e.g. update a label or pass to another scene)\r\n                ingredientRecipe(selected);\r\n            }\r\n        });\r\n\r\n    }\r\n\r\n    @FXML\r\n    void searchButtonClicked(ActionEvent event)\r\n    {\r\n        System.out.println(\"Get Button clicked\");\r\n        getRecipe();\r\n    }\r\n\r\n    @FXML\r\n    void randomFoodButtonClicked(ActionEvent event)\r\n    {\r\n        System.out.println(\"Random Food Button Clicked\");\r\n        randomRecipe();\r\n    }\r\n\r\n    @FXML\r\n    void IngredientButtonClicked(ActionEvent event)\r\n    {\r\n        System.out.println(\"Ingredient Button Clicked\");\r\n        ingredientRecipe(IngredientTextField.getText());\r\n    }\r\n\r\n    // make sure the search bar input is valid: no empty string, numbers\r\n    // returns false if empty\r\n    // returns false if string matches letters, false bc it's going to negate it in the if statement in getRecipe method\r\n    private boolean checkSearchBar(TextField searchTextField)\r\n    {\r\n        return searchTextField.getText().isEmpty() || !searchTextField.getText().matches(\"[a-zA-Z]*\");\r\n    }\r\n\r\n    // gets recipe based on the search bar which calls the recipe api that searches based on the name\r\n    public void getRecipe()\r\n    {\r\n        //List<CardData> results = api.getMealsByFirstLetter('a');\r\n        List<CardData> results = null; // = api.searchMealsByName(searchTextField.getText());\r\n\r\n        // checks if input is correct\r\n        if (!checkSearchBar(searchTextField))\r\n        {\r\n            resultTextArea.clear();\r\n\r\n            // uses the first letter search from api if the input is one letter\r\n            if (searchTextField.getText().length() == 1)\r\n            {\r\n                results = api.getMealsByFirstLetter(searchTextField.getText().charAt(0));\r\n            }\r\n            // uses name search if input is more than one letter\r\n            else\r\n            {\r\n                results = api.searchMealsByName(searchTextField.getText());\r\n            }\r\n\r\n            for (CardData cardData : results)\r\n            {\r\n                resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + \"\\n\");\r\n            }\r\n\r\n        }\r\n        else // if input for search bar is incorrect: empty or numbers\r\n        {\r\n            resultTextArea.setText(\"Error: Search bar is empty or input contain non-letter values..\\n\");\r\n        }\r\n\r\n    }\r\n\r\n    // uses api to get & display a random recipe\r\n    public void randomRecipe()\r\n    {\r\n        resultTextArea.clear();\r\n        CardData card = api.getRandomMeal().getFirst();\r\n        resultTextArea.setText(card.getFoodName() + \", food id:\" + card.getMealId());\r\n    }\r\n\r\n    public void countryRecipe(String country)\r\n    {\r\n        System.out.println(\"HERE \" + country);\r\n\r\n        List<CardData> results = api.getMealsByCountry(country);\r\n\r\n        resultTextArea.clear();\r\n        for (CardData cardData : results)\r\n        {\r\n            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + \"\\n\");\r\n        }\r\n    }\r\n\r\n    public void ingredientRecipe(String ingredient)\r\n    {\r\n        System.out.println(\"ingredientRecipe: \" + ingredient);\r\n        List<CardData> results = api.getMealsByIngredient(ingredient);\r\n\r\n        resultTextArea.clear();\r\n        for (CardData cardData : results)\r\n        {\r\n            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + \"\\n\");\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.java b/src/main/java/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.java
+--- a/src/main/java/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.java	(revision 407be58e229b2a691673e5dc6b7286dddd08dc40)
++++ b/src/main/java/org/example/foodrecipeplatform/Controller/RecipeSearchScreenController.java	(date 1745342953351)
+@@ -5,11 +5,19 @@
+ import javafx.collections.transformation.FilteredList;
+ import javafx.event.ActionEvent;
+ import javafx.fxml.FXML;
++import javafx.fxml.FXMLLoader;
++import javafx.geometry.Insets;
+ import javafx.scene.control.*;
++import javafx.scene.layout.AnchorPane;
++import javafx.scene.layout.GridPane;
+ import org.example.foodrecipeplatform.CardData;
+ import org.example.foodrecipeplatform.MealDbAPI;
+ 
++import java.io.IOException;
++import java.net.URL;
++import java.util.ArrayList;
+ import java.util.List;
++import java.util.ResourceBundle;
+ 
+ public class RecipeSearchScreenController
+ {
+@@ -41,11 +49,16 @@
+     @FXML
+     public ListView<String> ingredientListView;
+ 
++    @FXML
++    public ScrollPane resultScrollPlain;
++    @FXML
++    public GridPane resultGridPlain;
++    List<CardData> cards = new ArrayList<>();
+ 
+     MealDbAPI api;
+ 
+     @FXML
+-    void initialize()
++    void initialize() // clean up initialize method by putting stuff below into a method
+     {
+         api = new MealDbAPI();
+ 
+@@ -102,6 +115,49 @@
+ 
+     }
+ 
++    private void setGrid(List<CardData> inputCardList) {
++        // testing grid
++        resultGridPlain.getChildren().clear();
++        //cards.addAll(getData());
++        cards = inputCardList;
++
++        int row = 1;
++        int col = 0;
++
++        try {
++            for (int i = 0; i < cards.size(); i++) {
++                FXMLLoader fxmlLoader = new FXMLLoader();
++                URL fxmlPath = getClass().getResource("/org/example/foodrecipeplatform/RecipeCard.fxml");
++                // System.out.println("FXML path = " + fxmlPath); // Debug
++
++                if (fxmlPath == null) {
++                    System.out.println("Could not find RecipeCard.fxml");
++                    continue;
++                }
++
++                fxmlLoader.setLocation(fxmlPath);
++                AnchorPane anchorPane = fxmlLoader.load();
++
++                RecipeCardController recipeCardController = fxmlLoader.getController();
++                recipeCardController.setData(cards.get(i));
++
++                if (col == 3) {
++                    col = 0;
++                    row++;
++                }
++                resultGridPlain.add(anchorPane, col++, row);
++                GridPane.setMargin(anchorPane, new Insets(10));
++            }
++        } catch (IOException e) {
++            System.out.println("Failed to load RecipeCard.fxml");
++            e.printStackTrace();
++        } catch (Exception e) {
++            System.out.println("General error in initialize");
++            e.printStackTrace();
++        }
++    }
++
++
+     @FXML
+     void searchButtonClicked(ActionEvent event)
+     {
+@@ -152,7 +208,7 @@
+             {
+                 results = api.searchMealsByName(searchTextField.getText());
+             }
+-
++            setGrid(results); // TESTING
+             for (CardData cardData : results)
+             {
+                 resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
+@@ -170,8 +226,12 @@
+     public void randomRecipe()
+     {
+         resultTextArea.clear();
+-        CardData card = api.getRandomMeal().getFirst();
+-        resultTextArea.setText(card.getFoodName() + ", food id:" + card.getMealId());
++        List<CardData> results = api.getRandomMeal();
++        setGrid(results); // TESTING
++        for (CardData cardData : results)
++        {
++            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
++        }
+     }
+ 
+     public void countryRecipe(String country)
+@@ -179,7 +239,7 @@
+         System.out.println("HERE " + country);
+ 
+         List<CardData> results = api.getMealsByCountry(country);
+-
++        setGrid(results); // TESTING
+         resultTextArea.clear();
+         for (CardData cardData : results)
+         {
+@@ -191,7 +251,7 @@
+     {
+         System.out.println("ingredientRecipe: " + ingredient);
+         List<CardData> results = api.getMealsByIngredient(ingredient);
+-
++        setGrid(results); // TESTING
+         resultTextArea.clear();
+         for (CardData cardData : results)
+         {
+Index: src/main/java/org/example/foodrecipeplatform/MealDbAPI.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.foodrecipeplatform;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.IOException;\r\nimport java.io.InputStreamReader;\r\nimport java.net.HttpURLConnection;\r\nimport java.net.URL;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Map;\r\nimport org.json.simple.JSONArray;\r\nimport org.json.simple.JSONObject;\r\nimport org.json.simple.parser.JSONParser;\r\nimport org.json.simple.parser.ParseException;\r\n\r\npublic class MealDbAPI {\r\n\r\n    private static final String API_BASE_URL = \"https://www.themealdb.com/api/json/v1/1/\";\r\n\r\n    // Search meals by name\r\n    public List<CardData> searchMealsByName(String mealName) {\r\n        String endpoint = API_BASE_URL + \"search.php?s=\" + mealName.replace(\" \", \"%20\");\r\n        return fetchMeals(endpoint);\r\n    }\r\n\r\n    // Get meals by first letter\r\n    public List<CardData> getMealsByFirstLetter(char firstLetter) {\r\n        String endpoint = API_BASE_URL + \"search.php?f=\" + firstLetter;\r\n        return fetchMeals(endpoint);\r\n    }\r\n\r\n    // Gets a random meal\r\n    public List<CardData> getRandomMeal() {\r\n        String endpoint = API_BASE_URL + \"random.php\";\r\n        return fetchMeals(endpoint);\r\n    }\r\n\r\n    // Gets meal by category\r\n    public List<CardData> getMealsByCategory(String category) {\r\n        String endpoint = API_BASE_URL + \"filter.php?c=\" + category.replace(\" \", \"%20\");\r\n        return fetchMealsFromFilter(endpoint);\r\n    }\r\n\r\n    // Gets meals by cuisine\r\n    public List<CardData> getMealsByCuisine(String area) {\r\n        String endpoint = API_BASE_URL + \"filter.php?a=\" + area.replace(\" \", \"%20\");\r\n        return fetchMealsFromFilter(endpoint);\r\n    }\r\n\r\n    // Gets meals by main ingredient\r\n    public List<CardData> getMealsByIngredient(String ingredient) {\r\n        String endpoint = API_BASE_URL + \"filter.php?i=\" + ingredient.replace(\" \", \"%20\");\r\n        return fetchMealsFromFilter(endpoint);\r\n    }\r\n\r\n    // Get meals by country\r\n    public List<CardData> getMealsByCountry(String Country) {\r\n        String endpoint = API_BASE_URL + \"filter.php?a=\" + Country;\r\n        return fetchMeals(endpoint);\r\n    }\r\n\r\n    // Gets meals by all categories\r\n    public List<String> getAllCategories() {\r\n        String endpoint = API_BASE_URL + \"list.php?c=list\";\r\n        List<String> categories = new ArrayList<>();\r\n\r\n        try {\r\n            String jsonResponse = makeApiRequest(endpoint);\r\n            JSONParser parser = new JSONParser();\r\n            JSONObject json = (JSONObject) parser.parse(jsonResponse);\r\n            JSONArray categoriesArray = (JSONArray) json.get(\"meals\");\r\n\r\n            for (Object item : categoriesArray) {\r\n                JSONObject category = (JSONObject) item;\r\n                categories.add((String) category.get(\"strCategory\"));\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return categories;\r\n    }\r\n\r\n    // Helper method to fetch meals from search and lookup endpoints\r\n    private List<CardData> fetchMeals(String endpoint) {\r\n        List<CardData> meals = new ArrayList<>();\r\n\r\n        try {\r\n            String jsonResponse = makeApiRequest(endpoint);\r\n            JSONParser parser = new JSONParser();\r\n            JSONObject json = (JSONObject) parser.parse(jsonResponse);\r\n            JSONArray mealsArray = (JSONArray) json.get(\"meals\");\r\n\r\n            if (mealsArray == null) {\r\n                return meals;\r\n            }\r\n\r\n            for (Object item : mealsArray) {\r\n                JSONObject meal = (JSONObject) item;\r\n                String mealId = (String) meal.get(\"idMeal\");\r\n                String mealName = (String) meal.get(\"strMeal\");\r\n                String mealThumb = (String) meal.get(\"strMealThumb\");\r\n                String mealInstructions = (String) meal.get(\"strInstructions\");\r\n\r\n                // Limit description length\r\n                String description = mealInstructions != null ?\r\n                        (mealInstructions.length() > 100 ? mealInstructions.substring(0, 97) + \"...\" : mealInstructions) :\r\n                        \"No description available\";\r\n\r\n                CardData cardData = new CardData(mealName, description, mealThumb);\r\n                cardData.setMealId(mealId);\r\n                meals.add(cardData);\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return meals;\r\n    }\r\n\r\n    // Helper method to fetch meals from filter endpoints\r\n    private List<CardData> fetchMealsFromFilter(String endpoint) {\r\n        List<CardData> meals = new ArrayList<>();\r\n\r\n        try {\r\n            String jsonResponse = makeApiRequest(endpoint);\r\n            JSONParser parser = new JSONParser();\r\n            JSONObject json = (JSONObject) parser.parse(jsonResponse);\r\n            JSONArray mealsArray = (JSONArray) json.get(\"meals\");\r\n\r\n            if (mealsArray == null) {\r\n                return meals; // Return empty list if no meals found\r\n            }\r\n\r\n            for (Object item : mealsArray) {\r\n                JSONObject meal = (JSONObject) item;\r\n                String mealId = (String) meal.get(\"idMeal\");\r\n                String mealName = (String) meal.get(\"strMeal\");\r\n                String mealThumb = (String) meal.get(\"strMealThumb\");\r\n\r\n                CardData cardData = new CardData(mealName, \"Click for details\", mealThumb);\r\n                cardData.setMealId(mealId);\r\n                meals.add(cardData);\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return meals;\r\n    }\r\n\r\n    // Make HTTP request to API and return response as string\r\n    private String makeApiRequest(String endpoint) throws IOException {\r\n        URL url = new URL(endpoint);\r\n        HttpURLConnection connection = (HttpURLConnection) url.openConnection();\r\n        connection.setRequestMethod(\"GET\");\r\n\r\n        int responseCode = connection.getResponseCode();\r\n        if (responseCode != 200) {\r\n            throw new IOException(\"HTTP error code: \" + responseCode);\r\n        }\r\n\r\n        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));\r\n        StringBuilder response = new StringBuilder();\r\n        String line;\r\n\r\n        while ((line = reader.readLine()) != null) {\r\n            response.append(line);\r\n        }\r\n        reader.close();\r\n\r\n        return response.toString();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/foodrecipeplatform/MealDbAPI.java b/src/main/java/org/example/foodrecipeplatform/MealDbAPI.java
+--- a/src/main/java/org/example/foodrecipeplatform/MealDbAPI.java	(revision 407be58e229b2a691673e5dc6b7286dddd08dc40)
++++ b/src/main/java/org/example/foodrecipeplatform/MealDbAPI.java	(date 1745342953376)
+@@ -105,7 +105,7 @@
+                 // Limit description length
+                 String description = mealInstructions != null ?
+                         (mealInstructions.length() > 100 ? mealInstructions.substring(0, 97) + "..." : mealInstructions) :
+-                        "No description available";
++                        "No description available"; // this is storing the instructions as decription, why?
+ 
+                 CardData cardData = new CardData(mealName, description, mealThumb);
+                 cardData.setMealId(mealId);
+Index: src/main/resources/org/example/foodrecipeplatform/RecipeSearchScreen.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.Button?>\r\n<?import javafx.scene.control.ComboBox?>\r\n<?import javafx.scene.control.Hyperlink?>\r\n<?import javafx.scene.control.ListView?>\r\n<?import javafx.scene.control.TextArea?>\r\n<?import javafx.scene.control.TextField?>\r\n<?import javafx.scene.layout.AnchorPane?>\r\n<?import javafx.scene.layout.BorderPane?>\r\n<?import javafx.scene.layout.VBox?>\r\n<?import javafx.scene.text.Font?>\r\n<?import javafx.scene.text.Text?>\r\n\r\n<AnchorPane prefHeight=\"695.0\" prefWidth=\"860.0\" xmlns=\"http://javafx.com/javafx/23.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"org.example.foodrecipeplatform.Controller.RecipeSearchScreenController\">\r\n   <children>\r\n      <BorderPane layoutX=\"140.0\" layoutY=\"126.0\" prefHeight=\"441.0\" prefWidth=\"579.0\">\r\n         <top>\r\n            <AnchorPane prefHeight=\"91.0\" prefWidth=\"579.0\" BorderPane.alignment=\"CENTER\">\r\n               <children>\r\n                  <Button fx:id=\"searchButton\" layoutX=\"128.0\" layoutY=\"50.0\" mnemonicParsing=\"false\" onAction=\"#searchButtonClicked\" text=\"Search\" />\r\n                  <TextField fx:id=\"searchTextField\" layoutX=\"180.0\" layoutY=\"50.0\" prefHeight=\"26.0\" prefWidth=\"262.0\" promptText=\"Enter recipe name\" />\r\n                  <Text layoutX=\"210.0\" layoutY=\"33.0\" strokeType=\"OUTSIDE\" strokeWidth=\"0.0\" text=\"Food Generator\" wrappingWidth=\"135.20339965820312\">\r\n                     <font>\r\n                        <Font name=\"System Bold\" size=\"18.0\" />\r\n                     </font>\r\n                  </Text>\r\n                  <Hyperlink fx:id=\"profileHyperlink\" layoutX=\"14.0\" layoutY=\"26.0\" text=\"Profile\">\r\n                     <font>\r\n                        <Font size=\"13.0\" />\r\n                     </font>\r\n                  </Hyperlink>\r\n                  <Hyperlink fx:id=\"shoppingHyperlink\" layoutX=\"499.0\" layoutY=\"15.0\" text=\"Shopping List\" />\r\n                  <Hyperlink fx:id=\"HomePageHyperlink\" layoutX=\"14.0\" layoutY=\"52.0\" text=\"Home Page\">\r\n                     <font>\r\n                        <Font size=\"13.0\" />\r\n                     </font>\r\n                  </Hyperlink>\r\n               </children>\r\n            </AnchorPane>\r\n         </top>\r\n         <center>\r\n            <AnchorPane prefHeight=\"350.0\" prefWidth=\"580.0\" BorderPane.alignment=\"CENTER\">\r\n               <children>\r\n                  <TextArea fx:id=\"resultTextArea\" layoutX=\"59.0\" layoutY=\"70.0\" prefHeight=\"209.0\" prefWidth=\"303.0\" />\r\n               </children>\r\n            </AnchorPane>\r\n         </center>\r\n         <left>\r\n            <AnchorPane prefHeight=\"350.0\" prefWidth=\"82.0\" BorderPane.alignment=\"CENTER\">\r\n               <children>\r\n                  <Button fx:id=\"RandomFoodButton\" layoutY=\"14.0\" mnemonicParsing=\"false\" onAction=\"#randomFoodButtonClicked\" text=\"Random food\" />\r\n                  <ComboBox fx:id=\"CountryComboBox\" layoutX=\"1.0\" layoutY=\"105.0\" prefHeight=\"26.0\" prefWidth=\"86.0\" promptText=\"Off\" />\r\n                  <Button fx:id=\"IngredientButton\" layoutX=\"-1.0\" layoutY=\"149.0\" mnemonicParsing=\"false\" onAction=\"#IngredientButtonClicked\" text=\"Ingredient\" />\r\n                  <Text id=\"CountryText\" layoutX=\"4.0\" layoutY=\"95.0\" strokeType=\"OUTSIDE\" strokeWidth=\"0.0\" text=\"Select Country\" wrappingWidth=\"87.73675537109375\" />\r\n                  <VBox layoutX=\"-3.0\" layoutY=\"183.0\" prefHeight=\"165.0\" prefWidth=\"92.0\">\r\n                     <children>\r\n                        <TextField fx:id=\"ingredientTextField\" prefHeight=\"26.0\" prefWidth=\"73.0\" />\r\n                        <ListView fx:id=\"ingredientListView\" prefHeight=\"141.0\" prefWidth=\"92.0\" />\r\n                     </children>\r\n                  </VBox>\r\n               </children>\r\n            </AnchorPane>\r\n         </left>\r\n      </BorderPane>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/org/example/foodrecipeplatform/RecipeSearchScreen.fxml b/src/main/resources/org/example/foodrecipeplatform/RecipeSearchScreen.fxml
+--- a/src/main/resources/org/example/foodrecipeplatform/RecipeSearchScreen.fxml	(revision 407be58e229b2a691673e5dc6b7286dddd08dc40)
++++ b/src/main/resources/org/example/foodrecipeplatform/RecipeSearchScreen.fxml	(date 1745343003129)
+@@ -4,17 +4,20 @@
+ <?import javafx.scene.control.ComboBox?>
+ <?import javafx.scene.control.Hyperlink?>
+ <?import javafx.scene.control.ListView?>
++<?import javafx.scene.control.ScrollPane?>
+ <?import javafx.scene.control.TextArea?>
+ <?import javafx.scene.control.TextField?>
+ <?import javafx.scene.layout.AnchorPane?>
+ <?import javafx.scene.layout.BorderPane?>
++<?import javafx.scene.layout.GridPane?>
++<?import javafx.scene.layout.RowConstraints?>
+ <?import javafx.scene.layout.VBox?>
+ <?import javafx.scene.text.Font?>
+ <?import javafx.scene.text.Text?>
+ 
+-<AnchorPane prefHeight="695.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeSearchScreenController">
++<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeSearchScreenController">
+    <children>
+-      <BorderPane layoutX="140.0" layoutY="126.0" prefHeight="441.0" prefWidth="579.0">
++      <BorderPane layoutX="165.0" layoutY="71.0" prefHeight="441.0" prefWidth="579.0">
+          <top>
+             <AnchorPane prefHeight="91.0" prefWidth="579.0" BorderPane.alignment="CENTER">
+                <children>
+@@ -62,6 +65,17 @@
+                </children>
+             </AnchorPane>
+          </left>
++         <bottom>
++            <ScrollPane fx:id="resultScrollPlain" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
++               <content>
++                  <GridPane fx:id="resultGridPlain" prefHeight="198.0" prefWidth="578.0">
++                    <rowConstraints>
++                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
++                    </rowConstraints>
++                  </GridPane>
++               </content>
++            </ScrollPane>
++         </bottom>
+       </BorderPane>
+    </children>
+ </AnchorPane>
+Index: target/classes/org/example/foodrecipeplatform/RecipeSearchScreen.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.Button?>\r\n<?import javafx.scene.control.ComboBox?>\r\n<?import javafx.scene.control.Hyperlink?>\r\n<?import javafx.scene.control.ListView?>\r\n<?import javafx.scene.control.TextArea?>\r\n<?import javafx.scene.control.TextField?>\r\n<?import javafx.scene.layout.AnchorPane?>\r\n<?import javafx.scene.layout.BorderPane?>\r\n<?import javafx.scene.layout.VBox?>\r\n<?import javafx.scene.text.Font?>\r\n<?import javafx.scene.text.Text?>\r\n\r\n<AnchorPane prefHeight=\"695.0\" prefWidth=\"860.0\" xmlns=\"http://javafx.com/javafx/23.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"org.example.foodrecipeplatform.Controller.RecipeSearchScreenController\">\r\n   <children>\r\n      <BorderPane layoutX=\"140.0\" layoutY=\"126.0\" prefHeight=\"441.0\" prefWidth=\"579.0\">\r\n         <top>\r\n            <AnchorPane prefHeight=\"91.0\" prefWidth=\"579.0\" BorderPane.alignment=\"CENTER\">\r\n               <children>\r\n                  <Button fx:id=\"searchButton\" layoutX=\"128.0\" layoutY=\"50.0\" mnemonicParsing=\"false\" onAction=\"#searchButtonClicked\" text=\"Search\" />\r\n                  <TextField fx:id=\"searchTextField\" layoutX=\"180.0\" layoutY=\"50.0\" prefHeight=\"26.0\" prefWidth=\"262.0\" promptText=\"Enter recipe name\" />\r\n                  <Text layoutX=\"210.0\" layoutY=\"33.0\" strokeType=\"OUTSIDE\" strokeWidth=\"0.0\" text=\"Food Generator\" wrappingWidth=\"135.20339965820312\">\r\n                     <font>\r\n                        <Font name=\"System Bold\" size=\"18.0\" />\r\n                     </font>\r\n                  </Text>\r\n                  <Hyperlink fx:id=\"profileHyperlink\" layoutX=\"14.0\" layoutY=\"26.0\" text=\"Profile\">\r\n                     <font>\r\n                        <Font size=\"13.0\" />\r\n                     </font>\r\n                  </Hyperlink>\r\n                  <Hyperlink fx:id=\"shoppingHyperlink\" layoutX=\"499.0\" layoutY=\"15.0\" text=\"Shopping List\" />\r\n                  <Hyperlink fx:id=\"HomePageHyperlink\" layoutX=\"14.0\" layoutY=\"52.0\" text=\"Home Page\">\r\n                     <font>\r\n                        <Font size=\"13.0\" />\r\n                     </font>\r\n                  </Hyperlink>\r\n               </children>\r\n            </AnchorPane>\r\n         </top>\r\n         <center>\r\n            <AnchorPane prefHeight=\"350.0\" prefWidth=\"580.0\" BorderPane.alignment=\"CENTER\">\r\n               <children>\r\n                  <TextArea fx:id=\"resultTextArea\" layoutX=\"59.0\" layoutY=\"70.0\" prefHeight=\"209.0\" prefWidth=\"303.0\" />\r\n               </children>\r\n            </AnchorPane>\r\n         </center>\r\n         <left>\r\n            <AnchorPane prefHeight=\"350.0\" prefWidth=\"82.0\" BorderPane.alignment=\"CENTER\">\r\n               <children>\r\n                  <Button fx:id=\"RandomFoodButton\" layoutY=\"14.0\" mnemonicParsing=\"false\" onAction=\"#randomFoodButtonClicked\" text=\"Random food\" />\r\n                  <ComboBox fx:id=\"CountryComboBox\" layoutX=\"1.0\" layoutY=\"105.0\" prefHeight=\"26.0\" prefWidth=\"86.0\" promptText=\"Off\" />\r\n                  <Button fx:id=\"IngredientButton\" layoutX=\"-1.0\" layoutY=\"149.0\" mnemonicParsing=\"false\" onAction=\"#IngredientButtonClicked\" text=\"Ingredient\" />\r\n                  <Text id=\"CountryText\" layoutX=\"4.0\" layoutY=\"95.0\" strokeType=\"OUTSIDE\" strokeWidth=\"0.0\" text=\"Select Country\" wrappingWidth=\"87.73675537109375\" />\r\n                  <VBox layoutX=\"-3.0\" layoutY=\"183.0\" prefHeight=\"165.0\" prefWidth=\"92.0\">\r\n                     <children>\r\n                        <TextField fx:id=\"ingredientTextField\" prefHeight=\"26.0\" prefWidth=\"73.0\" />\r\n                        <ListView fx:id=\"ingredientListView\" prefHeight=\"141.0\" prefWidth=\"92.0\" />\r\n                     </children>\r\n                  </VBox>\r\n               </children>\r\n            </AnchorPane>\r\n         </left>\r\n      </BorderPane>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/org/example/foodrecipeplatform/RecipeSearchScreen.fxml b/target/classes/org/example/foodrecipeplatform/RecipeSearchScreen.fxml
+--- a/target/classes/org/example/foodrecipeplatform/RecipeSearchScreen.fxml	(revision 407be58e229b2a691673e5dc6b7286dddd08dc40)
++++ b/target/classes/org/example/foodrecipeplatform/RecipeSearchScreen.fxml	(date 1745343003149)
+@@ -4,17 +4,20 @@
+ <?import javafx.scene.control.ComboBox?>
+ <?import javafx.scene.control.Hyperlink?>
+ <?import javafx.scene.control.ListView?>
++<?import javafx.scene.control.ScrollPane?>
+ <?import javafx.scene.control.TextArea?>
+ <?import javafx.scene.control.TextField?>
+ <?import javafx.scene.layout.AnchorPane?>
+ <?import javafx.scene.layout.BorderPane?>
++<?import javafx.scene.layout.GridPane?>
++<?import javafx.scene.layout.RowConstraints?>
+ <?import javafx.scene.layout.VBox?>
+ <?import javafx.scene.text.Font?>
+ <?import javafx.scene.text.Text?>
+ 
+-<AnchorPane prefHeight="695.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeSearchScreenController">
++<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeSearchScreenController">
+    <children>
+-      <BorderPane layoutX="140.0" layoutY="126.0" prefHeight="441.0" prefWidth="579.0">
++      <BorderPane layoutX="165.0" layoutY="71.0" prefHeight="441.0" prefWidth="579.0">
+          <top>
+             <AnchorPane prefHeight="91.0" prefWidth="579.0" BorderPane.alignment="CENTER">
+                <children>
+@@ -62,6 +65,17 @@
+                </children>
+             </AnchorPane>
+          </left>
++         <bottom>
++            <ScrollPane fx:id="resultScrollPlain" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
++               <content>
++                  <GridPane fx:id="resultGridPlain" prefHeight="198.0" prefWidth="578.0">
++                    <rowConstraints>
++                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
++                    </rowConstraints>
++                  </GridPane>
++               </content>
++            </ScrollPane>
++         </bottom>
+       </BorderPane>
+    </children>
+ </AnchorPane>
+Index: src/main/java/org/example/foodrecipeplatform/Controller/RecipeCardController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.foodrecipeplatform.Controller;\r\n\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport org.example.foodrecipeplatform.CardData;\r\n\r\npublic class RecipeCardController {\r\n\r\n    @FXML\r\n    private ImageView img;\r\n\r\n    @FXML\r\n    private Label recipeDesc;\r\n\r\n    @FXML\r\n    private Label recipeName;\r\n\r\n    private CardData cardData;\r\n\r\n    public void setData(CardData cardData) {\r\n        this.cardData = cardData;\r\n        recipeName.setText(cardData.getFoodName());\r\n        Image image = new Image(getClass().getResourceAsStream( cardData.getImageURL()));\r\n        img.setImage(image);\r\n        recipeDesc.setText(cardData.getDescription());\r\n    }\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/foodrecipeplatform/Controller/RecipeCardController.java b/src/main/java/org/example/foodrecipeplatform/Controller/RecipeCardController.java
+--- a/src/main/java/org/example/foodrecipeplatform/Controller/RecipeCardController.java	(revision 407be58e229b2a691673e5dc6b7286dddd08dc40)
++++ b/src/main/java/org/example/foodrecipeplatform/Controller/RecipeCardController.java	(date 1745343003167)
+@@ -22,7 +22,8 @@
+     public void setData(CardData cardData) {
+         this.cardData = cardData;
+         recipeName.setText(cardData.getFoodName());
+-        Image image = new Image(getClass().getResourceAsStream( cardData.getImageURL()));
++        //Image image = new Image(getClass().getResourceAsStream( cardData.getImageURL()));
++        Image image = new Image(cardData.getImageURL());
+         img.setImage(image);
+         recipeDesc.setText(cardData.getDescription());
+     }
