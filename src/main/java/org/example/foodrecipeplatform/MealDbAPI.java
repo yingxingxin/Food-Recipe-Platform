@@ -144,6 +144,75 @@ public class MealDbAPI {
         return ingredientIdMap;
     }
 
+    // for picked recipe screen
+    public List<String> getAllDetails(String mealId) {
+        String endpoint = API_BASE_URL + "lookup.php?i=" + mealId;
+        //List<List<String>> results = new ArrayList<>();
+        List<String> results = new ArrayList<>();
+
+        try {
+            String jsonResponse = makeApiRequest(endpoint);
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(jsonResponse);
+            JSONArray mealsArray = (JSONArray) json.get("meals");
+
+            if (mealsArray == null) {
+                return results;
+            }
+
+            for (Object item : mealsArray)
+            {
+                JSONObject meal = (JSONObject) item;
+                String idMeal = (String) meal.get("idMeal");
+                String mealName = (String) meal.get("strMeal");
+                String mealThumb = (String) meal.get("strMealThumb");
+                String mealInstructions = (String) meal.get("strInstructions");
+
+                StringBuilder strIngredient = new StringBuilder("strIngredient1"); // strIngredient1 has a length of 14, 13 to get last index
+                StringBuilder strMeasure = new StringBuilder("strMeasure1"); // strIngredient1 has a length of 14, 13 to get last index
+
+                String ingredient = (String) meal.get(strIngredient.toString()); // getting the first ingredient
+                String measurements = (String) meal.get(strMeasure.toString()); // getting the first ingredient
+
+                int position = 1;
+                StringBuilder ingredientsWithMeasurements = new StringBuilder();
+
+                // used to loop through ingredients, if 1st ingredient is null, then don't loop
+                boolean keepLooping = ingredient != null;
+                while (keepLooping)
+                {
+                    //System.out.println(position + " " + ingredient + " " + measurements);
+                    ingredientsWithMeasurements.append(ingredient)
+                                               .append(" ")
+                                               .append(measurements)
+                                               .append("\n");
+
+                    position++;
+
+                    strIngredient.delete(13, strIngredient.length()); // deletes the number at the end, resulting in this: strIngredient
+                    strIngredient.append(position);
+
+                    strMeasure.delete(10, strMeasure.length());
+                    strMeasure.append(position);
+
+                    //System.out.println(strIngredient + " " + position);
+
+                    ingredient = (String) meal.get(strIngredient.toString());
+                    measurements = (String) meal.get(strMeasure.toString());
+
+                    if (ingredient.isEmpty())
+                        keepLooping = false;
+                }
+
+                System.out.println(idMeal + "\n" + mealName + "\n" + mealThumb + "\n" + mealInstructions );
+                System.out.println(ingredientsWithMeasurements);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
     // Helper method to fetch meals from search and lookup endpoints
     private List<CardData> fetchMeals(String endpoint) {
         List<CardData> meals = new ArrayList<>();
