@@ -41,6 +41,11 @@ public class RegistrationScreenController
     private TextField Pass2TextField;
 
     @FXML
+    public TextField getDisplayName() {
+        return DisplayName;
+    }
+
+    @FXML
     private TextField DisplayName;
 
     @FXML
@@ -87,7 +92,6 @@ public class RegistrationScreenController
 
         // Need to implement userName Text-field will be (Profiles userName)
 
-
         try
         {
             // Check if Passwords Match
@@ -98,6 +102,7 @@ public class RegistrationScreenController
                         .setEmail(EmailTextField.getText())
                         .setEmailVerified(false)
                         .setPassword(Pass1TextField.getText())
+                        .setPhotoUrl("")
                         .setDisabled(false);
 
 //        UserRecord.CreateRequest request = new UserRecord.CreateRequest();
@@ -166,6 +171,7 @@ public class RegistrationScreenController
         data.put("UserName", EmailTextField.getText());
         data.put("Password", Pass1TextField.getText());
         data.put("DisplayName", DisplayName.getText());
+        data.put("ProfilePicture", "");
 
         //asynchronously write data
         ApiFuture<WriteResult> result = docRef.set(data);

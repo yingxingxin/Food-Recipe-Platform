@@ -29,6 +29,10 @@ public class SignInController
     @FXML
     private Button registerButton;
 
+    public TextField getUsernameTextField() {
+        return usernameTextField;
+    }
+
     @FXML
     private TextField usernameTextField;
 
@@ -149,6 +153,11 @@ public class SignInController
         }
         return false;
     }
+
+
+
+
+
 
     private void switchToPrimary() throws IOException {
         FoodRecipePlatform.setRoot("HomeScreen");
