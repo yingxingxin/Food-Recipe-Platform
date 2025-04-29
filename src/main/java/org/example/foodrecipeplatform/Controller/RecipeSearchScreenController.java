@@ -31,8 +31,8 @@ public class RecipeSearchScreenController
     @FXML
     public ComboBox<String> CountryComboBox;
 
-    @FXML
-    public TextArea resultTextArea;
+    //@FXML
+    //ublic TextArea resultTextArea;
     @FXML
     public TextField searchTextField;
     @FXML
@@ -209,7 +209,7 @@ public class RecipeSearchScreenController
         // checks if input is correct
         if (!checkSearchBar(searchTextField))
         {
-            resultTextArea.clear();
+            //resultTextArea.clear();
 
             // uses the first letter search from api if the input is one letter
             if (searchTextField.getText().length() == 1)
@@ -224,13 +224,13 @@ public class RecipeSearchScreenController
             setGrid(results); // TESTING
             for (CardData cardData : results)
             {
-                resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
+                //resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
             }
 
         }
         else // if input for search bar is incorrect: empty or numbers
         {
-            resultTextArea.setText("Error: Search bar is empty or input contain non-letter values..\n");
+            //resultTextArea.setText("Error: Search bar is empty or input contain non-letter values..\n");
         }
 
     }
@@ -238,12 +238,12 @@ public class RecipeSearchScreenController
     // uses api to get & display a random recipe
     public void randomRecipe()
     {
-        resultTextArea.clear();
+        //resultTextArea.clear();
         List<CardData> results = api.getRandomMeal();
         setGrid(results); // TESTING
         for (CardData cardData : results)
         {
-            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
+            //resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
         }
     }
 
@@ -253,10 +253,10 @@ public class RecipeSearchScreenController
 
         List<CardData> results = api.getMealsByCountry(country);
         setGrid(results); // TESTING
-        resultTextArea.clear();
+        //resultTextArea.clear();
         for (CardData cardData : results)
         {
-            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
+            //resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
         }
     }
 
@@ -265,10 +265,10 @@ public class RecipeSearchScreenController
         System.out.println("ingredientRecipe: " + ingredient);
         List<CardData> results = api.getMealsByIngredient(ingredient);
 
-        resultTextArea.clear();
+        //resultTextArea.clear();
         for (CardData cardData : results)
         {
-            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
+            //resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
         }
 
         //System.out.println(results.get(0).getImageURL());
