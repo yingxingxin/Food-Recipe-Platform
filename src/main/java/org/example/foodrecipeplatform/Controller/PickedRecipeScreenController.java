@@ -21,6 +21,8 @@ public class PickedRecipeScreenController
     public TextArea ingredientTextArea;
     @FXML
     public TextArea instructionsTextArea;
+    @FXML
+    public Text areaText;
 
     @FXML
     public Button backButton;
@@ -33,7 +35,8 @@ public class PickedRecipeScreenController
     @FXML
     void initialize()
     {
-
+        instructionsTextArea.setWrapText(true);
+        // make the back button save the results on the screen?
     }
 
     @FXML
@@ -50,5 +53,20 @@ public class PickedRecipeScreenController
     public void setRecipeImage(Image recipeImage)
     {
         recipeImageView.setImage(recipeImage);
+    }
+
+    public void setArea(String area)
+    {
+        areaText.setText(area);
+    }
+
+    public void setIngredientTextArea(String ingredient)
+    {
+        ingredientTextArea.setText(ingredient);
+    }
+
+    public void setInstructionsTextArea(String instructions)
+    {
+        instructionsTextArea.setText(instructions);
     }
 }

@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="recipeNameText" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.PickedRecipeScreenController">
+<AnchorPane id="recipeNameText" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.PickedRecipeScreenController">
    <children>
       <Label layoutX="236.0" layoutY="118.0" prefHeight="35.0" prefWidth="153.0" text="Recipe name:">
          <font>
@@ -38,8 +38,18 @@
       <ImageView fx:id="recipeImageView" fitHeight="216.0" fitWidth="289.0" layoutX="174.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true" />
       <TextArea fx:id="ingredientTextArea" layoutX="608.0" layoutY="342.0" prefHeight="200.0" prefWidth="200.0" />
       <TextArea fx:id="instructionsTextArea" layoutX="95.0" layoutY="607.0" prefHeight="130.0" prefWidth="508.0" />
-      <Button fx:id="backButton" onAction="#backButtonClicked" layoutX="69.0" layoutY="213.0" mnemonicParsing="false" text="Back" />
+      <Button fx:id="backButton" layoutX="69.0" layoutY="213.0" mnemonicParsing="false" onAction="#backButtonClicked" text="Back" />
       <Button fx:id="favoriteButton" layoutX="165.0" layoutY="213.0" mnemonicParsing="false" text="Add to favorite" />
       <Button fx:id="shoppinglistButton" layoutX="295.0" layoutY="213.0" mnemonicParsing="false" text="Add to shoppinglist" />
+      <Label id="areaLabel" layoutX="235.0" layoutY="153.0" text="Area:">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Text fx:id="areaText" layoutX="300.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="area" wrappingWidth="181.2734375">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

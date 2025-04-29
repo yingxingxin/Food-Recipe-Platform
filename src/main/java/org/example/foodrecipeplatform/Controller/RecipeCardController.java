@@ -14,6 +14,7 @@ import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.MealDbAPI;
 
 import java.io.IOException;
+import java.util.List;
 
 public class RecipeCardController {
     @FXML
@@ -39,7 +40,6 @@ public class RecipeCardController {
         recipeName.setWrapText(true);
         recipeName.setPrefHeight(40);
     }
-
 
     public void setData(CardData cardData) {
         this.cardData = cardData;
@@ -75,10 +75,15 @@ public class RecipeCardController {
         PickedRecipeScreenController pickedScreen = loader.getController();
 
         System.out.println("Card clicked: " + cardData.getFoodName());
-        new MealDbAPI().getAllDetails(cardData.getMealId());
 
-        pickedScreen.setRecipeName(cardData.getFoodName());
-        pickedScreen.setRecipeImage(img.imageProperty().getValue());
+        // result index: 0 = idMeal, 1 = name, 2 = image, 3 = instructions, 4 = area, 5 = ingredients with measurements
+        List<String> result = new MealDbAPI().getAllDetails(cardData.getMealId());
+
+        pickedScreen.setRecipeName(result.get(1));
+        pickedScreen.setRecipeImage(new Image(result.get(2)));
+        pickedScreen.setInstructionsTextArea(result.get(3));
+        pickedScreen.setArea(result.get(4));
+        pickedScreen.setIngredientTextArea(result.get(5));
 
         Scene scene = rootPane.getScene();
         scene.setRoot(root);
