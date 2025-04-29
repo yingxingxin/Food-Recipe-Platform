@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/21"
+      fx:controller="org.example.foodrecipeplatform.Controller.FriendsListController"
+      spacing="15" alignment="CENTER" padding="20" style="-fx-background-color: #f9f9f9;">
+
+    <Label text="Your Friends" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <ListView fx:id="friendsListView" prefHeight="300.0" prefWidth="280.0"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <TextField fx:id="addFriendTextField"
+                   promptText="Enter friend's display name"
+                   prefWidth="200.0"/>
+        <Button fx:id="addFriendButton"
+                text="Add Friend"
+                onAction="#addFriendButtonClicked"/>
+    </HBox>
+
+    <Button fx:id="removeFriendButton"
+            text="Remove Selected Friend"
+            onAction="#removeFriendButtonClicked"
+            prefWidth="220.0"
+    />
+
+    <Label fx:id="messageLabel"
+           text=""
+           style="-fx-text-fill: #d9534f; -fx-font-size: 12px;"
+           wrapText="true"
+           maxWidth="250"/>
+
+</VBox>
