@@ -76,7 +76,7 @@ public class RecipeCardController {
 
         System.out.println("Card clicked: " + cardData.getFoodName());
 
-        // result index: 0 = idMeal, 1 = name, 2 = image, 3 = instructions, 4 = area, 5 = ingredients with measurements
+        // result index: 0 = idMeal, 1 = name, 2 = image, 3 = instructions, 4 = area, 5 = ingredients with measurements, 6 = category
         List<String> result = new MealDbAPI().getAllDetails(cardData.getMealId());
 
         pickedScreen.setRecipeName(result.get(1));
@@ -84,6 +84,7 @@ public class RecipeCardController {
         pickedScreen.setInstructionsTextArea(result.get(3));
         pickedScreen.setArea(result.get(4));
         pickedScreen.setIngredientTextArea(result.get(5));
+        pickedScreen.setCategoryText(result.get(6));
 
         Scene scene = rootPane.getScene();
         scene.setRoot(root);

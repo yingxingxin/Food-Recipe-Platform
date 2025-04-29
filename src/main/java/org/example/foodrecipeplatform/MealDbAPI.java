@@ -166,6 +166,7 @@ public class MealDbAPI {
                 String mealThumb = (String) meal.get("strMealThumb");
                 String mealInstructions = (String) meal.get("strInstructions");
                 String area = (String) meal.get("strArea");
+                String category = (String) meal.get("strCategory");
 
                 // using StringBuilder because it's faster for concatenating
                 StringBuilder strIngredient = new StringBuilder("strIngredient1");
@@ -213,7 +214,7 @@ public class MealDbAPI {
                 //System.out.println(ingredientsWithMeasurements);
 
                 //adding all the list
-                Collections.addAll(results, idMeal, mealName, mealThumb, mealInstructions, area, ingredientsWithMeasurements.toString());
+                Collections.addAll(results, idMeal, mealName, mealThumb, mealInstructions, area, ingredientsWithMeasurements.toString(), category);
             }
         } catch (Exception e) {
             e.printStackTrace();
