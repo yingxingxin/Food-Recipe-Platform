@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -66,9 +65,9 @@
          <center>
             <AnchorPane prefHeight="435.0" prefWidth="884.0" BorderPane.alignment="CENTER">
                <children>
-                  <ScrollPane fx:id="resultScrollPlain" layoutX="-2.0" prefHeight="530.0" prefWidth="828.0">
+                  <ScrollPane fx:id="resultScrollPlain" layoutX="-2.0" prefHeight="610.0" prefWidth="765.0">
                      <content>
-                        <GridPane fx:id="resultGridPlain" prefHeight="530.0" prefWidth="812.0">
+                        <GridPane fx:id="resultGridPlain" prefHeight="530.0" prefWidth="813.0">
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
@@ -95,7 +94,7 @@
             </AnchorPane>
          </left>
          <bottom>
-            <TextArea fx:id="resultTextArea" prefHeight="135.0" prefWidth="1010.0" BorderPane.alignment="CENTER" />
+            <!-- <TextArea fx:id="resultTextArea" prefHeight="135.0" prefWidth="1010.0" BorderPane.alignment="CENTER" />  -->
          </bottom>
       </BorderPane>
    </children>

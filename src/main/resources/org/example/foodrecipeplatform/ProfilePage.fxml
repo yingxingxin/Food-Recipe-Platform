@@ -2,12 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -29,7 +27,8 @@
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#menu_change_Ppic" text="ChangeProfilePicture" />
-                  <MenuItem mnemonicParsing="false" text="ChangeBackgroundPicture" />
+                  <MenuItem mnemonicParsing="false" onAction="#set_LightTheme" text="LightTheme" />
+                  <MenuItem mnemonicParsing="false" onAction="#set_DarkTheme" text="DarkTheme" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Setting">
@@ -119,23 +118,12 @@
                   <Font size="36.0" />
                </font>
             </Text>
-            <Text layoutX="17.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio">
+            <Text layoutX="19.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <TextArea fx:id="Bio_Field" layoutX="17.0" layoutY="431.0" prefHeight="250.0" prefWidth="670.0" promptText="Enter Your Bio !" />
-            <VBox layoutX="13.0" layoutY="119.0" prefHeight="200.0" prefWidth="670.0">
-               <children>
-                  <TextField fx:id="Friends_TextField" prefHeight="50.0" prefWidth="500.0" promptText="Search Users" />
-                  <ListView fx:id="Friends_ListView" prefHeight="164.0" prefWidth="670.0" />
-               </children>
-            </VBox>
-            <Button layoutX="245.0" layoutY="354.0" mnemonicParsing="false" onAction="#friendRequestButton" prefHeight="26.0" prefWidth="200.0" text="Send Friend Request">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
+            <TextArea fx:id="Bio_Field" layoutX="14.0" layoutY="111.0" prefHeight="250.0" prefWidth="670.0" promptText="Enter Your Bio !" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

@@ -85,8 +85,9 @@ public class ProfilePageController {
             for (QueryDocumentSnapshot document : documents) {
                 String profilePicUrl = document.getData().get("ProfilePicture").toString();
 
-                if (profilePicUrl != "" && !profilePicUrl.isEmpty()) {
+                if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
                     ProfilePicture.setImage(new Image(profilePicUrl));
+                    setNewProfilePicture(profilePicUrl);
                 }
 
                 String displayName = document.getData().get("DisplayName").toString();
@@ -100,26 +101,11 @@ public class ProfilePageController {
             e.printStackTrace();
         }
 
+        getNewProfilePicture();
 
 
-        // creating list view for showing ingredients
-        ObservableList<String> myFList = FXCollections.observableArrayList(); //DisplayUserName.getText()
-        FilteredList<String> filtered_Friends = new FilteredList<>(myFList, s -> true);
 
-        Friends_TextField.textProperty().addListener((obs, oldVal, newVal) -> {
-            filtered_Friends.setPredicate(item -> item.toLowerCase().contains(newVal.toLowerCase()));
-        });
 
-        Friends_ListView.setItems(filtered_Friends);
-
-        Friends_ListView.setOnMouseClicked(e -> {
-            String selected = Friends_ListView.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                System.out.println("Selected: " + selected);
-                // Do something with it (e.g. update a label or pass to another scene)
-
-            }
-        });
 
 
         // Screen Switching
@@ -188,12 +174,16 @@ public class ProfilePageController {
         }
     }
 
+    @FXML
+    void set_DarkTheme(ActionEvent event) {
+
+    }
 
     @FXML
-    void friendRequestButton(ActionEvent event) {
-        // method to send the userName to friends list in database
-        // -> friends list screen should then display the friends added in DB
+    void set_LightTheme(ActionEvent event) {
+
     }
+
 
     @FXML
     void report_Issue_Button(ActionEvent event) {
@@ -203,3 +193,37 @@ public class ProfilePageController {
         alert.showAndWait();
     }
 } // End ProfilePageController
+
+
+
+
+
+
+
+
+
+//    @FXML
+//    void friendRequestButton(ActionEvent event) {
+//        // method to send the userName to friends list in database
+//        // -> friends list screen should then display the friends added in DB
+//    }
+
+
+// creating list view for showing ingredients
+//        ObservableList<String> myFList = FXCollections.observableArrayList(); //DisplayUserName.getText()
+//        FilteredList<String> filtered_Friends = new FilteredList<>(myFList, s -> true);
+//
+//        Friends_TextField.textProperty().addListener((obs, oldVal, newVal) -> {
+//            filtered_Friends.setPredicate(item -> item.toLowerCase().contains(newVal.toLowerCase()));
+//        });
+//
+//        Friends_ListView.setItems(filtered_Friends);
+//
+//        Friends_ListView.setOnMouseClicked(e -> {
+//            String selected = Friends_ListView.getSelectionModel().getSelectedItem();
+//            if (selected != null) {
+//                System.out.println("Selected: " + selected);
+//                // Do something with it (e.g. update a label or pass to another scene)
+//
+//            }
+//        });
