@@ -26,17 +26,14 @@ public class RecipeSearchScreenController
     public Button searchButton;
     @FXML
     public Button RandomFoodButton;
-    @FXML
-    public Button IngredientButton;
+
     @FXML
     public ComboBox<String> CountryComboBox;
 
     @FXML
-    public TextArea resultTextArea;
-    @FXML
     public TextField searchTextField;
-    @FXML
-    public TextField IngredientTextField;
+//    @FXML
+//    public TextField IngredientTextField;
 
     @FXML
     public Hyperlink shoppingHyperlink;
@@ -73,7 +70,7 @@ public class RecipeSearchScreenController
         };
         CountryComboBox.getItems().addAll(countries);
 
-        System.out.println(CountryComboBox.getSelectionModel().getSelectedItem());
+        //System.out.println(CountryComboBox.getSelectionModel().getSelectedItem());
 
         CountryComboBox.setOnAction(event ->
         {
@@ -94,7 +91,8 @@ public class RecipeSearchScreenController
 
         // creating list view for showing ingredients
         ObservableList<String> ingredientsList = FXCollections.observableArrayList
-                ("Chicken", "Salmon", "Beef", "Avocado", "Pork", "Asparagus", "Bread", "Broccoli");
+                ("Chicken", "Salmon", "Beef", "Avocado", "Pork", "Asparagus", "Bread", "Broccoli"
+                , "Carrots", "Bacon", "Aubergine", "Lamb", "Kale", "Lettuce", "Lime");
 
         FilteredList<String> filtered = new FilteredList<>(ingredientsList, s -> true);
 
@@ -130,12 +128,6 @@ public class RecipeSearchScreenController
         randomRecipe();
     }
 
-    @FXML
-    void IngredientButtonClicked(ActionEvent event)
-    {
-        System.out.println("Ingredient Button Clicked");
-        ingredientRecipe(IngredientTextField.getText());
-    }
 
     @FXML
     void homePageHyperlinkClicked(ActionEvent event) throws IOException
@@ -192,59 +184,28 @@ public class RecipeSearchScreenController
         }
     }
 
-    // make sure the search bar input is valid: no empty string, numbers
-    // returns false if empty
-    // returns false if string matches letters, false bc it's going to negate it in the if statement in getRecipe method
-    private boolean checkSearchBar(TextField searchTextField)
-    {
-        return searchTextField.getText().isEmpty() || !searchTextField.getText().matches("[a-zA-Z]*");
-    }
-
     // gets recipe based on the search bar which calls the recipe api that searches based on the name
     public void getRecipe()
     {
-        //List<CardData> results = api.getMealsByFirstLetter('a');
         List<CardData> results = null; // = api.searchMealsByName(searchTextField.getText());
 
-        // checks if input is correct
-        if (!checkSearchBar(searchTextField))
+        if (searchTextField.getText().length() == 1)
         {
-            resultTextArea.clear();
-
-            // uses the first letter search from api if the input is one letter
-            if (searchTextField.getText().length() == 1)
-            {
-                results = api.getMealsByFirstLetter(searchTextField.getText().charAt(0));
-            }
-            // uses name search if input is more than one letter
-            else
-            {
-                results = api.searchMealsByName(searchTextField.getText());
-            }
-            setGrid(results); // TESTING
-            for (CardData cardData : results)
-            {
-                resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
-            }
-
+            results = api.getMealsByFirstLetter(searchTextField.getText().charAt(0));
         }
-        else // if input for search bar is incorrect: empty or numbers
+        // uses name search if input is more than one letter
+        else
         {
-            resultTextArea.setText("Error: Search bar is empty or input contain non-letter values..\n");
+            results = api.searchMealsByName(searchTextField.getText());
         }
-
+        setGrid(results); // TESTING
     }
 
     // uses api to get & display a random recipe
     public void randomRecipe()
     {
-        resultTextArea.clear();
         List<CardData> results = api.getRandomMeal();
         setGrid(results); // TESTING
-        for (CardData cardData : results)
-        {
-            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
-        }
     }
 
     public void countryRecipe(String country)
@@ -253,11 +214,6 @@ public class RecipeSearchScreenController
 
         List<CardData> results = api.getMealsByCountry(country);
         setGrid(results); // TESTING
-        resultTextArea.clear();
-        for (CardData cardData : results)
-        {
-            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
-        }
     }
 
     public void ingredientRecipe(String ingredient)
@@ -265,13 +221,6 @@ public class RecipeSearchScreenController
         System.out.println("ingredientRecipe: " + ingredient);
         List<CardData> results = api.getMealsByIngredient(ingredient);
 
-        resultTextArea.clear();
-        for (CardData cardData : results)
-        {
-            resultTextArea.setText(resultTextArea.getText() + cardData.getFoodName() + "\n");
-        }
-
-        //System.out.println(results.get(0).getImageURL());
         setGrid(results); // TESTING
     }
 }
