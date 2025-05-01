@@ -136,10 +136,11 @@ public class SignInController
                     pass = document.getData().get("Password").toString();
 
                     // exits the method and returns true when matching username & password was found
-                    if (username.equals(user) && password.equals(pass))
+                    if (username.equals(user) && password.equals(pass)) {
                         SessionManager.setUserId(document.getId());
-                    System.out.println("Logged in as: " + user + " (Doc ID: " + document.getId() + ")");
+                        System.out.println("Logged in as: " + user + " (Doc ID: " + document.getId() + ")");
                         return true;
+                    }
                 }
             }
             else
