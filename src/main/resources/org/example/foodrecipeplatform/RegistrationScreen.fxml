@@ -46,12 +46,12 @@
       <Text fx:id="messageTextRS" wrappingWidth="300.0" />
 
       <!-- Create Account Button -->
-      <Button fx:id="CreateAccountBttn" mnemonicParsing="false" onAction="#CreateAccountButtonClicked" prefHeight="26.0" prefWidth="160.0" text="Create Account" />
+      <Button mnemonicParsing="false" onAction="#CreateAccountButtonClicked" prefHeight="26.0" prefWidth="160.0" text="Create Account" />
 
       <!-- Already have an account -->
       <VBox alignment="CENTER">
          <Text text="Already have an account ?" />
-         <Hyperlink fx:id="Login_Redirect" onAction="#Login_RedirectBttn" text="Login" underline="true" />
+         <Hyperlink onAction="#Login_RedirectBttn" text="Login" underline="true" />
       </VBox>
 
    </children>

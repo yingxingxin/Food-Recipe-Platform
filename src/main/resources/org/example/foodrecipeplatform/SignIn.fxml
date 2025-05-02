@@ -40,7 +40,7 @@
 
          <Button fx:id="sign_inButton" mnemonicParsing="false" onAction="#sign_inButtonClicked" prefHeight="26.0" prefWidth="120.0" text="sign in" />
 
-         <Hyperlink text="Forgot Password?" underline="true" />
+         <Hyperlink onAction="#Forgot_Password_link" text="Forgot Password?" underline="true" />
 
          <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="26.0" prefWidth="120.0" text="register" />
 
