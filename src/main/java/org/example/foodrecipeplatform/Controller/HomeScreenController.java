@@ -22,7 +22,6 @@ import java.util.ResourceBundle;
 public class HomeScreenController implements Initializable
 {
 
-
     @FXML
     void OpenFoodGeneratorScreen(ActionEvent event) throws IOException {
         FoodRecipePlatform.setRoot("RecipeSearchScreen");
@@ -35,7 +34,6 @@ public class HomeScreenController implements Initializable
     void OpenShoppingListScreen(ActionEvent event) throws IOException {
         FoodRecipePlatform.setRoot("ShoppingScreen");
     }
-
 
     @FXML
     private ScrollPane scroll;
