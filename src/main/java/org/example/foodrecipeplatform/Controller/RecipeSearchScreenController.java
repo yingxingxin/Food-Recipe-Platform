@@ -43,8 +43,8 @@ public class RecipeSearchScreenController
     public TextField searchTextField;
 //    @FXML
 //    public TextField IngredientTextField;
-    @FXML
-    public Hyperlink shoppingHyperlink;
+//    @FXML
+//    public Hyperlink shoppingHyperlink;
     @FXML
     public Hyperlink HomePageHyperlink;
     @FXML

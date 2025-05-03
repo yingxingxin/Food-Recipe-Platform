@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ShoppingScreenController">
+<BorderPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ShoppingScreenController">
     <top>
         <VBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #f5f5f5;" BorderPane.alignment="CENTER">
             <children>
@@ -48,7 +48,7 @@
     <bottom>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" spacing="30.0" style="-fx-background-color: #f5f5f5;" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="backButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #2196F3;" text="Back to Home" textFill="WHITE">
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#back_to_home_Button" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #2196F3;" text="Back to Home" textFill="WHITE">
                     <font>
                         <Font size="16.0" />
                     </font>

@@ -5,17 +5,20 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ProfilePageController">
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ProfilePageController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
@@ -43,9 +46,9 @@
           </Menu>
         </menus>
       </MenuBar>
-      <HBox layoutY="27.0" prefHeight="774.0" prefWidth="300.0">
+      <HBox layoutY="27.0" prefHeight="916.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.5" AnchorPane.topAnchor="27.0">
          <children>
-            <VBox prefHeight="774.0" prefWidth="300.0">
+            <VBox>
                <children>
                   <ImageView fx:id="ProfilePicture" fitHeight="275.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true">
                      <effect>
@@ -62,7 +65,12 @@
                   </TextField>
                   <Button mnemonicParsing="false" onAction="#Update_Photo_URL" prefHeight="26.0" prefWidth="120.0" text="Update Photo URL">
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#Update_Bio_Button" prefHeight="26.0" prefWidth="120.0" text="Update Bio">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Button>
                   <Text fx:id="HomeField" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
@@ -97,7 +105,8 @@
                         <Insets left="5.0" />
                      </VBox.margin>
                   </Text>
-                  <VBox alignment="BOTTOM_LEFT" prefHeight="331.0" prefWidth="300.0">
+                  <VBox prefHeight="320.0" prefWidth="300.0" />
+                  <VBox alignment="BOTTOM_LEFT">
                      <children>
                         <Button mnemonicParsing="false" onAction="#report_Issue_Button" text="Report an Issue !">
                            <VBox.margin>
@@ -118,24 +127,82 @@
             </VBox>
          </children>
       </HBox>
-      <VBox layoutX="305.0" layoutY="27.0" AnchorPane.rightAnchor="1.0">
+      <VBox alignment="TOP_CENTER" layoutX="305.0" layoutY="27.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="775.0" prefWidth="694.0">
+            <HBox alignment="CENTER">
                <children>
-                  <Text fx:id="DisplayUserName" layoutX="271.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UserName" underline="true">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome  ">
                      <font>
                         <Font size="36.0" />
                      </font>
                   </Text>
-                  <Text layoutX="19.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio">
+                  <Text fx:id="DisplayUserName" strokeType="OUTSIDE" strokeWidth="0.0" text="UserName">
+                     <font>
+                        <Font name="System Bold Italic" size="36.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  !">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bio">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <TextArea fx:id="Bio_Field" promptText="Enter Your Bio !">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
+            </TextArea>
+            <HBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Favorited Recipes !">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="Bio_Field" layoutX="14.0" layoutY="111.0" prefHeight="180.0" prefWidth="670.0" promptText="Enter Your Bio !" />
-                  <Button layoutX="14.0" layoutY="300.0" mnemonicParsing="false" onAction="#Update_Bio_Button" prefHeight="26.0" prefWidth="120.0" text="Update Bio" />
                </children>
-            </AnchorPane>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <HBox HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </HBox.margin>
+                     <children>
+                        <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true">
+                           <content>
+                              <GridPane fx:id="grid" alignment="CENTER" prefHeight="560.0" prefWidth="920.0">
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

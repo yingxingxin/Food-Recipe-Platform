@@ -11,19 +11,23 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import org.example.foodrecipeplatform.CardData;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
+import org.example.foodrecipeplatform.MealDbAPI;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -51,9 +55,15 @@ public class ProfilePageController {
     private Text ShoppingList_Field;
     @FXML
     private TextField get_url_txt;
+    @FXML
+    private GridPane grid;
+    @FXML
+    private ScrollPane scroll;
 
-    // To store the retrieved URL
-    private String profilePictureUrl;
+
+    List<CardData> cards = new ArrayList<>();             // cards lists -> array
+    MealDbAPI api;                                        // Meal DB API
+    private String profilePictureUrl;                     // To store the retrieved URL
 
     /**
      * Helper Method to call Alert
@@ -89,6 +99,20 @@ public class ProfilePageController {
             e.printStackTrace();
             System.out.println(e);
         } // End try/catch block
+
+        api = new MealDbAPI();
+        List<CardData> Favorite_results = api.getRandomMeal() ;
+
+
+        // Loop for amount of random meals to show on grid
+//        for (int i = 0; i < 8; i++) {
+//            List<CardData> result = api.getRandomMeal();
+//            if (result != null && !result.isEmpty()) {
+//                Favorite_results.add(result.get(0)); // assuming it returns a list with one element
+//            }
+//        }
+//        setGrid(Favorite_results);
+
 
 
         // Screen Switching methods
@@ -313,6 +337,48 @@ public class ProfilePageController {
             e.printStackTrace();
         }
     } // End setImage_DB method
+
+
+    private void setGrid(List<CardData> inputCardList) {
+        // Method to Display Card data on grin in scroll pane
+        grid.getChildren().clear();
+        cards = inputCardList;
+
+        int row = 1;
+        int col = 0;
+
+        try {
+            for (int i = 0; i < cards.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                URL fxmlPath = getClass().getResource("/org/example/foodrecipeplatform/RecipeCard.fxml");
+                // System.out.println("FXML path = " + fxmlPath); // Debug
+
+                if (fxmlPath == null) {
+                    System.out.println("Could not find RecipeCard.fxml");
+                    continue;
+                }
+
+                fxmlLoader.setLocation(fxmlPath);
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                RecipeCardController recipeCardController = fxmlLoader.getController();
+                recipeCardController.setData(cards.get(i));
+
+                if (col == 3) {
+                    col = 0;
+                    row++;
+                }
+                grid.add(anchorPane, col++, row);
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to load RecipeCard.fxml");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("General error in initialize");
+            e.printStackTrace();
+        }
+    } // End setGrid method
 
 
 
