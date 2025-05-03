@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -10,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ShoppingScreenController">
+<BorderPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ShoppingScreenController">
     <top>
-        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #f5f5f5;" BorderPane.alignment="CENTER">
+        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
                 <Label text="Your Shopping List" textAlignment="CENTER">
                     <font>
@@ -28,6 +29,10 @@
             <padding>
                 <Insets bottom="15.0" top="15.0" />
             </padding>
+         <stylesheets>
+            <URL value="@../../../css/lightTheme.css" />
+            <URL value="@../../../css/darkTheme.css" />
+         </stylesheets>
         </VBox>
     </top>
     <center>
@@ -46,9 +51,9 @@
         </TableView>
     </center>
     <bottom>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" spacing="30.0" style="-fx-background-color: #f5f5f5;" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" spacing="30.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="backButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #2196F3;" text="Back to Home" textFill="WHITE">
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#back_to_home_Button" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #2196F3;" text="Back to Home" textFill="WHITE">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -67,6 +72,10 @@
             <padding>
                 <Insets bottom="15.0" top="15.0" />
             </padding>
+         <stylesheets>
+            <URL value="@../../../css/darkTheme.css" />
+            <URL value="@../../../css/lightTheme.css" />
+         </stylesheets>
         </HBox>
     </bottom>
 </BorderPane>

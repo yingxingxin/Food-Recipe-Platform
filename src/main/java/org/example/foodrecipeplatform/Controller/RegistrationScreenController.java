@@ -16,10 +16,7 @@ import javafx.scene.text.Text;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class RegistrationScreenController {
@@ -160,6 +157,7 @@ public class RegistrationScreenController {
         data.put("DisplayName", DisplayName.getText());
         data.put("ProfilePicture", defauly_PFP_URL);
         data.put("Bio", "");
+        data.put("Friends", new ArrayList<String>());
 
         //asynchronously write data
         ApiFuture<WriteResult> result = docRef.set(data);

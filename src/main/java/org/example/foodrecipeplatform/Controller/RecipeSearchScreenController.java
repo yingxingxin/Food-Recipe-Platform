@@ -1,5 +1,8 @@
 package org.example.foodrecipeplatform.Controller;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -8,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import org.example.foodrecipeplatform.CardData;
@@ -19,45 +24,110 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
+/**
+ * RecipeSearchScreenController -> Class to search for recipes within the food API DB
+ */
 public class RecipeSearchScreenController
 {
     @FXML
     public Button searchButton;
     @FXML
     public Button RandomFoodButton;
-
+    @FXML
+    private ImageView Profile_photo;
     @FXML
     public ComboBox<String> CountryComboBox;
-
     @FXML
     public TextField searchTextField;
 //    @FXML
 //    public TextField IngredientTextField;
-
-    @FXML
-    public Hyperlink shoppingHyperlink;
+//    @FXML
+//    public Hyperlink shoppingHyperlink;
     @FXML
     public Hyperlink HomePageHyperlink;
-    @FXML
-    public Hyperlink profileHyperlink;
-
     @FXML
     public TextField ingredientTextField;
     @FXML
     public ListView<String> ingredientListView;
-
     @FXML
     public ScrollPane resultScrollPlain;
     @FXML
     public GridPane resultGridPlain;
+
+
     List<CardData> cards = new ArrayList<>();
 
+    private String profilePictureUrl ;
+
     MealDbAPI api;
+
+    /**
+     * Helper Method to call Alert
+     * @param title -> title of alert
+     * @param header -> header of alert
+     * @param content -> content body of alert
+     */
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    } // End showAlert method
+
+    /**
+     * getImage_DB ->  method to get profile pic from db -> image is set on profile page screen
+     */
+    void getImage_DB() {
+        String userId = SessionManager.getUserId();
+        System.out.println("User ID in getImage_DB: " + userId); // Debug
+
+        profilePictureUrl = null;
+
+        try {
+            DocumentReference userDocRef = FoodRecipePlatform.fstore
+                    .collection("Users")
+                    .document(userId);
+
+            ApiFuture<DocumentSnapshot> future = userDocRef.get();
+            DocumentSnapshot document = future.get();
+
+            if (document.exists()) {
+                String photoUrl = document.getString("ProfilePicture");
+                System.out.println("Retrieved photoUrl from Firebase: " + photoUrl); // Debug
+
+                if (photoUrl != null && !photoUrl.isEmpty()) {
+                    profilePictureUrl = photoUrl;
+                    try {
+                        Image image = new Image(profilePictureUrl);
+                        Profile_photo.setImage(image);
+                        System.out.println("Image set successfully.");
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Error creating Image: " + e.getMessage());
+                        showAlert("Error", "Invalid Profile Picture URL", "The URL retrieved is not valid.");
+                    }
+                } else {
+                    showAlert("Warning", "Profile Picture URL is empty or missing.", null);
+                }
+            } else {
+                showAlert("Error", "User document not found.", null);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            showAlert("Error", "Failed to load profile picture URL from database.", e.getMessage());
+            e.printStackTrace();
+        }
+    } // End getImage_DB method
+
 
     @FXML
     void initialize() // clean up initialize method by putting stuff below into a method
     {
+        // Load profile photo -> from DB
+        getImage_DB();
+
+        // initialize new API-DB
         api = new MealDbAPI();
 
         // adding countries to the country combobox button
@@ -142,6 +212,11 @@ public class RecipeSearchScreenController
     }
 
     @FXML
+    void profileHyperlink(ActionEvent event) throws IOException {
+        FoodRecipePlatform.setRoot("ProfilePage");
+    } // End OpenProfileScreen
+
+    @FXML
     private void setGrid(List<CardData> inputCardList) {
         // testing grid
         resultGridPlain.getChildren().clear();
@@ -223,4 +298,4 @@ public class RecipeSearchScreenController
 
         setGrid(results); // TESTING
     }
-}
+} // End RecipeSearchScreenController class

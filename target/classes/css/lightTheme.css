@@ -1,0 +1,185 @@
+/* Root and base colors */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #fff8e1; /* Soft cream background */
+}
+
+/* BUTTONS */
+.button {
+    -fx-background-color: #a73;
+    -fx-text-fill: #000000;
+    -fx-font-size: 15px;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    /* DO NOT force size */
+}
+
+/* Optional large button style */
+.large-button {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+}
+
+/* TABLE VIEW */
+.table-view {
+    -fx-border-color: #29292D;
+    -fx-background-color: white;
+    -fx-table-cell-border-color: #ccc;
+    -fx-padding: 5;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color: #999;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .cell {
+    -fx-cell-size: 35;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #f5f5f5;
+}
+
+.table-view:focused .table-row-cell:selected .table-cell {
+    -fx-background-color: lightblue;
+    -fx-text-fill: grey;
+}
+
+/* SCROLL BARS (TableView or otherwise) */
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: derive(#FFFFFF, 80%);
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: derive(#FFFFFF, 90%);
+    -fx-background-insets: 1, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: derive(#FFFFFF, 90%);
+    -fx-background-insets: 1, 0, 1;
+    -fx-background-radius: 2em;
+
+}
+
+/* HYPERLINK */
+.hyperlink {
+    -fx-text-fill: #841;           /* Warm dark red-brown link color */
+    -fx-underline: true;
+    -fx-font-size: 18px;
+    -fx-font-family: "Arial";
+    -fx-cursor: hand;
+    -fx-effect: dropshadow;
+    -fx-animated: true;
+    -fx-font-style: Bold;
+    -fx-border-color: transparent; /* Remove default borders */
+    -fx-background-color: transparent;
+    -fx-padding: 4 8;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #a73;           /* Lighter orange-brown on hover */
+}
+
+.hyperlink:visited {
+    -fx-text-fill: #5c3a2e;        /* Slightly darker once visited */
+}
+
+
+/* HBox */
+.hbox {
+    -fx-background-color: transparent; /* Inherit root background unless overridden */
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+
+/* VBox */
+.vbox {
+    -fx-background-color: transparent; /* Inherit root background unless overridden */
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+
+
+/* Main BorderPane background */
+.border-pane {
+    -fx-background-color: #fff8e1; /* Soft elegant cream */
+}
+
+/* Main BorderPane background */
+.border-pane > .vbox {
+    -fx-background-color: #fff8e1; /* Soft elegant cream */
+}
+
+/* Main BorderPane background */
+.border-pane > .hbox {
+    -fx-background-color: #fff8e1; /* Soft elegant cream */
+}
+
+/* TOP region (e.g., header bar) */
+.border-pane > .top {
+    -fx-background-color: #a73;
+    -fx-padding: 10;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 0 0 1 0; /* Border at bottom only */
+}
+
+/* BOTTOM region (e.g., buttons) */
+.border-pane > .bottom {
+    -fx-background-color: #999; /* Muted gray */
+    -fx-padding: 10;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 1 0 0 0; /* Border at top only */
+}
+
+/* LEFT region (e.g., sidebar links) */
+.border-pane > .left {
+    -fx-background-color: #a73;
+    -fx-padding: 10;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 0 1 0 0; /* Right border only */
+}
+
+/* RIGHT region (e.g., info panel) */
+.border-pane > .right {
+    -fx-background-color: #a73;
+    -fx-padding: 10;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 0 0 0 1; /* Left border only */
+}
+
+/* CENTER region (main content area) */
+.border-pane > .center {
+    -fx-background-color: #fff8e1; /* Match the background */
+    -fx-padding: 15;
+}
