@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
@@ -54,8 +55,10 @@ public class HomeScreenController implements Initializable {
     @FXML
     private ImageView homeScreen_pfp;
 
-    // To store the retrieved URL
-    private String profilePictureUrl;
+
+    List<CardData> cards = new ArrayList<>();             // cards lists -> array
+    MealDbAPI api;                                        // Meal DB API
+    private String profilePictureUrl;                     // To store the retrieved URL
 
     /**
      * Helper Method to call Alert
@@ -71,44 +74,14 @@ public class HomeScreenController implements Initializable {
         alert.showAndWait();
     } // End showAlert method
 
-
-    // example implement - hard code
-    List<CardData> cards = new ArrayList<>();
-
-
-    private List<CardData> getData(){
-        List<CardData> cards = new ArrayList<>();
-        CardData card;
-
-        for (int i=0;i<16;i++){
-            // Default Card will be a Burger for now will turn into empty slot soon
-            // ADD to Homepage should be the way the cards which are in the favorite screen should be added
-            card = new CardData("Burger",
-                    "This the New Krabby Patty Burger Recipe",
-                    "/images/image.png");
-            cards.add(card);
-        }
-        return cards;
-    } // End getData method for List<CardData>
-
-
     /**
-     * initialize -> method for init
-     * @param location
-     * The location used to resolve relative paths for the root object, or
-     * {@code null} if the location is not known.
-     *
-     * @param resources
-     * The resources used to localize the root object, or {@code null} if
-     * the root object was not localized.
+     * setGrid => Method to set up the grid and insert cards into grid
+     * @param inputCardList -> takes in a list of cards to display onto grid
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // method to get profile photo from database
-        getImage_DB();
-
+    private void setGrid(List<CardData> inputCardList) {
+        // Method to Display Card data on grin in scroll pane
         grid.getChildren().clear();
-        cards.addAll(getData());
+        cards = inputCardList;
 
         int row = 1;
         int col = 0;
@@ -134,10 +107,8 @@ public class HomeScreenController implements Initializable {
                     col = 0;
                     row++;
                 }
-
                 grid.add(anchorPane, col++, row);
                 GridPane.setMargin(anchorPane, new Insets(10));
-
             }
         } catch (IOException e) {
             System.out.println("Failed to load RecipeCard.fxml");
@@ -146,6 +117,37 @@ public class HomeScreenController implements Initializable {
             System.out.println("General error in initialize");
             e.printStackTrace();
         }
+    } // End setGrid method
+
+
+    /**
+     * initialize -> method for init
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        // method to get profile photo from database
+        getImage_DB();
+
+        api = new MealDbAPI();
+        List<CardData> rand_results = api.getRandomMeal() ;
+
+        // Loop for amount of random meals to show on grid
+        for (int i = 0; i < 8; i++) {
+            List<CardData> result = api.getRandomMeal();
+            if (result != null && !result.isEmpty()) {
+                rand_results.add(result.get(0)); // assuming it returns a list with one element
+            }
+        }
+        setGrid(rand_results);
+
     } // End initialize method
 
 
@@ -194,21 +196,4 @@ public class HomeScreenController implements Initializable {
 
 } // End HomeScreenController class
 
-
-
-
-//implement needed
-        /*
-    private List<CardData> loadCards(String fileName){
-        List<CardData> cards = new ArrayList<>();
-        try {
-            // needs implementation
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return cards;
-    }
-
-         */
 

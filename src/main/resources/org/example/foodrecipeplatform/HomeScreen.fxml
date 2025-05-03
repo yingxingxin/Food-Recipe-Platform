@@ -24,10 +24,10 @@
                         <ImageView fx:id="homeScreen_pfp" fitHeight="60.0" fitWidth="60.0" layoutX="11.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
                         <Hyperlink layoutX="15.0" layoutY="67.0" onAction="#OpenProfileScreen" text="Profile">
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Hyperlink>
-                        <Text layoutX="344.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorited Recipes">
+                        <Text layoutX="344.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Screen !">
                            <font>
                               <Font name="System Bold Italic" size="48.0" />
                            </font>
@@ -39,7 +39,7 @@
                         </ImageView>
                         <Hyperlink layoutX="878.0" layoutY="67.0" onAction="#OpenShoppingListScreen" text="Shopping List">
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Hyperlink>
                         <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="428.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
@@ -49,9 +49,14 @@
                         </ImageView>
                         <Hyperlink layoutX="477.0" layoutY="108.0" onAction="#OpenFoodGeneratorScreen" text="Food Generator">
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Hyperlink>
+                        <Text layoutX="11.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Heres some new Recipes we think youll love : " wrappingWidth="275.21630859375">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                </children>
