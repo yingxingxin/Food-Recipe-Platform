@@ -1,44 +1,75 @@
 package org.example.foodrecipeplatform.Controller;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.stage.FileChooser;
 import org.example.foodrecipeplatform.CardData;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.MealDbAPI;
+import org.example.foodrecipeplatform.Model.ShoppingItem;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
-public class HomeScreenController implements Initializable
-{
+/**
+ * HomeScreenController -> class to display Home_screen screen
+ */
+public class HomeScreenController implements Initializable {
 
+    // Methods to switch screens !
     @FXML
     void OpenFoodGeneratorScreen(ActionEvent event) throws IOException {
         FoodRecipePlatform.setRoot("RecipeSearchScreen");
-    }
+    } // End OpenFoodGeneratorScreen
     @FXML
     void OpenProfileScreen(ActionEvent event) throws IOException {
         FoodRecipePlatform.setRoot("ProfilePage");
-    }
+    } // End OpenProfileScreen
     @FXML
     void OpenShoppingListScreen(ActionEvent event) throws IOException {
         FoodRecipePlatform.setRoot("ShoppingScreen");
-    }
+    } // End OpenShoppingListScreen
 
     @FXML
     private ScrollPane scroll;
     @FXML
     private GridPane grid;
+    @FXML
+    private ImageView homeScreen_pfp;
+
+    // To store the retrieved URL
+    private String profilePictureUrl;
+
+    /**
+     * Helper Method to call Alert
+     * @param title -> title of alert
+     * @param header -> header of alert
+     * @param content -> content body of alert
+     */
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    } // End showAlert method
 
 
     // example implement - hard code
@@ -58,10 +89,11 @@ public class HomeScreenController implements Initializable
             cards.add(card);
         }
         return cards;
-    }
+    } // End getData method for List<CardData>
+
 
     /**
-     *
+     * initialize -> method for init
      * @param location
      * The location used to resolve relative paths for the root object, or
      * {@code null} if the location is not known.
@@ -72,6 +104,9 @@ public class HomeScreenController implements Initializable
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // method to get profile photo from database
+        getImage_DB();
+
         grid.getChildren().clear();
         cards.addAll(getData());
 
@@ -103,7 +138,6 @@ public class HomeScreenController implements Initializable
                 grid.add(anchorPane, col++, row);
                 GridPane.setMargin(anchorPane, new Insets(10));
 
-
             }
         } catch (IOException e) {
             System.out.println("Failed to load RecipeCard.fxml");
@@ -112,14 +146,53 @@ public class HomeScreenController implements Initializable
             System.out.println("General error in initialize");
             e.printStackTrace();
         }
-    }
+    } // End initialize method
 
 
+    /**
+     * getImage_DB ->  method to get profile pic from db -> image is set on profile page screen
+     */
+    void getImage_DB() {
+        String userId = SessionManager.getUserId();
+        System.out.println("User ID in getImage_DB: " + userId); // Debug
 
+        profilePictureUrl = null;
 
+        try {
+            DocumentReference userDocRef = FoodRecipePlatform.fstore
+                    .collection("Users")
+                    .document(userId);
 
+            ApiFuture<DocumentSnapshot> future = userDocRef.get();
+            DocumentSnapshot document = future.get();
 
-}
+            if (document.exists()) {
+                String photoUrl = document.getString("ProfilePicture");
+                System.out.println("Retrieved photoUrl from Firebase: " + photoUrl); // Debug
+
+                if (photoUrl != null && !photoUrl.isEmpty()) {
+                    profilePictureUrl = photoUrl;
+                    try {
+                        Image image = new Image(profilePictureUrl);
+                        homeScreen_pfp.setImage(image);
+                        System.out.println("Image set successfully.");
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Error creating Image: " + e.getMessage());
+                        showAlert("Error", "Invalid Profile Picture URL", "The URL retrieved is not valid.");
+                    }
+                } else {
+                    showAlert("Warning", "Profile Picture URL is empty or missing.", null);
+                }
+            } else {
+                showAlert("Error", "User document not found.", null);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            showAlert("Error", "Failed to load profile picture URL from database.", e.getMessage());
+            e.printStackTrace();
+        }
+    } // End getImage_DB method
+
+} // End HomeScreenController class
 
 
 
@@ -138,3 +211,4 @@ public class HomeScreenController implements Initializable
     }
 
          */
+

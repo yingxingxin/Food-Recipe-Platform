@@ -21,11 +21,7 @@
                <children>
                   <AnchorPane HBox.hgrow="ALWAYS">
                      <children>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="11.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../images/download.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="homeScreen_pfp" fitHeight="60.0" fitWidth="60.0" layoutX="11.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
                         <Hyperlink layoutX="15.0" layoutY="67.0" onAction="#OpenProfileScreen" text="Profile">
                            <font>
                               <Font size="16.0" />
