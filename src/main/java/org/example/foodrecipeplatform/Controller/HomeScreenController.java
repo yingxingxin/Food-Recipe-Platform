@@ -195,5 +195,3 @@ public class HomeScreenController implements Initializable {
     } // End getImage_DB method
 
 } // End HomeScreenController class
-
-
