@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.example.foodrecipeplatform.CardData;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.MealDbAPI;
@@ -59,6 +61,8 @@ public class ProfilePageController {
     private GridPane grid;
     @FXML
     private ScrollPane scroll;
+    @FXML
+    private MenuBar menuBar;
 
 
     List<CardData> cards = new ArrayList<>();             // cards lists -> array
@@ -397,12 +401,31 @@ public class ProfilePageController {
     } // End Update_Photo_URL
     @FXML
     void set_DarkTheme(ActionEvent event) {
-
+        try {
+            Stage stage = (Stage) menuBar.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(getClass().getResource("/css/darkTheme.css").toExternalForm());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     } // End set_DarkTheme
     @FXML
     void set_LightTheme(ActionEvent event) {
+        try {
+            Scene scene = menuBar.getScene();
+            Stage stage = (Stage) scene.getWindow();
+            stage.getScene().getStylesheets().clear();
+            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+            System.out.println("light " + scene.getStylesheets());
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     } // End set_LightTheme
+
     @FXML
     void report_Issue_Button(ActionEvent event) {
         showAlert("Report Issue", "Report Issue", "Sorry at this time we are not able to take an issue report !");
