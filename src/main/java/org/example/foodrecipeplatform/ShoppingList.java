@@ -3,11 +3,18 @@ package org.example.foodrecipeplatform;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import org.example.foodrecipeplatform.Controller.SessionManager;
 import org.example.foodrecipeplatform.Model.ShoppingItem;
+
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * ShoppingList -> Class to add food cards recipes items -> to personalized list
+ */
 public class ShoppingList {
     private final Map<String, ShoppingItem> shoppingList = new HashMap<>();
     private final MealDbAPI mealDbAPI = new MealDbAPI();
@@ -110,4 +117,10 @@ public class ShoppingList {
         }
     }
 
-}
+
+    @FXML
+    void back_to_home_Button(ActionEvent event) throws IOException {
+        FoodRecipePlatform.setRoot("HomeScreen");
+    } // End back_to_home_Button
+
+} // End ShoppingList class
