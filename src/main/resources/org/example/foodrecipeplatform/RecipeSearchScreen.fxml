@@ -60,6 +60,11 @@
                         <Image url="@../../../images/basket-cart-icon-27.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="136.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/home.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </top>
