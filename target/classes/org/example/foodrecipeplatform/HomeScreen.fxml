@@ -57,7 +57,7 @@
                                           </Text>
                                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../images/png-clipart-paper-box-computer-icons-symbol-random-icons-miscellaneous-angle.png" />
+                                                <Image url="@../../../images/png-clipart-paper-box-computer-icons-symbol-random-icons-miscellaneous-angle_copy-removebg-preview.png" />
                                              </image>
                                           </ImageView>
                                           <Hyperlink onAction="#OpenFoodGeneratorScreen" text="Food Generator">
