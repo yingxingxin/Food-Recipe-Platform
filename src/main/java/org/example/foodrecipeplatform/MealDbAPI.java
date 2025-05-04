@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -142,6 +140,86 @@ public class MealDbAPI {
         }
 
         return ingredientIdMap;
+    }
+
+    // For picked recipe screen. Gets id, name, area, instructions, ingredients, & image. Stores results in a list
+    public List<String> getAllDetails(String mealId) {
+        String endpoint = API_BASE_URL + "lookup.php?i=" + mealId;
+
+        List<String> results = new ArrayList<>();
+
+        try {
+            String jsonResponse = makeApiRequest(endpoint);
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(jsonResponse);
+            JSONArray mealsArray = (JSONArray) json.get("meals");
+
+            if (mealsArray == null) {
+                return results;
+            }
+
+            for (Object item : mealsArray)
+            {
+                JSONObject meal = (JSONObject) item;
+                String idMeal = (String) meal.get("idMeal");
+                String mealName = (String) meal.get("strMeal");
+                String mealThumb = (String) meal.get("strMealThumb");
+                String mealInstructions = (String) meal.get("strInstructions");
+                String area = (String) meal.get("strArea");
+                String category = (String) meal.get("strCategory");
+
+                // using StringBuilder because it's faster for concatenating
+                StringBuilder strIngredient = new StringBuilder("strIngredient1");
+                StringBuilder strMeasure = new StringBuilder("strMeasure1");
+
+                String ingredient = (String) meal.get(strIngredient.toString()); // getting the first ingredient
+                String measurements = (String) meal.get(strMeasure.toString()); // getting the first measurement
+
+                // position is used to get all ingredients and measurements
+                int position = 1;
+                // ingredientsWithMeasurements is used to store the results
+                StringBuilder ingredientsWithMeasurements = new StringBuilder();
+
+                // used to loop through ingredients, if 1st ingredient is null, then don't loop
+                boolean keepLooping = ingredient != null;
+                while (keepLooping)
+                {
+                    //System.out.println(position + " " + ingredient + " " + measurements);
+                    // adding ingredient & measurements
+                    ingredientsWithMeasurements.append(ingredient)
+                                               .append(" ")
+                                               .append(measurements);
+
+                    position++;
+
+                    strIngredient.delete(13, strIngredient.length()); // deletes the number at the end, resulting in this: strIngredient
+                    strIngredient.append(position); // add position to the end: strIngredient(position)
+
+                    strMeasure.delete(10, strMeasure.length()); // deletes the number at the end, resulting in this: strMeasure
+                    strMeasure.append(position); // add position to the end strMeasure(position)
+
+                    //System.out.println(strIngredient + " " + position);
+
+                    ingredient = (String) meal.get(strIngredient.toString());
+                    measurements = (String) meal.get(strMeasure.toString());
+
+                    // exits loop when there is no ingredients left
+                    if (ingredient == null || ingredient.equals(""))
+                        keepLooping = false;
+                    else
+                        ingredientsWithMeasurements.append("\n");
+                }
+
+                //System.out.println(idMeal + "\n" + mealName + "\n" + mealThumb + "\n" + mealInstructions + "\n" + area);
+                //System.out.println(ingredientsWithMeasurements);
+
+                //adding all the list
+                Collections.addAll(results, idMeal, mealName, mealThumb, mealInstructions, area, ingredientsWithMeasurements.toString(), category);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
     }
 
     // Helper method to fetch meals from search and lookup endpoints
