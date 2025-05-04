@@ -82,10 +82,9 @@ public class PickedRecipeScreenController
         System.out.println("Add to shopping list button clicked");
 
         if (currentMealId != null && !currentMealId.isEmpty()) {
-            // Add the current recipe's ingredients to the shopping list
+
             shoppingList.addIngredients(currentMealId);
 
-            // Give feedback to the user
             shoppinglistButton.setText("Added to Shopping List ✓");
 
             new Thread(() -> {
