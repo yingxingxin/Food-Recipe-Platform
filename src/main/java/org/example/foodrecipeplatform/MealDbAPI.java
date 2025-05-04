@@ -12,6 +12,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * MealDbAPI -> Class for the Meal Data Base Api
+ */
 public class MealDbAPI {
 
     private static final String API_BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
