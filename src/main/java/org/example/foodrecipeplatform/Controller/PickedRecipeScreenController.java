@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
+import org.example.foodrecipeplatform.ShoppingList;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -47,6 +48,8 @@ public class PickedRecipeScreenController
     private ImageView UserProfilePhoto;
 
     private String profilePictureUrl;
+    private String currentMealId;
+    private ShoppingList shoppingList;
 
     /**
      * Helper Method to call Alert
@@ -71,6 +74,12 @@ public class PickedRecipeScreenController
         instructionsTextArea.setWrapText(true);
         ingredientTextArea.setWrapText(true);
         // make the back button save the results on the screen?
+
+        shoppingList = new ShoppingList();
+    }
+
+    public void setCurrentMealId(String mealId) {
+        this.currentMealId = mealId;
     }
 
     @FXML
@@ -88,7 +97,27 @@ public class PickedRecipeScreenController
     @FXML
     void shoppinglistButtonClicked(ActionEvent event) throws IOException
     {
-        System.out.println("shoppinglist button clicked");
+        System.out.println("Add to shopping list button clicked");
+
+        if (currentMealId != null && !currentMealId.isEmpty()) {
+
+            shoppingList.addIngredients(currentMealId);
+
+            shoppinglistButton.setText("Added to Shopping List ✓");
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    javafx.application.Platform.runLater(() ->
+                            shoppinglistButton.setText("Add to Shopping List"));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+
+        } else {
+            System.out.println("No meal ID available to add to shopping list");
+        }
     }
 
     @FXML
