@@ -1,6 +1,7 @@
 package org.example.foodrecipeplatform.Controller;
 
 import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import javafx.event.ActionEvent;
@@ -80,9 +81,41 @@ public class PickedRecipeScreenController
     }
 
     @FXML
-    void favoriteButtonClicked(ActionEvent event) throws IOException
-    {
+    void favoriteButtonClicked(ActionEvent event) throws IOException, ExecutionException, InterruptedException {
         System.out.println("favorite button clicked");
+
+        String userId = SessionManager.getUserId();
+
+        CollectionReference favoritedFoodListRef = FoodRecipePlatform.fstore
+                .collection("Users")
+                .document(userId)
+                .collection("favoritedFoods");
+
+
+        // code to save food ( api.getMeals ) -> get the meal id save into db
+
+
+
+
+
+        // call the reference into the profile page
+        // method to unsaved the favorite food
+
+
+
+
+//        if (snapshot.exists()) {
+//            String Bio_in_db = snapshot.getString("Bio");
+//            if (Bio_in_db != null && !Bio_in_db.isEmpty()) {
+//                Bio_Field.clear();
+//                Bio_Field.setText(Bio_in_db); // bio field -> text area in UI -> input from db
+//            } else {
+//                Bio_Field.setText("Please enter your Bio");
+//            }
+//        } else {
+//            DisplayUserName.setText("Bio not found");
+//        }
+
     }
 
     @FXML
