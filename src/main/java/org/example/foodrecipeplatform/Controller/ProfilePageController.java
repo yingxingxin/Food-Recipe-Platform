@@ -2,13 +2,6 @@ package org.example.foodrecipeplatform.Controller;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.UserRecord;
-import com.google.firebase.auth.internal.GetAccountInfoResponse;
-import com.google.firebase.remoteconfig.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -95,29 +88,15 @@ public class ProfilePageController {
     } // End load_on_start method
 
     @FXML
-    public void initialize() {
+    public void initialize() throws ExecutionException, InterruptedException {
         // try/catch block to Load load_on_start method
         try {
             load_on_start();
+            displayFavoriteCards();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e);
         } // End try/catch block
-
-        api = new MealDbAPI();
-        List<CardData> Favorite_results = api.getRandomMeal() ;
-
-
-        // Loop for amount of random meals to show on grid
-//        for (int i = 0; i < 8; i++) {
-//            List<CardData> result = api.getRandomMeal();
-//            if (result != null && !result.isEmpty()) {
-//                Favorite_results.add(result.get(0)); // assuming it returns a list with one element
-//            }
-//        }
-//        setGrid(Favorite_results);
-
-
 
         // Screen Switching methods
         HomeField.setOnMouseClicked(event -> {
@@ -157,7 +136,6 @@ public class ProfilePageController {
         }) ;
         // End Screen Switching
     } // End initialize
-
 
     /**
      * changeProfPic -> Method to get file from the file loader and input it into DB
@@ -342,11 +320,70 @@ public class ProfilePageController {
         }
     } // End setImage_DB method
 
+    /**
+     * displayFavoriteCards -> goes through db and gets favorited items ->
+     * -> then calls set on grid method to display it on the grid
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    private void displayFavoriteCards() throws ExecutionException, InterruptedException {
+        String userId = SessionManager.getUserId();
+        List<String> get_F_Meal_Ids = new ArrayList<>();
+
+        // Get the document ID for this ingredient
+        CollectionReference favoritedFoodListRef = FoodRecipePlatform.fstore
+                .collection("Users")
+                .document(userId)
+                .collection("favoritedFoods");
+
+        ApiFuture<QuerySnapshot> future = favoritedFoodListRef.get();
+        QuerySnapshot querySnapshot = future.get();
+
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            String FavoritedID = document.getString("FavoritedID");
+            Boolean isfavorited = document.getBoolean("favorited");
+
+            System.out.println("Document data: " + document.getData());
+
+            System.out.println("Favorited check : " + Boolean.TRUE.equals(isfavorited));
+
+            if (! Boolean.TRUE.equals(isfavorited) && FavoritedID != null) {
+                get_F_Meal_Ids.add(FavoritedID);
+                System.out.println("Favorited food id = " + FavoritedID);
+            } else {
+                System.out.println("Skipping invalid or un-favorited item: " + FavoritedID);
+            }
+        }
+
+        api = new MealDbAPI();
+
+        // Get favorite meals
+        List<CardData> FAV_results = new ArrayList<>();
+        for (String mealId : get_F_Meal_Ids) {
+            System.out.println("Fetching meal ID: " + mealId);
+            List<CardData> result = api.getMealDetails(mealId);
+            if (result != null && !result.isEmpty()) {
+                FAV_results.add(result.get(0));
+                System.out.println("Added meal: " + result.get(0).getFoodName());
+            } else {
+                System.out.println("No result found for ID: " + mealId);
+            }
+        }
+
+        System.out.println("Total favorite meals to display: " + FAV_results.size());
+
+        // call setGrid method
+        setGrid(FAV_results);
+
+    } // End displayFavoriteCards method
 
     private void setGrid(List<CardData> inputCardList) {
         // Method to Display Card data on grin in scroll pane
         grid.getChildren().clear();
         cards = inputCardList;
+
+        System.out.println("Cards to display = " + cards.size());
+
 
         int row = 1;
         int col = 0;
@@ -383,7 +420,6 @@ public class ProfilePageController {
             e.printStackTrace();
         }
     } // End setGrid method
-
 
 
     // Buttons and menu Buttons section
