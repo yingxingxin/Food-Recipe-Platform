@@ -16,6 +16,7 @@ module org.example.foodrecipeplatform {
     requires java.desktop;
     requires json.simple;
     requires org.json;
+    requires junit;
 
     opens org.example.foodrecipeplatform to javafx.fxml;
     exports org.example.foodrecipeplatform;
