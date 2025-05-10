@@ -341,13 +341,11 @@ public class ProfilePageController {
 
         for (DocumentSnapshot document : querySnapshot.getDocuments()) {
             String FavoritedID = document.getString("FavoritedID");
-            Boolean isfavorited = document.getBoolean("favorited");
-
+            Boolean isfavorited = document.getBoolean("favorite");
             System.out.println("Document data: " + document.getData());
 
-            System.out.println("Favorited check : " + Boolean.TRUE.equals(isfavorited));
 
-            if (! Boolean.TRUE.equals(isfavorited) && FavoritedID != null) {
+            if (FavoritedID != null && Boolean.TRUE.equals(isfavorited) ) {
                 get_F_Meal_Ids.add(FavoritedID);
                 System.out.println("Favorited food id = " + FavoritedID);
             } else {
