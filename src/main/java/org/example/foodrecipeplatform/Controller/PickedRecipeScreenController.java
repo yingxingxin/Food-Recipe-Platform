@@ -87,6 +87,7 @@ public class PickedRecipeScreenController {
     void initialize() throws ExecutionException, InterruptedException {
         api = new MealDbAPI();
         getImage_DB();
+        loadDisplayName();
         instructionsTextArea.setWrapText(true);
         ingredientTextArea.setWrapText(true);
         shoppingList = new ShoppingList();
@@ -128,6 +129,29 @@ public class PickedRecipeScreenController {
         toggleFavorite();
     } // End favoriteButtonClicked method
 
+
+    /**
+     * loadDisplayName -> method to load the Display name in DB to its place on the screen upon init
+     */
+    void loadDisplayName() throws ExecutionException, InterruptedException {
+        String userId = SessionManager.getUserId();
+
+        DocumentSnapshot snapshot = FoodRecipePlatform.fstore.collection("Users")
+                .document(userId)
+                .get()
+                .get();
+
+        if (snapshot.exists()) {
+            String displayName = snapshot.getString("DisplayName");
+            if (displayName != null && !displayName.isEmpty()) {
+                profileHyperLink.setText(displayName); // Works with javafx.scene.text.Text -> .setText() method
+            } else {
+                profileHyperLink.setText("Unknown User");
+            }
+        } else {
+            profileHyperLink.setText("User not found");
+        }
+    } // End loadDisplayName method
 
 
     // Called on screen upon load when meal id is set to reflect correct UI state of favorite button
