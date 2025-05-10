@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="recipeNameText" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.PickedRecipeScreenController">
+<AnchorPane id="recipeNameText" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.PickedRecipeScreenController">
    <children>
       <BorderPane prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -157,7 +157,7 @@
                <children>
                   <Button fx:id="backButton" layoutX="16.0" layoutY="31.0" mnemonicParsing="false" onAction="#backButtonClicked" text="Back" />
                   <Button fx:id="favoriteButton" layoutX="16.0" layoutY="86.0" mnemonicParsing="false" onAction="#favoriteButtonClicked" text="Favorite ⭐" />
-                  <Button fx:id="shoppinglistButton" layoutX="13.0" layoutY="140.0" mnemonicParsing="false" onAction="#shoppinglistButtonClicked" text="Shopping List" />
+                  <Button fx:id="shoppinglistButton" layoutX="13.0" layoutY="140.0" mnemonicParsing="false" onAction="#shoppinglistButtonClicked" text="Add to Shopping List" />
                </children>
             </AnchorPane>
          </left>

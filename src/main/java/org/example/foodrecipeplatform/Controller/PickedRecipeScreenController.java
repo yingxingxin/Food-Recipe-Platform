@@ -1,8 +1,9 @@
 package org.example.foodrecipeplatform.Controller;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,13 +13,20 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import org.example.foodrecipeplatform.CardData;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
+import org.example.foodrecipeplatform.MealDbAPI;
+import org.example.foodrecipeplatform.Model.ShoppingItem;
+import org.example.foodrecipeplatform.ShoppingList;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class PickedRecipeScreenController
-{
+public class PickedRecipeScreenController {
     @FXML
     public Text nameText;
     @FXML
@@ -47,11 +55,15 @@ public class PickedRecipeScreenController
     private ImageView UserProfilePhoto;
 
     private String profilePictureUrl;
+    private String currentMealId;
+    private ShoppingList shoppingList;
+    MealDbAPI api;
 
     /**
      * Helper Method to call Alert
-     * @param title -> title of alert
-     * @param header -> header of alert
+     *
+     * @param title   -> title of alert
+     * @param header  -> header of alert
      * @param content -> content body of alert
      */
     private void showAlert(String title, String header, String content) {
@@ -63,32 +75,118 @@ public class PickedRecipeScreenController
     } // End showAlert method
 
     @FXML
-    void initialize()
-    {
+    void initialize() {
+        api = new MealDbAPI();
         // method to get profile picture from database
         getImage_DB();
 
         instructionsTextArea.setWrapText(true);
         ingredientTextArea.setWrapText(true);
         // make the back button save the results on the screen?
+
+        shoppingList = new ShoppingList();
+    }
+
+    public void setCurrentMealId(String mealId) {
+        this.currentMealId = mealId;
+    }
+
+    public void getCurrentMealId(String mealId) {
+        this.currentMealId = mealId;
     }
 
     @FXML
-    void backButtonClicked(ActionEvent event) throws IOException
-    {
+    void backButtonClicked(ActionEvent event) throws IOException {
         FoodRecipePlatform.setRoot("RecipeSearchScreen");
     }
 
+//    private ArrayList<String> FavoritedItemsList;
+
     @FXML
-    void favoriteButtonClicked(ActionEvent event) throws IOException
-    {
+    void favoriteButtonClicked(ActionEvent event) throws IOException, ExecutionException, InterruptedException {
         System.out.println("favorite button clicked");
-    }
+        String userId = SessionManager.getUserId();
+
+        if (currentMealId == null || currentMealId.isEmpty()) {
+            System.out.println(" Meal ID is empty");
+            return;
+        }
+
+        CollectionReference favoritedFoodListRef = FoodRecipePlatform.fstore
+                .collection("Users")
+                .document(userId)
+                .collection("favoritedFoods");
+
+
+        DocumentReference mealDocRef = FoodRecipePlatform.fstore
+                .collection("Users")
+                .document(userId)
+                .collection("favoritedFoods")
+                .document(currentMealId);
+
+        // Get current value
+        ApiFuture<DocumentSnapshot> future = mealDocRef.get();
+        DocumentSnapshot document = future.get();
+
+        boolean isCurrentlyFavorited = false;
+
+        if (document.exists()) {
+            Boolean storedValue = document.getBoolean("favorite");
+            isCurrentlyFavorited = storedValue != null && storedValue;
+        }
+
+        // Toggle favorite value
+        boolean newFavoriteValue = !isCurrentlyFavorited;
+
+        // Save Data
+        Map<String, Object> favoriteMap = new HashMap<>();
+        favoriteMap.put("FavoritedID", currentMealId);
+        favoriteMap.put("favorite", newFavoriteValue);
+
+        favoritedFoodListRef.document(currentMealId).set(favoriteMap)
+                .addListener(() ->
+                        System.out.println("Meal Favorited: " + currentMealId), Runnable::run
+                );
+
+        // Update button style
+        if (newFavoriteValue) {
+            //favoriteButton.setStyle("-fx-background-color: yellow;");
+            favoriteButton.setText("Favorited \uD83C\uDF1F");
+        } else {
+            favoriteButton.setText("Favorite ⭐");
+            favoriteButton.setStyle(""); // reset to default
+        }
+
+    } // End favoriteButtonClicked method
+
+
+
+
 
     @FXML
     void shoppinglistButtonClicked(ActionEvent event) throws IOException
     {
-        System.out.println("shoppinglist button clicked");
+        System.out.println("Add to shopping list button clicked");
+
+        if (currentMealId != null && !currentMealId.isEmpty()) {
+
+            shoppingList.addIngredients(currentMealId);
+
+            shoppinglistButton.setText("Added to Shopping List ✓");
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    javafx.application.Platform.runLater(() ->
+                            shoppinglistButton.setText("Add to Shopping List"));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+
+        } else {
+            System.out.println("No meal ID available to add to shopping list");
+        }
     }
 
     @FXML

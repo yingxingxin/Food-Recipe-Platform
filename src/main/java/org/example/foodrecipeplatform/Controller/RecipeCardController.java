@@ -79,6 +79,8 @@ public class RecipeCardController {
         // result index: 0 = idMeal, 1 = name, 2 = image, 3 = instructions, 4 = area, 5 = ingredients with measurements, 6 = category
         List<String> result = new MealDbAPI().getAllDetails(cardData.getMealId());
 
+        pickedScreen.setCurrentMealId(cardData.getMealId());
+
         pickedScreen.setRecipeName(result.get(1));
         pickedScreen.setRecipeImage(new Image(result.get(2)));
         pickedScreen.setInstructionsTextArea(result.get(3));
