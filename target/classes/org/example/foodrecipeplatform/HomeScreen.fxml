@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.HomeScreenController">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.HomeScreenController">
    <children>
       <VBox layoutX="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -37,7 +37,7 @@
                                                 <Font name="System Bold Italic" size="18.0" />
                                              </font>
                                           </Hyperlink>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Heres some new Recipes we think youll love : " wrappingWidth="275.21630859375">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Here are some recipes we think you'll love:" wrappingWidth="290.21630859375">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
