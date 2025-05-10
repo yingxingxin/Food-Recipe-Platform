@@ -2,6 +2,7 @@ package org.example.foodrecipeplatform.Controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -39,8 +40,6 @@ public class ShoppingScreenController implements Initializable {
     @FXML
     private Button refreshButton;
 
-    @FXML
-    private Button homeButton;
 
     private ObservableList<ShoppingItem> shoppingItemsList;
     private ShoppingList shoppingList;
@@ -71,6 +70,11 @@ public class ShoppingScreenController implements Initializable {
 //    private void navigateHome() {
 //
 //    }
+
+    @FXML
+    void back_to_home_Button(ActionEvent event) throws IOException {
+        FoodRecipePlatform.setRoot("HomeScreen");
+    }
 
     private void loadShoppingItems() {
         String userId = SessionManager.getUserId();
