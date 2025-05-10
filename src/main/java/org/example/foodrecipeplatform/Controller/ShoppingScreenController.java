@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import javafx.scene.text.Text;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.Model.ShoppingItem;
 import org.example.foodrecipeplatform.ShoppingList;
@@ -40,6 +41,8 @@ public class ShoppingScreenController implements Initializable {
     @FXML
     private Button refreshButton;
 
+    @FXML
+    private Text displayUsername;
 
     private ObservableList<ShoppingItem> shoppingItemsList;
     private ShoppingList shoppingList;
@@ -58,6 +61,13 @@ public class ShoppingScreenController implements Initializable {
         checkedColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkedColumn));
         shoppingTable.setEditable(true);
 
+        // Load the user's display name for the title
+        try {
+            loadDisplayName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Load shopping items from Firebase
         loadShoppingItems();
 
@@ -67,9 +77,25 @@ public class ShoppingScreenController implements Initializable {
 
     }
 
-//    private void navigateHome() {
-//
-//    }
+    private void loadDisplayName() throws ExecutionException, InterruptedException {
+        String userId = SessionManager.getUserId();
+
+        DocumentSnapshot snapshot = FoodRecipePlatform.fstore.collection("Users")
+                .document(userId)
+                .get()
+                .get();
+
+        if (snapshot.exists()) {
+            String displayName = snapshot.getString("DisplayName");
+            if (displayName != null && !displayName.isEmpty()) {
+                displayUsername.setText(displayName + "'s Shopping List");
+            } else {
+                displayUsername.setText("Unknown User");
+            }
+        } else {
+            displayUsername.setText("User not found");
+        }
+    }
 
     @FXML
     void back_to_home_Button(ActionEvent event) throws IOException {
