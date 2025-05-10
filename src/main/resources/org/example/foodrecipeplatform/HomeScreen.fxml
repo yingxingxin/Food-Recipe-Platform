@@ -32,7 +32,7 @@
                                                 <Insets left="5.0" top="5.0" />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Hyperlink onAction="#OpenProfileScreen" prefHeight="27.0" prefWidth="79.0" text="Profile">
+                                          <Hyperlink fx:id="DisplayUserName" onAction="#OpenProfileScreen" prefHeight="27.0" prefWidth="79.0" text="Profile">
                                              <font>
                                                 <Font name="System Bold Italic" size="18.0" />
                                              </font>
