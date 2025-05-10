@@ -2,6 +2,8 @@ package org.example.foodrecipeplatform.Controller;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import javafx.animation.PauseTransition;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,9 +13,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.example.foodrecipeplatform.CardData;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.MealDbAPI;
@@ -28,6 +33,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+/**
+ * PickedRecipeScreenController -> class that shows the recipe card with all of its details
+ */
 public class PickedRecipeScreenController {
     @FXML
     public Text nameText;
@@ -78,52 +86,51 @@ public class PickedRecipeScreenController {
     @FXML
     void initialize() throws ExecutionException, InterruptedException {
         api = new MealDbAPI();
-        // method to get profile picture from database
         getImage_DB();
-        //check_if_favorite();
+        instructionsTextArea.setWrapText(true);
+        ingredientTextArea.setWrapText(true);
+        shoppingList = new ShoppingList();
+    } // End initialize
 
-        Executors.newSingleThreadExecutor().submit(() -> {
+    /**
+     * setCurrentMealId -> sets meal id
+     * @param mealId
+     */
+    public void setCurrentMealId(String mealId) {
+        this.currentMealId = mealId;
+
+                Executors.newSingleThreadExecutor().submit(() -> {
             try {
                 checkIfFavoritedAndUpdateUI();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+    } // End setCurrentMealId method
 
-        instructionsTextArea.setWrapText(true);
-        ingredientTextArea.setWrapText(true);
-        // make the back button save the results on the screen?
-
-        shoppingList = new ShoppingList();
-    }
-
-    public void setCurrentMealId(String mealId) {
-        this.currentMealId = mealId;
-    }
-
+    /**
+     * getCurrentMealId -> gets meal id
+     * @param mealId
+     */
     public void getCurrentMealId(String mealId) {
         this.currentMealId = mealId;
-    }
+    } // End getCurrentMealId method
 
     @FXML
     void backButtonClicked(ActionEvent event) throws IOException {
+        // switch screen
         FoodRecipePlatform.setRoot("RecipeSearchScreen");
-    }
-
-//    private ArrayList<String> FavoritedItemsList;
+    } // End backButtonClicked method
 
     @FXML
     void favoriteButtonClicked(ActionEvent event) throws IOException, ExecutionException, InterruptedException {
         System.out.println("favorite button clicked");
         toggleFavorite();
-
-        //check_if_favorite();
-
     } // End favoriteButtonClicked method
 
 
 
-    // Called on screen load to reflect correct UI state
+    // Called on screen upon load when meal id is set to reflect correct UI state of favorite button
     public void checkIfFavoritedAndUpdateUI() throws ExecutionException, InterruptedException {
         String userId = SessionManager.getUserId();
 
@@ -154,10 +161,10 @@ public class PickedRecipeScreenController {
                 favoriteButton.setText("Favorite ⭐");
             }
         });
-    }
+    } // End checkIfFavoritedAndUpdateUI End
 
 
-    // Called when user clicks the favorite button
+    // Called when user clicks the favorite button changes the db/ui state
     public void toggleFavorite() throws ExecutionException, InterruptedException {
         String userId = SessionManager.getUserId();
 
@@ -194,77 +201,41 @@ public class PickedRecipeScreenController {
 
         if (newFavoriteValue) {
             favoriteButton.setText("Favorited \uD83C\uDF1F");
+            // Glow effect
+            DropShadow glow = new DropShadow();
+            glow.setColor(Color.GOLD);
+            glow.setRadius(20);
+            favoriteButton.setEffect(glow);
+
+            // Remove glow after 1 seconds
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(e -> favoriteButton.setEffect(null));
+            pause.play();
+
+            // Pop animation
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), favoriteButton);
+            st.setFromX(1.0);
+            st.setFromY(1.0);
+            st.setToX(1.2);
+            st.setToY(1.2);
+            st.setAutoReverse(true);
+            st.setCycleCount(2);
+            st.play();
+
         } else {
             favoriteButton.setText("Favorite ⭐");
         }
 
+
         System.out.println("is Meal Favorited: " + newFavoriteValue);
-    }
+    } // End toggleFavorite method
 
 
-
-
-
-//    public void check_if_favorite() throws ExecutionException, InterruptedException {
-//        String userId = SessionManager.getUserId();
-//
-//        if (currentMealId == null || currentMealId.isEmpty()) {
-//            System.out.println(" Meal ID is empty");
-//            return;
-//        }
-//
-//        CollectionReference favoritedFoodListRef = FoodRecipePlatform.fstore
-//                .collection("Users")
-//                .document(userId)
-//                .collection("favoritedFoods");
-//
-//
-//        DocumentReference mealDocRef = FoodRecipePlatform.fstore
-//                .collection("Users")
-//                .document(userId)
-//                .collection("favoritedFoods")
-//                .document(currentMealId);
-//
-//        // Get current value of document id
-//        ApiFuture<DocumentSnapshot> future = mealDocRef.get();
-//        DocumentSnapshot document = future.get();
-//
-//        boolean isCurrentlyFavorited = false;
-//
-//        if (document.exists()) {
-//            Boolean storedValue = document.getBoolean("favorite");
-//            isCurrentlyFavorited = storedValue != null && storedValue;
-//        }
-//
-//        // Toggle favorite value
-//        boolean newFavoriteValue = !isCurrentlyFavorited;
-//
-//        // Save Data
-//        Map<String, Object> favoriteMap = new HashMap<>();
-//        favoriteMap.put("FavoritedID", currentMealId);
-//        favoriteMap.put("favorite", newFavoriteValue);
-//
-//        favoritedFoodListRef.document(currentMealId).set(favoriteMap)
-//                .addListener(() ->
-//                        System.out.println("Meal Favorited: " + currentMealId), Runnable::run
-//                );
-//
-//        System.out.println("is Meal Favorited: " + newFavoriteValue);
-//
-//        // Update button style
-//        if (newFavoriteValue) {
-//            //favoriteButton.setStyle("-fx-background-color: yellow;");
-//            favoriteButton.setText("Favorited \uD83C\uDF1F");
-//        } else {
-//            favoriteButton.setText("Favorite ⭐");
-//            favoriteButton.setStyle(""); // reset to default
-//        }
-//    }
-
-
-
-
-
+    /**
+     * shoppinglistButtonClicked -> method that adds the meal ingredients into list
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void shoppinglistButtonClicked(ActionEvent event) throws IOException
     {
@@ -275,42 +246,54 @@ public class PickedRecipeScreenController {
             shoppingList.addIngredients(currentMealId);
 
             shoppinglistButton.setText("Added to Shopping List ✓");
+            // Pop animation
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), shoppinglistButton);
+            st.setFromX(1.0);
+            st.setFromY(1.0);
+            st.setToX(1.2);
+            st.setToY(1.2);
+            st.setAutoReverse(true);
+            st.setCycleCount(2);
+            st.play();
+            shoppinglistButton.setDisable(true); // 🔒 Disable the button
+
+        } else {
 
             new Thread(() -> {
                 try {
                     Thread.sleep(2000);
                     Platform.runLater(() ->
                             shoppinglistButton.setText("Add to Shopping List"));
+                            shoppinglistButton.setDisable(false); // 🔓 Re-enable the button
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }).start();
-
-        } else {
             System.out.println("No meal ID available to add to shopping list");
+
         }
-    }
+    } // End shoppinglistButtonClicked method
 
     @FXML
     void profileHyperLinkClicked(ActionEvent event) throws IOException
     {
         System.out.println("profile hyperlink clicked");
         FoodRecipePlatform.setRoot("ProfilePage");
-    }
+    } // End profileHyperLinkClicked method
 
     @FXML
     void shoppingHyperLinkClicked(ActionEvent event) throws IOException
     {
         System.out.println("shopping hyperlink clicked");
         FoodRecipePlatform.setRoot("ShoppingScreen");
-    }
+    } // End shoppingHyperLinkClicked method
 
     @FXML
     void homeHyperLinkClicked(ActionEvent event) throws IOException
     {
         System.out.println("home hyperlink clicked");
         FoodRecipePlatform.setRoot("HomeScreen");
-    }
+    } // End homeHyperLinkClicked method
 
     /**
      * getImage_DB ->  method to get profile pic from db -> image is set on profile page screen
@@ -359,84 +342,31 @@ public class PickedRecipeScreenController {
     public void setRecipeName(String recipeName)
     {
         nameText.setText(recipeName);
-    }
+    } // End setRecipeName method
 
     public void setRecipeImage(Image recipeImage)
     {
         recipeImageView.setImage(recipeImage);
-    }
+    } // End setRecipeImage method
 
     public void setArea(String area)
     {
         areaText.setText(area);
-    }
+    } // End setArea method
 
     public void setIngredientTextArea(String ingredient)
     {
         ingredientTextArea.setText(ingredient);
-    }
+    } // End setIngredientTextArea method
 
     public void setInstructionsTextArea(String instructions)
     {
         instructionsTextArea.setText(instructions);
-    }
+    } // End setInstructionsTextArea method
 
     public void setCategoryText(String category)
     {
         categoryText.setText(category);
-    }
-}
+    } // End setCategoryText method
 
-
-
-//        String userId = SessionManager.getUserId();
-//
-//        if (currentMealId == null || currentMealId.isEmpty()) {
-//            System.out.println(" Meal ID is empty");
-//            return;
-//        }
-//
-//        CollectionReference favoritedFoodListRef = FoodRecipePlatform.fstore
-//                .collection("Users")
-//                .document(userId)
-//                .collection("favoritedFoods");
-//
-//
-//        DocumentReference mealDocRef = FoodRecipePlatform.fstore
-//                .collection("Users")
-//                .document(userId)
-//                .collection("favoritedFoods")
-//                .document(currentMealId);
-//
-//        // Get current value of document id
-//        ApiFuture<DocumentSnapshot> future = mealDocRef.get();
-//        DocumentSnapshot document = future.get();
-//
-//        boolean isCurrentlyFavorited = false;
-//
-//        if (document.exists()) {
-//            Boolean storedValue = document.getBoolean("favorite");
-//            isCurrentlyFavorited = storedValue != null && storedValue;
-//        }
-//
-//        // Toggle favorite value
-//        boolean newFavoriteValue = !isCurrentlyFavorited;
-//
-//        // Save Data
-//        Map<String, Object> favoriteMap = new HashMap<>();
-//        favoriteMap.put("FavoritedID", currentMealId);
-//        favoriteMap.put("favorite", newFavoriteValue);
-//
-//        favoritedFoodListRef.document(currentMealId).set(favoriteMap)
-//                .addListener(() ->
-//                        System.out.println("Meal Favorited: " + currentMealId), Runnable::run
-//                );
-//
-//        // Update button style
-//        if (newFavoriteValue) {
-//            //favoriteButton.setStyle("-fx-background-color: yellow;");
-//            favoriteButton.setText("Favorited \uD83C\uDF1F");
-//        } else {
-//            favoriteButton.setText("Favorite ⭐");
-//            favoriteButton.setStyle(""); // reset to default
-//        }
+} // End PickedRecipeScreenController class
