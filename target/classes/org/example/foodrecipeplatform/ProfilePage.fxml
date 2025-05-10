@@ -63,12 +63,12 @@
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#Update_Photo_URL" prefHeight="26.0" prefWidth="120.0" text="Update Photo URL">
+                  <Button fx:id="myURL" mnemonicParsing="false" onAction="#Update_Photo_URL" prefHeight="26.0" prefWidth="120.0" text="Update Photo URL">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#Update_Bio_Button" prefHeight="26.0" prefWidth="120.0" text="Update Bio">
+                  <Button fx:id="myBio" mnemonicParsing="false" onAction="#Update_Bio_Button" prefHeight="26.0" prefWidth="120.0" text="Update Bio">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
@@ -108,7 +108,7 @@
                   <VBox prefHeight="320.0" prefWidth="300.0" />
                   <VBox alignment="BOTTOM_LEFT">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#report_Issue_Button" text="Report an Issue !">
+                        <Button fx:id="report" mnemonicParsing="false" onAction="#report_Issue_Button" text="Report an Issue !">
                            <VBox.margin>
                               <Insets left="5.0" />
                            </VBox.margin>

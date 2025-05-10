@@ -2,10 +2,14 @@ package org.example.foodrecipeplatform.Controller;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -15,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.example.foodrecipeplatform.CardData;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.MealDbAPI;
@@ -56,6 +61,12 @@ public class ProfilePageController {
     private ScrollPane scroll;
     @FXML
     private MenuBar menuBar;
+    @FXML
+    private Button report;
+    @FXML
+    private Button myBio;
+    @FXML
+    private Button myURL;
 
 
     List<CardData> cards = new ArrayList<>();             // cards lists -> array
@@ -341,13 +352,11 @@ public class ProfilePageController {
 
         for (DocumentSnapshot document : querySnapshot.getDocuments()) {
             String FavoritedID = document.getString("FavoritedID");
-            Boolean isfavorited = document.getBoolean("favorited");
-
+            Boolean isfavorited = document.getBoolean("favorite");
             System.out.println("Document data: " + document.getData());
 
-            System.out.println("Favorited check : " + Boolean.TRUE.equals(isfavorited));
 
-            if (! Boolean.TRUE.equals(isfavorited) && FavoritedID != null) {
+            if (FavoritedID != null && Boolean.TRUE.equals(isfavorited) ) {
                 get_F_Meal_Ids.add(FavoritedID);
                 System.out.println("Favorited food id = " + FavoritedID);
             } else {
@@ -425,7 +434,11 @@ public class ProfilePageController {
     // Buttons and menu Buttons section
     @FXML
     void Update_Bio_Button(ActionEvent event) {
-        set_Bio_in_DB();
+        Platform.runLater(() -> {
+            popNode(myBio);
+            set_Bio_in_DB();
+        });
+//        set_Bio_in_DB();
     } // End Update_Bio_Button
     @FXML
     void menu_change_Ppic(ActionEvent event) throws ExecutionException, InterruptedException {
@@ -433,7 +446,11 @@ public class ProfilePageController {
     } // End menu_change_Ppic
     @FXML
     void Update_Photo_URL(ActionEvent event) {
-        setImage_DB();
+        Platform.runLater(() -> {
+            popNode(myURL);
+            setImage_DB();
+        });
+//        setImage_DB();
     } // End Update_Photo_URL
     @FXML
     void set_DarkTheme(ActionEvent event) {
@@ -464,7 +481,22 @@ public class ProfilePageController {
 
     @FXML
     void report_Issue_Button(ActionEvent event) {
-        showAlert("Report Issue", "Report Issue", "Sorry at this time we are not able to take an issue report !");
+        Platform.runLater(() -> {
+            popNode(report);
+            showAlert("Report Issue", "Report Issue", "Sorry at this time we are not able to take an issue report !");
+        });
+
     } // End report_Issue_Button
+
+    private void popNode(Node node) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), node);
+        st.setFromX(1.0);
+        st.setFromY(1.0);
+        st.setToX(1.2);
+        st.setToY(1.2);
+        st.setAutoReverse(true);
+        st.setCycleCount(2);
+        st.play();
+    }
 
 } // End ProfilePageController

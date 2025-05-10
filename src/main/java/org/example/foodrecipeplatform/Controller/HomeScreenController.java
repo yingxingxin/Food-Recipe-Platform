@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -54,6 +55,8 @@ public class HomeScreenController implements Initializable {
     private GridPane grid;
     @FXML
     private ImageView homeScreen_pfp;
+    @FXML
+    private Hyperlink DisplayUserName;
 
 
     List<CardData> cards = new ArrayList<>();             // cards lists -> array
@@ -132,9 +135,15 @@ public class HomeScreenController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        // method to get profile photo from database
-        getImage_DB();
+        // method to get profile photo/display name from database
+        try {
+            loadDisplayName();
+            getImage_DB();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         api = new MealDbAPI();
         List<CardData> rand_results = api.getRandomMeal() ;
@@ -149,6 +158,29 @@ public class HomeScreenController implements Initializable {
         setGrid(rand_results);
 
     } // End initialize method
+
+    /**
+     * loadDisplayName -> method to load the Display name in DB to its place on the screen upon init
+     */
+    void loadDisplayName() throws ExecutionException, InterruptedException {
+        String userId = SessionManager.getUserId();
+
+        DocumentSnapshot snapshot = FoodRecipePlatform.fstore.collection("Users")
+                .document(userId)
+                .get()
+                .get();
+
+        if (snapshot.exists()) {
+            String displayName = snapshot.getString("DisplayName");
+            if (displayName != null && !displayName.isEmpty()) {
+                DisplayUserName.setText(displayName); // Works with javafx.scene.text.Text -> .setText() method
+            } else {
+                DisplayUserName.setText("Unknown User");
+            }
+        } else {
+            DisplayUserName.setText("User not found");
+        }
+    } // End loadDisplayName method
 
 
     /**

@@ -36,7 +36,7 @@
                         <Font name="System Bold" size="48.0" />
                      </font>
                   </Text>
-                  <Hyperlink layoutX="23.0" layoutY="86.0" onAction="#profileHyperlink" text="Profile">
+                  <Hyperlink fx:id="DisplayUserName" layoutX="23.0" layoutY="86.0" onAction="#profileHyperlink" text="Profile">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
