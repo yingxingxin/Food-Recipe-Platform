@@ -55,6 +55,8 @@ public class RecipeSearchScreenController
     public ScrollPane resultScrollPlain;
     @FXML
     public GridPane resultGridPlain;
+    @FXML
+    private Hyperlink DisplayUserName;
 
 
     List<CardData> cards = new ArrayList<>();
@@ -76,6 +78,30 @@ public class RecipeSearchScreenController
         alert.setContentText(content);
         alert.showAndWait();
     } // End showAlert method
+
+    /**
+     * loadDisplayName -> method to load the Display name in DB to its place on the screen upon init
+     */
+    void loadDisplayName() throws ExecutionException, InterruptedException {
+        String userId = SessionManager.getUserId();
+
+        DocumentSnapshot snapshot = FoodRecipePlatform.fstore.collection("Users")
+                .document(userId)
+                .get()
+                .get();
+
+        if (snapshot.exists()) {
+            String displayName = snapshot.getString("DisplayName");
+            if (displayName != null && !displayName.isEmpty()) {
+                DisplayUserName.setText(displayName); // Works with javafx.scene.text.Text -> .setText() method
+            } else {
+                DisplayUserName.setText("Unknown User");
+            }
+        } else {
+            DisplayUserName.setText("User not found");
+        }
+    } // End loadDisplayName method
+
 
     /**
      * getImage_DB ->  method to get profile pic from db -> image is set on profile page screen
@@ -122,10 +148,11 @@ public class RecipeSearchScreenController
 
 
     @FXML
-    void initialize() // clean up initialize method by putting stuff below into a method
+    void initialize() throws ExecutionException, InterruptedException // clean up initialize method by putting stuff below into a method
     {
-        // Load profile photo -> from DB
+        // Load profile photo/display name -> from DB
         getImage_DB();
+        loadDisplayName();
 
         // initialize new API-DB
         api = new MealDbAPI();

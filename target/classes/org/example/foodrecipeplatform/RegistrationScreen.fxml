@@ -46,7 +46,7 @@
       <Text fx:id="messageTextRS" wrappingWidth="300.0" />
 
       <!-- Create Account Button -->
-      <Button mnemonicParsing="false" onAction="#CreateAccountButtonClicked" prefHeight="26.0" prefWidth="160.0" text="Create Account" />
+      <Button fx:id="createAccount" mnemonicParsing="false" onAction="#CreateAccountButtonClicked" prefHeight="26.0" prefWidth="160.0" text="Create Account" />
 
       <!-- Already have an account -->
       <VBox alignment="CENTER">
