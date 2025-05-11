@@ -1,77 +1,452 @@
+/*!* === ROOT === *!*/
+/*.root {*/
+/*    -fx-font-family: "Arial";*/
+/*    -fx-background-color: #30333b; !* Dark Blue-Gray Base *!*/
+/*    -fx-text-fill: #f0f0f0;*/
+/*}*/
+
+/*!* === BUTTONS === *!*/
+/*.button {*/
+/*    -fx-background-color: #3d3d3f; !* Original Dark Gray *!*/
+/*    -fx-text-fill: #ffffff; !* Original White Text *!*/
+/*    -fx-font-size: 15px; !* Original size *!*/
+/*    -fx-background-radius: 8; !* Slightly less rounded for sharpness *!*/
+/*    -fx-cursor: hand;*/
+/*    -fx-alignment: center;*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0.0, 0, 2); !* Refined subtle shadow *!*/
+/*    -fx-border-color: #6622cc; !* Original Purple Border *!*/
+/*    -fx-border-width: 1;*/
+/*    -fx-border-radius: 8; !* Fixed: Added border-radius to match background-radius *!*/
+/*    -fx-padding: 8 15; !* Added padding for better look *!*/
+/*}*/
+
+/*.button:hover {*/
+/*    -fx-background-color: #4a3b67; !* Original Soft Purple Hover *!*/
+/*    -fx-text-fill: #ffffff; !* Keep text white on hover *!*/
+/*    -fx-border-color: #805ad5; !* Use the lighter purple for hover border *!*/
+/*}*/
+
+/*.button:pressed {*/
+/*    -fx-background-color: #5a4b7a; !* Slightly darker purple on press *!*/
+/*    -fx-border-color: #9985ff; !* Use the light purple for pressed border *!*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 4, 0.0, 0, 1);*/
+/*}*/
+
+/*!* Optional large button style *!*/
+/*.large-button {*/
+/*    -fx-pref-width: 200px;*/
+/*    -fx-pref-height: 50px;*/
+/*    !* Text size is inherited, no change needed here based on original CSS *!*/
+/*}*/
+
+
+/*!* === TABLE VIEW === *!*/
+/*.table-view {*/
+/*    -fx-border-color: #444;*/
+/*    -fx-background-color: #383838;*/
+/*    -fx-table-cell-border-color: #555;*/
+/*    -fx-padding: 5;*/
+/*    -fx-border-radius: 5;*/
+/*    -fx-background-radius: 5;*/
+/*}*/
+
+/*.table-view .column-header,*/
+/*.table-view .column-header-background .filler {*/
+/*    -fx-background-color: #3d3d3f;*/
+/*    -fx-text-fill: #ffffff;*/
+/*}*/
+
+/*.table-view .column-header .label {*/
+/*    -fx-text-fill: #eaeaea;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-alignment: CENTER_LEFT;*/
+/*}*/
+
+/*.table-view .cell {*/
+/*    -fx-cell-size: 35;*/
+/*    -fx-background-color: #444;*/
+/*    -fx-border-color: #3a3a3a;*/
+/*    -fx-text-fill: #e0e0e0;*/
+/*    -fx-alignment: CENTER_LEFT;*/
+/*}*/
+
+/*.table-row-cell:selected {*/
+/*    -fx-background-color: #5e3c90; !* Soft purple highlight *!*/
+/*    -fx-text-fill: white;*/
+/*}*/
+
+/*.table-view:focused .table-row-cell:selected .table-cell {*/
+/*    -fx-background-color: #805ad5;*/
+/*    -fx-text-fill: white;*/
+/*}*/
+
+/*!*!* === SCROLLBARS === *!*!*/
+/*!*.scroll-bar {*!*/
+/*!*    -fx-background-color: transparent;*!*/
+/*!*}*!*/
+
+/*!*.increment-button, .decrement-button {*!*/
+/*!*    -fx-background-color: transparent;*!*/
+/*!*    -fx-background-radius: 2em;*!*/
+/*!*}*!*/
+
+/*!*.scroll-bar:horizontal .track,*!*/
+/*!*.scroll-bar:vertical .track {*!*/
+/*!*    -fx-background-color: transparent;*!*/
+/*!*    -fx-border-color: derive(#805ad5, 80%);*!*/
+/*!*    -fx-background-radius: 2em;*!*/
+/*!*    -fx-border-radius: 2em;*!*/
+/*!*}*!*/
+
+/*!*.scroll-bar:horizontal .thumb,*!*/
+/*!*.scroll-bar:vertical .thumb {*!*/
+/*!*    -fx-background-color: derive(#805ad5, 90%);*!*/
+/*!*    -fx-background-insets: 1, 0, 0;*!*/
+/*!*    -fx-background-radius: 2em;*!*/
+/*!*}*!*/
+
+/*!*!* === SCROLL PANE === *!*!*/
+/*!*.scroll-pane {*!*/
+/*!*    -fx-background-color: #333;*!*/
+/*!*    -fx-border-color: #444;*!*/
+/*!*    -fx-border-width: 1;*!*/
+/*!*    -fx-background-radius: 5;*!*/
+/*!*}*!*/
+
+/*!*.scroll-pane .viewport {*!*/
+/*!*    -fx-background-color: #444;*!*/
+/*!*}*!*/
+
+/*!*!* === GRID PANE === *!*!*/
+/*!*.grid-pane {*!*/
+/*!*    -fx-background-color: #333;*!*/
+/*!*    -fx-border-color: #444;*!*/
+/*!*    -fx-border-width: 1;*!*/
+/*!*    -fx-background-radius: 5;*!*/
+/*!*}*!*/
+
+/*!*.grid-pane .cell {*!*/
+/*!*    -fx-background-color: #444;*!*/
+/*!*    -fx-border-color: #555;*!*/
+/*!*    -fx-text-fill: #e0e0e0;*!*/
+/*!*}*!*/
+
+/*!*.grid-pane .cell:selected {*!*/
+/*!*    -fx-background-color: #5e3c90; !* Soft purple *!*!*/
+/*!*    -fx-text-fill: white;*!*/
+/*!*}*!*/
+
+
+
+/*!* === SCROLLBARS === *!*/
+/*.scroll-bar {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-padding: 0;*/
+/*}*/
+
+/*.increment-button, .decrement-button {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-background-radius: 2em;*/
+/*}*/
+
+/*.scroll-bar:horizontal .track,*/
+/*.scroll-bar:vertical .track {*/
+/*    -fx-background-color: #3d3d3f; !* Use Dark Gray background for track *!*/
+/*    -fx-background-radius: 5; !* Sharper radius *!*/
+/*    -fx-border-color: transparent;*/
+/*}*/
+
+/*.scroll-bar:horizontal .thumb,*/
+/*.scroll-bar:vertical .thumb {*/
+/*    -fx-background-color: #805ad5; !* Use original Lighter Purple for thumb *!*/
+/*    -fx-background-insets: 1;*/
+/*    -fx-background-radius: 5; !* Sharper radius *!*/
+/*}*/
+
+/*.scroll-bar .increment-arrow,*/
+/*.scroll-bar .decrement-arrow {*/
+/*    -fx-background-color: #e0e0e0; !* Use Light Gray for arrows *!*/
+/*}*/
+
+
+/*!* === SCROLL PANE === *!*/
+/*.scroll-pane {*/
+/*    -fx-background-color: transparent; !* Make container transparent *!*/
+/*    -fx-border-color: #805ad5; !* Purple Border *!*/
+/*    -fx-border-width: 1;*/
+/*    -fx-background-radius: 6;*/
+/*    -fx-padding: 0; !* Padding should be on viewport/content *!*/
+/*}*/
+
+/*.scroll-pane .viewport {*/
+/*    -fx-background-color: #30333b; !* Match root background for content area *!*/
+/*    -fx-background-radius: 6;*/
+/*}*/
+
+/*.scroll-pane .content {*/
+/*    -fx-padding: 10; !* Padding inside the scrollable content *!*/
+/*    -fx-background-color: transparent; !* Ensure content background is transparent *!*/
+/*}*/
+
+/*!* === GRID PANE === *!*/
+/*.grid-pane {*/
+/*    -fx-background-color: #30333b; !* Match root background *!*/
+/*    -fx-border-color: #805ad5; !* Purple Border *!*/
+/*    -fx-border-width: 1;*/
+/*    -fx-background-radius: 6;*/
+/*    -fx-padding: 15;*/
+/*    -fx-hgap: 15;*/
+/*    -fx-vgap: 15;*/
+/*}*/
+
+/*!* Ensure children backgrounds are transparent if they should inherit grid-pane background *!*/
+/*.grid-pane > * {*/
+/*    -fx-background-color: transparent;*/
+/*}*/
+
+
+
+
+/*!* === HYPERLINKS === *!*/
+/*.hyperlink {*/
+/*    -fx-text-fill: #9985ff;*/
+/*    -fx-underline: true;*/
+/*    -fx-font-size: 16px;*/
+/*    -fx-cursor: hand;*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-padding: 4 8;*/
+/*}*/
+
+/*.hyperlink:hover {*/
+/*    -fx-text-fill: #d6b8ff;*/
+/*}*/
+
+/*.hyperlink:visited {*/
+/*    -fx-text-fill: #6c59a0;*/
+/*}*/
+
+/*!* === CONTAINERS === *!*/
+/*.hbox, .vbox {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-spacing: 10;*/
+/*    -fx-padding: 10;*/
+/*}*/
+
+/*!* === BORDER PANE AND REGIONS === *!*/
+/*.border-pane {*/
+/*    -fx-background-color: #2e2e30;*/
+/*}*/
+
+/*.border-pane > .top,*/
+/*.border-pane > .bottom,*/
+/*.border-pane > .left,*/
+/*.border-pane > .right,*/
+/*.border-pane > .center {*/
+/*    -fx-background-color: #2e2e30;*/
+/*    -fx-padding: 10;*/
+/*    -fx-border-color: #444;*/
+/*}*/
+
+/*!* Highlight Top bar *!*/
+/*.border-pane > .top {*/
+/*    -fx-background-color: #3c2c52;*/
+/*    -fx-border-width: 0 0 2 0;*/
+/*}*/
+
+/*!* Footer bar *!*/
+/*.border-pane > .bottom {*/
+/*    -fx-background-color: #333347;*/
+/*    -fx-border-width: 2 0 0 0;*/
+/*}*/
+
+/*!* Sidebar color for contrast *!*/
+/*.border-pane > .left, .border-pane > .right {*/
+/*    -fx-background-color: #2d2d3a;*/
+/*}*/
+
+/* === TEXT INPUT === */
+/*.text-field {*/
+/*    -fx-background-color: #1f1f21;*/
+/*    -fx-text-fill: white;*/
+/*    -fx-border-color: #805ad5;*/
+/*    -fx-border-radius: 5;*/
+/*    -fx-padding: 5;*/
+/*}*/
+
+/*.text-field:focused {*/
+/*    -fx-border-color: #a088ff;*/
+/*}*/
+
+
+
+
+/*!* === IMAGE VIEW === *!*/
+/*.image-view {*/
+/*    -fx-background-color: #2a2a2a;*/
+/*    -fx-border-color: #805ad5;*/
+/*    -fx-border-width: 2;*/
+/*    -fx-border-radius: 5;*/
+/*}*/
+
+/*!* === LABEL === *!*/
+/*.label {*/
+/*    -fx-background-color: #1f2026; !* Very dark background *!*/
+/*    -fx-text-fill: #e0e0e0; !* Light gray text *!*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-padding: 5px;*/
+/*    -fx-alignment: center-left;*/
+/*    -fx-border-radius: 5px;*/
+/*}*/
+
+/*!* === MENU BAR === *!*/
+/*.menu-bar {*/
+/*    -fx-background-color: #1f2026; !* Very dark background *!*/
+/*    -fx-border-color: #444; !* Soft border for definition *!*/
+/*}*/
+
+/*.menu-bar .label {*/
+/*    -fx-text-fill: #e0e0e0; !* Light gray text *!*/
+/*    -fx-font-weight: bold;*/
+/*}*/
+
+/*.menu-bar .menu-item {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-text-fill: #d5d5d5; !* Light gray text for items *!*/
+/*    -fx-cursor: hand;*/
+/*}*/
+
+/*.menu-bar .menu-item:hover {*/
+/*    -fx-background-color: #353a45; !* Dark Slate Blue on hover *!*/
+/*    -fx-text-fill: #ffffff; !* White text on hover *!*/
+/*}*/
+
+/*!* Menu options (for dropdowns or submenus) *!*/
+/*.menu-options .label {*/
+/*    -fx-background-color: #1f2026;*/
+/*    -fx-text-fill: #d5d5d5;*/
+/*}*/
+
+/*.menu-items {*/
+/*    -fx-background-color: #1f2026;*/
+/*}*/
+
+
+
+
+
+
+
+
+
+/*New  */
+
+
+
+
+
+
+
+
+
 /* === ROOT === */
 .root {
-    -fx-font-family: "Arial";
-    -fx-background-color: #30333b; /* Dark Blue-Gray Base */
-    -fx-text-fill: #f0f0f0;
+    -fx-font-family: "Arial"; /* Original font */
+    -fx-background-color: #30333b; /* Original Dark Blue-Gray Base */
+    -fx-text-fill: #f0f0f0; /* Original Primary Light Text */
 }
 
 /* === BUTTONS === */
 .button {
-    -fx-background-color: #3d3d3f;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 15px;
-    -fx-background-radius: 10;
+    -fx-background-color: #3d3d3f; /* Original Dark Gray */
+    -fx-text-fill: #ffffff; /* Original White Text */
+    -fx-font-size: 15px; /* Original size */
+    -fx-background-radius: 8; /* Slightly less rounded for sharpness */
     -fx-cursor: hand;
     -fx-alignment: center;
-    -fx-effect: dropshadow(gaussian, #1e1e1e, 4, 0.3, 0, 1);
-    -fx-border-color: #6622cc;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0.0, 0, 2); /* Refined subtle shadow */
+    -fx-border-color: #6622cc; /* Original Purple Border */
     -fx-border-width: 1;
+    -fx-border-radius: 8; /* Fixed: Added border-radius to match background-radius */
+    -fx-padding: 8 15; /* Added padding for better look */
 }
 
 .button:hover {
-    -fx-background-color: #4a3b67; /* Soft purple hover */
-    -fx-text-fill: #f2f2f2;
+    -fx-background-color: #4a3b67; /* Original Soft Purple Hover */
+    -fx-text-fill: #ffffff; /* Keep text white on hover */
+    -fx-border-color: #805ad5; /* Use the lighter purple for hover border */
+}
+
+.button:pressed {
+    -fx-background-color: #5a4b7a; /* Slightly darker purple on press */
+    -fx-border-color: #9985ff; /* Use the light purple for pressed border */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 4, 0.0, 0, 1);
 }
 
 /* Optional large button style */
 .large-button {
     -fx-pref-width: 200px;
     -fx-pref-height: 50px;
+    /* Text size is inherited, no change needed here based on original CSS */
 }
 
 /* === TABLE VIEW === */
 .table-view {
-    -fx-border-color: #444;
-    -fx-background-color: #383838;
-    -fx-table-cell-border-color: #555;
-    -fx-padding: 5;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
+    -fx-border-color: #555; /* Original Medium Gray Border */
+    -fx-border-width: 1;
+    -fx-background-color: #383838; /* Original Darker Gray Table Background */
+    -fx-table-cell-border-color: #444; /* Original Dark Gray for cell borders */
+    -fx-padding: 0; /* Remove padding from table-view root */
+    -fx-border-radius: 6; /* Slightly less rounded */
+    -fx-background-radius: 6;
 }
 
-.table-view .column-header,
-.table-view .column-header-background .filler {
-    -fx-background-color: #3d3d3f;
-    -fx-text-fill: #ffffff;
+.table-view .column-header-background {
+    -fx-background-color: #1f1f21; /* === Table Column Header Fix: Darker header background === */
+    -fx-background-insets: 0 0 1 0; /* Ensure bottom border area is part of background */
+    -fx-background-radius: 6 6 0 0;
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #eaeaea;
+    -fx-text-fill: #f0f0f0; /* Primary Light Text for header */
     -fx-font-weight: bold;
+    -fx-font-size: 14px; /* Original size */
     -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 12; /* Increased padding */
 }
 
 .table-view .cell {
     -fx-cell-size: 35;
-    -fx-background-color: #444;
-    -fx-border-color: #3a3a3a;
-    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #383838; /* Match table background for cells */
+    -fx-border-color: #444; /* Original Dark Gray for cell borders */
+    -fx-border-width: 0 0 1 0; /* Only bottom border */
+    -fx-text-fill: #6622cc; /* Original Primary Light Text */
+    -fx-font-size: 13px; /* Original size */
     -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 10; /* Increased padding */
 }
+
+/* The rule for :last-visible-cell is removed as it's not supported and redundant with border-bottom */
 
 .table-row-cell:selected {
-    -fx-background-color: #5e3c90; /* Soft purple highlight */
-    -fx-text-fill: white;
+    -fx-background-color: #4a3b67; /* Original Soft Purple Highlight */
+    -fx-text-fill: white; /* Original White Text */
 }
 
-.table-view:focused .table-row-cell:selected .table-cell {
-    -fx-background-color: #805ad5;
-    -fx-text-fill: white;
+.table-view:focused .table-row-cell:selected {
+    -fx-background-color: #805ad5; /* Original Lighter Purple Focus Highlight */
+    -fx-text-fill: white; /* Original White Text */
 }
+
+/* TABLE ROW hover color - Using one of the provided grays */
+.table-row-cell:hover {
+    -fx-background-color: #444; /* Use original Dark Gray for hover */
+}
+
 
 /* === SCROLLBARS === */
 .scroll-bar {
     -fx-background-color: transparent;
+    -fx-padding: 0;
 }
 
 .increment-button, .decrement-button {
@@ -81,66 +456,76 @@
 
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track {
-    -fx-background-color: transparent;
-    -fx-border-color: derive(#805ad5, 80%);
-    -fx-background-radius: 2em;
-    -fx-border-radius: 2em;
+    -fx-background-color: #3d3d3f; /* Use Dark Gray background for track */
+    -fx-background-radius: 5; /* Sharper radius */
+    -fx-border-color: transparent;
 }
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: derive(#805ad5, 90%);
-    -fx-background-insets: 1, 0, 0;
-    -fx-background-radius: 2em;
+    -fx-background-color: #805ad5; /* Use original Lighter Purple for thumb */
+    -fx-background-insets: 1;
+    -fx-background-radius: 5; /* Sharper radius */
 }
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: #e0e0e0; /* Use Light Gray for arrows */
+}
+
 
 /* === SCROLL PANE === */
 .scroll-pane {
-    -fx-background-color: #333;
-    -fx-border-color: #444;
+    -fx-background-color: transparent; /* Make container transparent */
+    -fx-border-color: #805ad5; /* Purple Border */
     -fx-border-width: 1;
-    -fx-background-radius: 5;
+    -fx-background-radius: 6;
+    -fx-padding: 0; /* Padding should be on viewport/content */
 }
 
 .scroll-pane .viewport {
-    -fx-background-color: #444;
+    -fx-background-color: #30333b; /* Match root background for content area */
+    -fx-background-radius: 6;
+}
+
+.scroll-pane .content {
+    -fx-padding: 10; /* Padding inside the scrollable content */
+    -fx-background-color: transparent; /* Ensure content background is transparent */
 }
 
 /* === GRID PANE === */
 .grid-pane {
-    -fx-background-color: #333;
-    -fx-border-color: #444;
+    -fx-background-color: #30333b; /* Match root background */
+    -fx-border-color: #805ad5; /* Purple Border */
     -fx-border-width: 1;
-    -fx-background-radius: 5;
+    -fx-background-radius: 6;
+    -fx-padding: 15;
+    -fx-hgap: 15;
+    -fx-vgap: 15;
 }
 
-.grid-pane .cell {
-    -fx-background-color: #444;
-    -fx-border-color: #555;
-    -fx-text-fill: #e0e0e0;
+/* Ensure children backgrounds are transparent if they should inherit grid-pane background */
+.grid-pane > * {
+    -fx-background-color: transparent;
 }
 
-.grid-pane .cell:selected {
-    -fx-background-color: #5e3c90; /* Soft purple */
-    -fx-text-fill: white;
-}
 
 /* === HYPERLINKS === */
 .hyperlink {
-    -fx-text-fill: #9985ff;
-    -fx-underline: true;
-    -fx-font-size: 16px;
+    -fx-text-fill: #9985ff; /* Original Light Purple Link */
+    /*-fx-underline: true;*/
+    /*-fx-font-size: 16px; !* Original size *!*/
     -fx-cursor: hand;
     -fx-background-color: transparent;
-    -fx-padding: 4 8;
+    -fx-padding: 0; /* Remove padding */
 }
 
 .hyperlink:hover {
-    -fx-text-fill: #d6b8ff;
+    -fx-text-fill: #d6b8ff; /* Original Very Light Purple Hover */
 }
 
 .hyperlink:visited {
-    -fx-text-fill: #6c59a0;
+    -fx-text-fill: #6c59a0; /* Original Muted Purple Visited */
 }
 
 /* === CONTAINERS === */
@@ -152,95 +537,166 @@
 
 /* === BORDER PANE AND REGIONS === */
 .border-pane {
-    -fx-background-color: #2e2e30;
+    -fx-background-color: transparent; /* Make border pane transparent */
 }
 
-.border-pane > .top,
-.border-pane > .bottom,
-.border-pane > .left,
-.border-pane > .right,
-.border-pane > .center {
-    -fx-background-color: #2e2e30;
-    -fx-padding: 10;
-    -fx-border-color: #444;
-}
-
-/* Highlight Top bar */
 .border-pane > .top {
-    -fx-background-color: #3c2c52;
-    -fx-border-width: 0 0 2 0;
+    -fx-background-color: #3c2c52; /* Original Dark Purple-Gray Accent */
+    -fx-padding: 10;
+    -fx-border-color: #555; /* Use Medium Gray Border */
+    -fx-border-width: 0 0 1 0;
 }
 
-/* Footer bar */
 .border-pane > .bottom {
-    -fx-background-color: #333347;
-    -fx-border-width: 2 0 0 0;
+    -fx-background-color: #333347; /* Original Dark Blue-Purple Accent */
+    -fx-padding: 10;
+    -fx-border-color: #555; /* Use Medium Gray Border */
+    -fx-border-width: 1 0 0 0;
 }
 
-/* Sidebar color for contrast */
 .border-pane > .left, .border-pane > .right {
-    -fx-background-color: #2d2d3a;
+    -fx-background-color: #3d3d3f; /* Use Dark Gray for sidebars */
+    -fx-padding: 10;
+    -fx-border-color: #555; /* Use Medium Gray Border */
 }
+.border-pane > .left {
+    -fx-border-width: 0 1 0 0;
+}
+.border-pane > .right {
+    -fx-border-width: 0 0 0 1;
+}
+
+.border-pane > .center {
+    -fx-background-color: #30333b; /* Match root background */
+}
+
 
 /* === TEXT INPUT === */
 .text-field {
-    -fx-background-color: #1f1f21;
-    -fx-text-fill: white;
-    -fx-border-color: #805ad5;
-    -fx-border-radius: 5;
-    -fx-padding: 5;
+    -fx-background-color: transparent; /* Original Very Dark Gray Background */
+    -fx-text-fill: #6622cc; /* Original Primary Light Text */
+    /* -fx-font-size: 15px; - Original CSS didn't have size, keeping it that way */
+    -fx-border-color: #805ad5; /* Purple Border */
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8; /* Increased padding */
 }
 
 .text-field:focused {
-    -fx-border-color: #a088ff;
+    -fx-border-color: #6622cc; /* Use the slightly brighter purple on focus */
+    -fx-effect: dropshadow(gaussian, #6622cc40, 5, 0.0, 0, 0); /* Subtle purple glow on focus */
 }
+
+/* === TEXT AREA === */
+.text-area {
+    /* Style the outer text-area control */
+    -fx-background-color: #805ad5; /* Purple Border (simulated via background/padding) */
+    -fx-text-fill: #6622cc; /* Original Primary Light Text */
+    -fx-background-radius: 6;
+    -fx-border-color: transparent; /* Remove default border */
+    -fx-padding: 1; /* Padding to create the border effect */
+}
+
+.text-area .content {
+    /* Style the inner content area where text is */
+    -fx-background-color: #1f1f21; /* Original Very Dark Gray Background */
+    -fx-text-fill: #6622cc; /* Original Primary Light Text */
+    -fx-background-insets: 0;
+    -fx-padding: 8; /* Inner padding */
+    -fx-background-radius: 5; /* Match outer radius minus padding */
+}
+
+.text-area:focused {
+    -fx-background-color: #6622cc; /* Use the slightly brighter purple on focus for the border effect */
+    -fx-effect: none; /* Remove default effect */
+}
+
 
 /* === IMAGE VIEW === */
 .image-view {
-    -fx-background-color: #2a2a2a;
-    -fx-border-color: #805ad5;
+    -fx-background-color: #3d3d3f; /* Use Dark Gray background */
+    -fx-border-color: #805ad5; /* Original Lighter Purple Border */
     -fx-border-width: 2;
-    -fx-border-radius: 5;
+    -fx-border-radius: 6;
 }
 
 /* === LABEL === */
 .label {
-    -fx-background-color: #1f2026; /* Very dark background */
-    -fx-text-fill: #e0e0e0; /* Light gray text */
-    -fx-font-weight: bold;
-    -fx-padding: 5px;
-    -fx-alignment: center-left;
-    -fx-border-radius: 5px;
+    /* Default labels should inherit text color from parent and have no background/border */
+    -fx-text-fill: #6622cc; /* Primary Light Text */
+    -fx-font-weight: normal; /* Original default */
+    -fx-padding: 0; /* Original default */
+    -fx-alignment: center-left; /* Original default */
+    -fx-background-color: transparent; /* Original default */
+    -fx-border-color: transparent; /* Original default */
+    -fx-border-radius: 0; /* Original default */
+    /* No font size specified in original, keeping it that way */
+}
+
+/* Example of a label with a background (like in your original CSS) */
+.labeled-element .label { /* Apply this style to specific labels that need a background */
+    -fx-background-color: #1f1f21; /* Original Very Dark Gray */
+    -fx-text-fill: #6622cc; /* Original Primary Light Text */
+    -fx-font-weight: bold; /* Original weight */
+    -fx-padding: 5px; /* Original padding */
+    -fx-border-radius: 5px; /* Original radius */
+    /* No font size specified in original, keeping it that way */
 }
 
 /* === MENU BAR === */
 .menu-bar {
-    -fx-background-color: #1f2026; /* Very dark background */
-    -fx-border-color: #444; /* Soft border for definition */
+    -fx-background-color: #1f1f21; /* Original Very Dark Gray */
+    -fx-border-color: #555; /* Use Medium Gray Border */
+    /* Removed: -fx-border-width: 0 0 1 0; */
 }
 
+/* Labels within MenuBar (like File, Edit) */
 .menu-bar .label {
-    -fx-text-fill: #e0e0e0; /* Light gray text */
-    -fx-font-weight: bold;
+    -fx-text-fill: #f0f0f0; /* Primary Light Text */
+    -fx-font-weight: bold; /* Original weight */
+    /* Removed padding: Reverting to original */
+    /* No font size specified in original, keeping it that way */
 }
 
-.menu-bar .menu-item {
+/* Individual Menu Items in dropdowns */
+.menu-item {
     -fx-background-color: transparent;
-    -fx-text-fill: #d5d5d5; /* Light gray text for items */
+    -fx-text-fill: #d5d5d5; /* Original Light Gray Text */
     -fx-cursor: hand;
+    /* Removed padding: Reverting to original */
+    /* No font size specified in original, keeping it that way */
 }
 
-.menu-bar .menu-item:hover {
-    -fx-background-color: #353a45; /* Dark Slate Blue on hover */
+.menu-item:hover {
+    -fx-background-color: #3d3d3f; /* Use Dark Gray on hover */
     -fx-text-fill: #ffffff; /* White text on hover */
 }
 
-/* Menu options (for dropdowns or submenus) */
-.menu-options .label {
-    -fx-background-color: #1f2026;
-    -fx-text-fill: #d5d5d5;
+/* Context Menu (right-click menus) */
+.context-menu {
+    -fx-background-color: #1f1f21; /* Original Very Dark Gray */
+    -fx-border-color: #555; /* Use Medium Gray Border */
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-padding: 5; /* Keep padding for the context menu container */
 }
 
-.menu-items {
-    -fx-background-color: #1f2026;
+.context-menu .label {
+    -fx-text-fill: #d5d5d5; /* Original Light Gray Text */
+    -fx-padding: 4 8; /* Adjusted padding: Reduced slightly */
+    /* No font size specified in original, keeping it that way */
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color: #3d3d3f; /* Use Dark Gray on hover */
+}
+
+.context-menu .menu-item:selected {
+    -fx-background-color: #4a3b67; /* Original Soft Purple */
+    -fx-text-fill: white; /* White text on selected */
+}
+
+.context-menu .menu-item:selected .label {
+    -fx-text-fill: white;
 }

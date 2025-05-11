@@ -41,7 +41,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink fx:id="shoppingHyperlink" layoutX="1093.0" layoutY="85.0" onAction="#setHomePageHyperlinkClicked" text="Shopping List">
+                  <Hyperlink fx:id="shoppingHyperlink" layoutX="1082.0" layoutY="85.0" onAction="#setHomePageHyperlinkClicked" prefHeight="27.0" prefWidth="104.0" text="Shopping List">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font></Hyperlink>

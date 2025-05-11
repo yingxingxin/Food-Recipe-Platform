@@ -204,7 +204,7 @@
                      <children>
                         <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true">
                            <content>
-                              <GridPane fx:id="grid" alignment="CENTER" prefHeight="560.0" prefWidth="920.0">
+                              <GridPane fx:id="grid" alignment="CENTER" gridLinesVisible="true" prefHeight="560.0" prefWidth="920.0">
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" />
                                  </rowConstraints>
