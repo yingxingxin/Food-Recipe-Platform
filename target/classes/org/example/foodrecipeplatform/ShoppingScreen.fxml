@@ -17,12 +17,12 @@
             <children>
                 <Label text="Your Shopping List" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="40.0" />
                     </font>
                 </Label>
                 <Label text="Ingredients saved from your favorite recipes" textFill="#757575">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="30.0" />
                     </font>
                 </Label>
             </children>
