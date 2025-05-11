@@ -41,7 +41,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink fx:id="shoppingHyperlink" layoutX="1093.0" layoutY="88.0" onAction="#setHomePageHyperlinkClicked" prefHeight="27.0" prefWidth="104.0" text="Shopping List">
+                  <Hyperlink fx:id="shoppingHyperlink" alignment="CENTER" layoutX="1072.0" layoutY="88.0" onAction="#setHomePageHyperlinkClicked" prefHeight="27.0" prefWidth="125.0" text="Shopping List" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font></Hyperlink>
@@ -91,7 +91,7 @@
                         <Font size="15.0" />
                      </font></Button>
                   <ComboBox fx:id="CountryComboBox" layoutX="32.0" layoutY="129.0" prefHeight="30.0" prefWidth="120.0" promptText="Off" />
-                  <Text id="CountryText" layoutX="31.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Country" wrappingWidth="133.8002700805664">
+                  <Text id="CountryText" layoutX="11.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Country" textAlignment="CENTER" wrappingWidth="160.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font></Text>
@@ -104,7 +104,7 @@
                         <ListView fx:id="ingredientListView" prefHeight="360.0" prefWidth="170.0" />
                      </children>
                   </VBox>
-                  <Label layoutX="58.0" layoutY="218.0" prefHeight="26.0" prefWidth="102.0" text="Ingredients">
+                  <Label alignment="CENTER" layoutX="28.0" layoutY="218.0" prefHeight="26.0" prefWidth="139.0" text="Ingredients" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
