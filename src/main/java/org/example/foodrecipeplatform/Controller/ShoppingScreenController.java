@@ -1,5 +1,7 @@
 package org.example.foodrecipeplatform.Controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +13,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.text.Text;
+import javafx.util.converter.DefaultStringConverter;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.Model.ShoppingItem;
 import org.example.foodrecipeplatform.ShoppingList;
@@ -40,6 +45,8 @@ public class ShoppingScreenController implements Initializable {
     @FXML
     private Button refreshButton;
 
+    @FXML
+    private Text displayUsername;
 
     private ObservableList<ShoppingItem> shoppingItemsList;
     private ShoppingList shoppingList;
@@ -54,9 +61,58 @@ public class ShoppingScreenController implements Initializable {
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         checkedColumn.setCellValueFactory(new PropertyValueFactory<>("checked"));
 
-        // Make the checkbox column editable
-        checkedColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkedColumn));
+        // Make table editable
         shoppingTable.setEditable(true);
+
+        // Setup editable text cells
+        ingredientColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
+        quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
+
+        // Setup checkbox cell
+        checkedColumn.setCellFactory(column -> new CheckBoxTableCell<ShoppingItem, Boolean>() {
+            @Override
+            public void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty) {
+                    TableRow<ShoppingItem> row = getTableRow();
+                    if (row != null && row.getItem() != null) {
+                        CheckBox checkBox = new CheckBox();
+                        checkBox.setSelected(item != null && item);
+
+                        checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                            @Override
+                            public void changed(ObservableValue<? extends Boolean> observable,
+                                                Boolean oldValue, Boolean newValue) {
+                                row.getItem().setChecked(newValue);
+                                updateItemCheckedStatus(row.getItem(), newValue);
+                            }
+                        });
+
+                        setGraphic(checkBox);
+                    }
+                }
+            }
+        });
+
+        // Handle cell edits
+        ingredientColumn.setOnEditCommit(event -> {
+            ShoppingItem item = event.getRowValue();
+            item.setIngredientName(event.getNewValue());
+            updateItemField(item, "ingredientName", event.getNewValue());
+        });
+
+        quantityColumn.setOnEditCommit(event -> {
+            ShoppingItem item = event.getRowValue();
+            item.setQuantity(event.getNewValue());
+            updateItemField(item, "quantity", event.getNewValue());
+        });
+
+        // Load the user's display name for the title
+        try {
+            loadDisplayName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Load shopping items from Firebase
         loadShoppingItems();
@@ -67,9 +123,25 @@ public class ShoppingScreenController implements Initializable {
 
     }
 
-//    private void navigateHome() {
-//
-//    }
+    private void loadDisplayName() throws ExecutionException, InterruptedException {
+        String userId = SessionManager.getUserId();
+
+        DocumentSnapshot snapshot = FoodRecipePlatform.fstore.collection("Users")
+                .document(userId)
+                .get()
+                .get();
+
+        if (snapshot.exists()) {
+            String displayName = snapshot.getString("DisplayName");
+            if (displayName != null && !displayName.isEmpty()) {
+                displayUsername.setText(displayName + "'s Shopping List");
+            } else {
+                displayUsername.setText("Unknown User");
+            }
+        } else {
+            displayUsername.setText("User not found");
+        }
+    }
 
     @FXML
     void back_to_home_Button(ActionEvent event) throws IOException {
@@ -104,6 +176,7 @@ public class ShoppingScreenController implements Initializable {
                 if (checked != null) {
                     item.setChecked(checked);
                 }
+                item.setDocumentId(document.getId());
 
                 shoppingItemsList.add(item);
             }
@@ -152,17 +225,26 @@ public class ShoppingScreenController implements Initializable {
 
     @FXML
     private void updateItemCheckedStatus(ShoppingItem item, boolean checked) {
+        updateItemField(item, "checked", checked);
+    }
+
+    private void updateItemField(ShoppingItem item, String fieldName, Object value) {
         String userId = SessionManager.getUserId();
         if (userId == null || userId.isEmpty()) {
             return;
         }
 
         try {
-            // Get the document ID for this ingredient
             CollectionReference shoppingListRef = FoodRecipePlatform.fstore
                     .collection("Users")
                     .document(userId)
                     .collection("ShoppingList");
+
+            if (item.getDocumentId() != null && !item.getDocumentId().isEmpty()) {
+                DocumentReference docRef = shoppingListRef.document(item.getDocumentId());
+                docRef.update(fieldName, value);
+                return;
+            }
 
             ApiFuture<QuerySnapshot> future = shoppingListRef
                     .whereEqualTo("ingredientName", item.getIngredientName())
@@ -172,11 +254,14 @@ public class ShoppingScreenController implements Initializable {
 
             if (!querySnapshot.isEmpty()) {
                 DocumentSnapshot document = querySnapshot.getDocuments().get(0);
-                document.getReference().update("checked", checked);
+                document.getReference().update(fieldName, value);
+
+                item.setDocumentId(document.getId());
             }
 
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+            showAlert("Error", "Failed to update item", e.getMessage());
         }
     }
 
