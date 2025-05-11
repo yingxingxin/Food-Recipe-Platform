@@ -137,6 +137,7 @@ public class ProfilePageController {
         FriendsField.setOnMouseClicked(event -> {
             try {
                 FoodRecipePlatform.setRoot("FriendsList");
+                System.out.println("WORKS!!!!!!!");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
