@@ -21,7 +21,7 @@
    <children>
       <BorderPane prefHeight="800.0" prefWidth="1200.0">
          <top>
-            <AnchorPane prefHeight="142.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="100.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="searchButton" layoutX="401.0" layoutY="87.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="30.0" prefWidth="80.0" text="Search">
                      <font>
@@ -41,7 +41,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink fx:id="shoppingHyperlink" layoutX="1082.0" layoutY="85.0" onAction="#setHomePageHyperlinkClicked" prefHeight="27.0" prefWidth="104.0" text="Shopping List">
+                  <Hyperlink fx:id="shoppingHyperlink" layoutX="1093.0" layoutY="88.0" onAction="#setHomePageHyperlinkClicked" prefHeight="27.0" prefWidth="104.0" text="Shopping List">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font></Hyperlink>
@@ -55,16 +55,6 @@
                         <Image url="@../../../images/basket-cart-icon-27.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="158.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/home.png" />
-                     </image>
-                  </ImageView>
-                  <Hyperlink fx:id="HomePageHyperlink" layoutX="144.0" layoutY="85.0" onAction="#homePageHyperlinkClicked" text="Home Page">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Hyperlink>
                </children>
             </AnchorPane>
          </top>
@@ -80,18 +70,28 @@
                         </GridPane>
                      </content>
                   </ScrollPane>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="919.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/home.png" />
+                     </image>
+                  </ImageView>
+                  <Hyperlink fx:id="HomePageHyperlink" layoutX="905.0" layoutY="98.0" onAction="#homePageHyperlinkClicked" text="Home Page">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Hyperlink>
                </children>
             </AnchorPane>
          </center>
          <left>
-            <AnchorPane prefHeight="622.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="700.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="RandomFoodButton" layoutX="34.0" layoutY="11.0" mnemonicParsing="false" onAction="#randomFoodButtonClicked" prefHeight="30.0" prefWidth="120.0" text="Random food">
+                  <Button fx:id="RandomFoodButton" layoutX="33.0" layoutY="36.0" mnemonicParsing="false" onAction="#randomFoodButtonClicked" prefHeight="30.0" prefWidth="120.0" text="Random food">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
-                  <ComboBox fx:id="CountryComboBox" layoutX="30.0" layoutY="97.0" prefHeight="30.0" prefWidth="120.0" promptText="Off" />
-                  <Text id="CountryText" layoutX="31.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Country" wrappingWidth="133.8002700805664">
+                  <ComboBox fx:id="CountryComboBox" layoutX="32.0" layoutY="129.0" prefHeight="30.0" prefWidth="120.0" promptText="Off" />
+                  <Text id="CountryText" layoutX="31.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Country" wrappingWidth="133.8002700805664">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font></Text>

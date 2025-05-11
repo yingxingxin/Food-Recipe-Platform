@@ -17,15 +17,15 @@
 
 <AnchorPane id="recipeNameText" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.PickedRecipeScreenController">
    <children>
-      <BorderPane prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="95.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="100.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox prefHeight="100.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Pane prefHeight="200.0" prefWidth="200.0">
+                              <Pane prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <ImageView id="profileImageView" fx:id="UserProfilePhoto" fitHeight="70.0" fitWidth="70.0" layoutX="11.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -50,9 +50,9 @@
                               </Text>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Pane prefHeight="200.0" prefWidth="200.0">
+                              <Pane prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Hyperlink fx:id="shoppingHyperLink" layoutX="76.0" layoutY="73.0" onAction="#shoppingHyperLinkClicked" text="Shopping Lists">
                                        <font>
@@ -74,38 +74,38 @@
             </AnchorPane>
          </top>
          <center>
-            <AnchorPane prefHeight="500.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="500.0" prefWidth="772.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="areaText" layoutX="10.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="area" wrappingWidth="153.2734375">
+                  <Text fx:id="areaText" layoutX="-1.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="area" wrappingWidth="153.2734375">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <ImageView fx:id="recipeImageView" fitHeight="420.0" fitWidth="420.0" layoutX="188.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="categoryText" layoutX="10.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="category" wrappingWidth="137.06640625">
+                  <ImageView fx:id="recipeImageView" fitHeight="420.0" fitWidth="420.0" layoutX="161.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
+                  <Text fx:id="categoryText" layoutX="-1.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="category" wrappingWidth="140.33990478515625">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Label layoutX="10.0" layoutY="283.0" text="Category:">
+                  <Label layoutX="-1.0" layoutY="241.0" prefHeight="26.0" prefWidth="83.0" text="Category:">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="178.0" text="Area:">
+                  <Label layoutX="-1.0" layoutY="113.0" text="Area:">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="135.0" layoutY="16.0" prefHeight="26.0" prefWidth="55.0" text="Name:">
+                  <Label prefHeight="26.0" prefWidth="60.0" text="Name:">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <HBox id="nameHBox" alignment="CENTER" layoutX="195.0" layoutY="14.0" prefHeight="29.0" prefWidth="409.0">
+                  <HBox id="nameHBox" alignment="CENTER" layoutX="162.0" layoutY="-1.0" prefHeight="29.0" prefWidth="603.0">
                      <children>
-                        <TextFlow maxWidth="440.0" prefHeight="29.0" prefWidth="399.0">
-                        <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="73.60406494140625">
+                        <TextFlow maxWidth="700.0" prefHeight="29.0" prefWidth="700.0">
+                        <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="179.874267578125">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -117,14 +117,14 @@
             </AnchorPane>
          </center>
          <bottom>
-            <AnchorPane prefHeight="200.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="300.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="541.0" layoutY="-4.0" text="Instructions:">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="instructionsTextArea" layoutX="10.0" layoutY="36.0" prefHeight="150.0" prefWidth="1180.0">
+                  <TextArea fx:id="instructionsTextArea" layoutX="10.0" layoutY="36.0" prefHeight="256.0" prefWidth="1180.0">
                      <font>
                         <Font size="18.0" />
                      </font></TextArea>
@@ -132,14 +132,14 @@
             </AnchorPane>
          </bottom>
          <right>
-            <AnchorPane prefHeight="486.0" prefWidth="211.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="500.0" prefWidth="211.0" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="46.0" layoutY="-1.0" text="Ingredients:">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="ingredientTextArea" layoutX="4.0" layoutY="27.0" prefHeight="500.0" prefWidth="200.0">
+                  <TextArea fx:id="ingredientTextArea" layoutX="4.0" layoutY="27.0" prefHeight="423.0" prefWidth="200.0">
                      <font>
                         <Font size="18.0" />
                      </font></TextArea>
@@ -149,9 +149,6 @@
          <left>
             <AnchorPane prefHeight="500.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="backButton" layoutX="9.0" layoutY="107.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Back" />
-                  <Button fx:id="favoriteButton" layoutX="9.0" layoutY="162.0" mnemonicParsing="false" onAction="#favoriteButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Favorite ⭐" />
-                  <Button fx:id="shoppinglistButton" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" onAction="#shoppinglistButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Add to Shopping List" />
                   <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="11.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/home.png" />
@@ -162,6 +159,9 @@
                         <Font size="15.0" />
                      </font>
                   </Hyperlink>
+                  <Button fx:id="backButton" layoutX="9.0" layoutY="107.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Back" />
+                  <Button fx:id="favoriteButton" layoutX="9.0" layoutY="162.0" mnemonicParsing="false" onAction="#favoriteButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Favorite ⭐" />
+                  <Button fx:id="shoppinglistButton" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" onAction="#shoppinglistButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Add to Shopping List" />
                </children>
             </AnchorPane>
          </left>
