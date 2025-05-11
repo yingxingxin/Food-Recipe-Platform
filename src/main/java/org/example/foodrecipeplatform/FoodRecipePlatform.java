@@ -25,8 +25,10 @@ public class FoodRecipePlatform extends Application {
 
         scene = new Scene(loadFXML("SignIn"), 1000, 800); // RecipeSearchScreen
 
-        stage.setTitle("The Flavor Vault !");
+        String css = getClass().getResource("/css/default.css").toExternalForm();
+        scene.getStylesheets().add(css);
 
+        stage.setTitle("The Flavor Vault !");
         stage.setScene(scene);
         stage.setResizable(true);
         stage.show();

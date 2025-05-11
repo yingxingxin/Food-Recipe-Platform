@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ProfilePageController">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ProfilePageController">
    <children>
       <MenuBar fx:id="menuBar" prefHeight="28.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
@@ -63,12 +63,12 @@
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <Button fx:id="myURL" mnemonicParsing="false" onAction="#Update_Photo_URL" prefHeight="26.0" prefWidth="120.0" text="Update Photo URL">
+                  <Button fx:id="myURL" mnemonicParsing="false" onAction="#Update_Photo_URL" prefHeight="25.0" prefWidth="132.0" text="Update Photo URL">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="myBio" mnemonicParsing="false" onAction="#Update_Bio_Button" prefHeight="26.0" prefWidth="120.0" text="Update Bio">
+                  <Button fx:id="myBio" mnemonicParsing="false" onAction="#Update_Bio_Button" prefHeight="25.0" prefWidth="132.0" text="Update Bio">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>

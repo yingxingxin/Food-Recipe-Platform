@@ -17,13 +17,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeSearchScreenController">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeSearchScreenController">
    <children>
       <BorderPane prefHeight="800.0" prefWidth="1000.0">
          <top>
             <AnchorPane prefHeight="142.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="searchButton" layoutX="295.0" layoutY="88.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="30.0" prefWidth="66.0" text="Search">
+                  <Button fx:id="searchButton" layoutX="271.0" layoutY="88.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="30.0" prefWidth="90.0" text="Search">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
