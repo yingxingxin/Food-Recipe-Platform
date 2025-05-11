@@ -14,5 +14,7 @@ public class SessionManager {
         return userId;
     }
 
-    public static Object getUserDisplayName() { return displayName; }
+    public static void setUserDisplayName(Object display) {displayName = display;}
+
+    public static Object getUserDisplayName() {return displayName;}
 }
