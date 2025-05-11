@@ -10,6 +10,17 @@
 
 .CardData-RecipeCard{
     -fx-content-display: flex;
-    -fx-background-color: #FFFFFF;
     -fx-background-radius: 30;
+}
+
+.CardData-RecipeCard:hover{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.2, 0, 4);
+    -fx-background-color: #f9f9f930;
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+}
+.selected {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 1);
+    -fx-translate-y: 2;
+    -fx-background-color: #87632d60;
 }

@@ -23,15 +23,15 @@
          <top>
             <AnchorPane prefHeight="100.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="searchButton" layoutX="401.0" layoutY="87.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="30.0" prefWidth="80.0" text="Search">
+                  <Button fx:id="searchButton" layoutX="399.0" layoutY="73.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="30.0" prefWidth="80.0" text="Search">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
-                  <TextField fx:id="searchTextField" layoutX="489.0" layoutY="87.0" prefHeight="30.0" prefWidth="300.0" promptText="Enter recipe name">
+                  <TextField fx:id="searchTextField" layoutX="492.0" layoutY="73.0" prefHeight="30.0" prefWidth="300.0" promptText="Enter recipe name">
                      <font>
                         <Font size="15.0" />
                      </font></TextField>
-                  <Text layoutX="441.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Generator" wrappingWidth="323.3069763183594">
+                  <Text layoutX="425.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Generator" wrappingWidth="341.0843811035156">
                      <font>
                         <Font name="System Bold" size="48.0" />
                      </font>

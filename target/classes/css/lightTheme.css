@@ -271,7 +271,6 @@
 .button {
     -fx-background-color: #8d5524; /* Primary Accent - Dark Warm Brown */
     -fx-text-fill: #fcf9f3; /* Text on accent background */
-    -fx-font-size: 15px; /* Original size */
     -fx-background-radius: 8; /* Slightly less rounded for sharpness */
     -fx-cursor: hand;
     -fx-alignment: center;
@@ -292,7 +291,6 @@
 .large-button {
     -fx-pref-width: 200px;
     -fx-pref-height: 50px;
-    /* -fx-font-size: 15px; - Keep original size as requested */
 }
 
 /* TABLEVIEW - Root styling */
@@ -316,9 +314,9 @@
 
 /* COLUMN HEADER labels */
 .table-view .column-header .label {
-    -fx-text-fill: #fcf9f3;            /* Text on accent background */
+    -fx-text-fill: #8d5524;            /* Text on accent background */
     -fx-font-weight: bold;
-    -fx-font-size: 14px; /* Original size */
+    /*-fx-font-size: 14px; !* Original size *!*/
     -fx-font-family: "Arial";
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 10 12; /* Increased padding */
@@ -331,7 +329,7 @@
     -fx-border-color: #f0e9dc;         /* Very light warm gray border between cells */
     -fx-border-width: 0 0 1 0; /* Only bottom border for a cleaner look */
     -fx-text-fill: #4a3b2d;            /* Dark warm brown text for readability */
-    -fx-font-size: 13px; /* Original size */
+    /*-fx-font-size: 13px; !* Original size *!*/
     -fx-font-family: "Arial";
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 8 10; /* Increased padding */
@@ -370,13 +368,13 @@
 }
 
 .scroll-pane .viewport {
-    -fx-background-color: #fcf9f3;    /* Match the root background for the content area */
+    -fx-background-color: #f0e9dc;    /* Match the root background for the content area */
     -fx-background-radius: 8;
 }
 
 .scroll-pane .content {
     -fx-padding: 10; /* Add padding to the content inside the scroll pane */
-    -fx-background-color: transparent; /* Ensure content background is transparent */
+    -fx-background-color: #f0e9dc; /* Ensure content background is transparent */
 }
 
 
@@ -418,25 +416,25 @@
 /* HYPERLINK */
 .hyperlink {
     -fx-text-fill: #a85a3b; /* Warm reddish-brown link color */
-    -fx-underline: true;
-    -fx-font-size: 18px; /* Original size */
-    -fx-font-family: "Arial";
-    -fx-cursor: hand;
-    -fx-effect: none; /* Remove dropshadow for a cleaner look */
-    -fx-font-weight: bold; /* Original weight */
-    -fx-border-color: transparent;
-    -fx-background-color: transparent;
-    -fx-padding: 0; /* Remove padding */
+    /*-fx-underline: true;*/
+    /*-fx-font-size: 18px; !* Original size *!*/
+    /*-fx-font-family: "Arial";*/
+    /*-fx-cursor: hand;*/
+    /*-fx-effect: none; !* Remove dropshadow for a cleaner look *!*/
+    /*-fx-font-weight: bold; !* Original weight *!*/
+    /*-fx-border-color: transparent;*/
+    /*-fx-background-color: transparent;*/
+    /*-fx-padding: 0; !* Remove padding *!*/
 }
 
-.hyperlink:hover {
-    -fx-text-fill: #8d5524; /* Darker warm brown on hover */
-    -fx-underline: true;
-}
+/*.hyperlink:hover {*/
+/*    -fx-text-fill: #8d5524; !* Darker warm brown on hover *!*/
+/*    -fx-underline: true;*/
+/*}*/
 
-.hyperlink:visited {
-    -fx-text-fill: #7a402a; /* Visited link color */
-}
+/*.hyperlink:visited {*/
+/*    -fx-text-fill: #7a402a; !* Visited link color *!*/
+/*}*/
 
 /* LAYOUT CONTAINERS */
 .hbox, .vbox {
@@ -506,7 +504,7 @@
     -fx-background-color: #b4845a;     /* Border color effect using Medium Warm Brown */
     -fx-background-radius: 8;
     -fx-border-color: transparent; /* Remove default border */
-    -fx-padding: 1; /* Padding to create the border effect */
+    /*-fx-padding: 1; !* Padding to create the border effect *!*/
 }
 
 .text-area .content {
@@ -527,7 +525,7 @@
     -fx-background-color: #f0e9dc; /* Very light warm gray background */
     -fx-text-fill: #4a3b2d;            /* Standard dark warm brown text */
     -fx-font-family: "Arial";
-    -fx-font-size: 14px; /* Original size */
+    /*-fx-font-size: 14px; !* Original size *!*/
     -fx-border-color: #b4845a;            /* Medium Warm Brown border */
     -fx-border-width: 1;
     -fx-border-radius: 8;

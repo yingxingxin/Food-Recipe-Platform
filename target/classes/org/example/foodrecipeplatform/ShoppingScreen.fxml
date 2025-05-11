@@ -29,10 +29,6 @@
             <padding>
                 <Insets bottom="15.0" top="15.0" />
             </padding>
-         <stylesheets>
-            <URL value="@../../../css/lightTheme.css" />
-            <URL value="@../../../css/darkTheme.css" />
-         </stylesheets>
         </VBox>
     </top>
     <center>

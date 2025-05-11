@@ -54,12 +54,12 @@
                            <children>
                               <Pane prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Hyperlink fx:id="shoppingHyperLink" layoutX="76.0" layoutY="73.0" onAction="#shoppingHyperLinkClicked" text="Shopping Lists">
+                                    <Hyperlink fx:id="shoppingHyperLink" layoutX="79.0" layoutY="73.0" onAction="#shoppingHyperLinkClicked" text="Shopping Lists">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Hyperlink>
-                                    <ImageView id="shoppingImageView" fitHeight="70.0" fitWidth="70.0" layoutX="99.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView id="shoppingImageView" fitHeight="70.0" fitWidth="70.0" layoutX="98.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../../images/basket-cart-icon-27.png" />
                                        </image>

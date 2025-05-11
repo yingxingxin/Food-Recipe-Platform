@@ -58,7 +58,7 @@
                                                       <Font name="System Bold Italic" size="48.0" />
                                                    </font>
                                                 </Text>
-                                                <Hyperlink layoutX="321.0" layoutY="106.0" onAction="#OpenFoodGeneratorScreen" text="Food Generator">
+                                                <Hyperlink layoutX="323.0" layoutY="92.0" onAction="#OpenFoodGeneratorScreen" text="Food Generator">
                                                    <font>
                                                       <Font name="System Bold Italic" size="20.0" />
                                                    </font>
@@ -75,12 +75,12 @@
                                        <children>
                                           <Pane prefHeight="150.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="101.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="89.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../../../images/basket-cart-icon-27.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Hyperlink layoutX="64.0" layoutY="63.0" onAction="#OpenShoppingListScreen" text="Shopping List">
+                                                <Hyperlink layoutX="67.0" layoutY="74.0" onAction="#OpenShoppingListScreen" prefHeight="35.0" prefWidth="132.0" text="Shopping List">
                                                    <font>
                                                       <Font name="System Bold Italic" size="20.0" />
                                                    </font>
