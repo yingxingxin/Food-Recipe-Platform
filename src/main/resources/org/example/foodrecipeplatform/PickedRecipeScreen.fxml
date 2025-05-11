@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="recipeNameText" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.PickedRecipeScreenController">
+<AnchorPane id="recipeNameText" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.PickedRecipeScreenController">
    <children>
       <BorderPane prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -27,7 +27,7 @@
                            <children>
                               <Pane prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <ImageView id="profileImageView" fx:id="UserProfilePhoto" fitHeight="70.0" fitWidth="70.0" layoutX="11.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView id="profileImageView" fx:id="UserProfilePhoto" fitHeight="70.0" fitWidth="70.0" layoutX="11.0" layoutY="2.0" pickOnBounds="true">
                                        <image>
                                           <Image url="@../../../images/download.png" />
                                        </image>

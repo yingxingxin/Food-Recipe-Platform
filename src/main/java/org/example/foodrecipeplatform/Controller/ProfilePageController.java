@@ -128,7 +128,7 @@ public class ProfilePageController {
         }) ;
         FriendsField.setOnMouseClicked(event -> {
             try {
-                FoodRecipePlatform.setRoot("HomeScreen"); // NEEDS TO CHANGE TO FRIENDS SCREEN WHEN CREATED
+                FoodRecipePlatform.setRoot("FriendsList"); // NEEDS TO CHANGE TO FRIENDS SCREEN WHEN CREATED
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

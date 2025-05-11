@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.HomeScreenController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.HomeScreenController">
    <children>
       <VBox layoutX="5.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,7 +30,7 @@
                                        <children>
                                           <Pane prefHeight="150.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="homeScreen_pfp" fitHeight="70.0" fitWidth="70.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="homeScreen_pfp" fitHeight="70.0" fitWidth="70.0" layoutX="5.0" pickOnBounds="true" />
                                                 <Hyperlink fx:id="DisplayUserName" layoutX="1.0" layoutY="70.0" onAction="#OpenProfileScreen" prefHeight="27.0" prefWidth="79.0" text="Profile">
                                                    <font>
                                                       <Font name="System Bold Italic" size="20.0" />
