@@ -11,18 +11,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ShoppingScreenController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ShoppingScreenController">
     <top>
         <VBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
                 <Label text="Your Shopping List" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="40.0" />
                     </font>
                 </Label>
                 <Label text="Ingredients saved from your favorite recipes" textFill="#757575">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="30.0" />
                     </font>
                 </Label>
             </children>
