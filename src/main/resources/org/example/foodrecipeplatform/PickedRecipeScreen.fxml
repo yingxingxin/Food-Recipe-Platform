@@ -87,17 +87,17 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Label layoutX="-1.0" layoutY="241.0" prefHeight="26.0" prefWidth="83.0" text="Category:">
+                  <Label layoutX="-1.0" layoutY="241.0" prefHeight="26.0" prefWidth="130.0" text="Category:">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="-1.0" layoutY="113.0" text="Area:">
+                  <Label layoutX="-1.0" layoutY="113.0" prefHeight="26.0" prefWidth="99.0" text="Area:">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="26.0" prefWidth="60.0" text="Name:">
+                  <Label prefHeight="26.0" prefWidth="109.0" text="Name:">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
