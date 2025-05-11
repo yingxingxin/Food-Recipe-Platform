@@ -419,7 +419,7 @@
     -fx-background-color: #383838; /* Match table background for cells */
     -fx-border-color: #444; /* Original Dark Gray for cell borders */
     -fx-border-width: 0 0 1 0; /* Only bottom border */
-    -fx-text-fill: #6622cc; /* Original Primary Light Text */
+    -fx-text-fill: #e0e0e0; /* Original Light Gray Cell Text */
     -fx-font-size: 13px; /* Original size */
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 8 10; /* Increased padding */
