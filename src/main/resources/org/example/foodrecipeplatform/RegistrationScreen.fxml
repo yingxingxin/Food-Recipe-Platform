@@ -4,55 +4,91 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RegistrationScreenController">
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RegistrationScreenController">
    <children>
-
-      <!-- Title -->
-      <Text text="Sign Up">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Text>
-
-      <!-- Display Name -->
-      <TextField fx:id="DisplayName" prefHeight="26.0" prefWidth="200.0" promptText="Enter Display Name">
-         <VBox.margin>
-            <Insets left="200.0" right="200.0" />
-         </VBox.margin></TextField>
-
-      <!-- Email -->
-      <TextField fx:id="EmailTextField" prefHeight="26.0" prefWidth="200.0" promptText="Email">
-         <VBox.margin>
-            <Insets left="200.0" right="200.0" />
-         </VBox.margin></TextField>
-
-      <!-- Password -->
-      <TextField fx:id="Pass1TextField" prefHeight="26.0" prefWidth="200.0" promptText="Password">
-         <VBox.margin>
-            <Insets left="200.0" right="200.0" />
-         </VBox.margin></TextField>
-
-      <!-- Confirm Password -->
-      <TextField fx:id="Pass2TextField" prefHeight="26.0" prefWidth="200.0" promptText="Confirm Password">
-         <VBox.margin>
-            <Insets left="200.0" right="200.0" />
-         </VBox.margin></TextField>
-
-      <!-- Message Text -->
-      <Text fx:id="messageTextRS" wrappingWidth="300.0" />
-
-      <!-- Create Account Button -->
-      <Button fx:id="createAccount" mnemonicParsing="false" onAction="#CreateAccountButtonClicked" prefHeight="26.0" prefWidth="160.0" text="Create Account" />
-
-      <!-- Already have an account -->
-      <VBox alignment="CENTER">
-         <Text text="Already have an account ?" />
-         <Hyperlink onAction="#Login_RedirectBttn" text="Login" underline="true" />
+      <ImageView fitHeight="800.0" fitWidth="1200.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/Background.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" spacing="10.0">
+         <children>
+      
+            <!-- Title -->
+            <Text text="Sign Up" wrappingWidth="195.08294677734375">
+               <font>
+                  <Font name="System Bold" size="50.0" />
+               </font>
+            </Text>
+      
+            <!-- Display Name -->
+            <TextField fx:id="DisplayName" maxWidth="500.0" prefHeight="40.0" prefWidth="300.0" promptText="Enter Display Name">
+               <VBox.margin>
+                  <Insets left="200.0" right="200.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+      
+            <!-- Email -->
+            <TextField fx:id="EmailTextField" maxWidth="500.0" prefHeight="40.0" prefWidth="300.0" promptText="Email">
+               <VBox.margin>
+                  <Insets left="200.0" right="200.0" />
+               </VBox.margin>
+            </TextField>
+      
+            <!-- Password -->
+            <TextField fx:id="Pass1TextField" maxWidth="500.0" prefHeight="40.0" prefWidth="300.0" promptText="Password">
+               <VBox.margin>
+                  <Insets left="200.0" right="200.0" />
+               </VBox.margin>
+            </TextField>
+      
+            <!-- Confirm Password -->
+            <TextField fx:id="Pass2TextField" maxWidth="500.0" prefHeight="40.0" prefWidth="300.0" promptText="Confirm Password">
+               <VBox.margin>
+                  <Insets left="200.0" right="200.0" />
+               </VBox.margin>
+            </TextField>
+      
+            <!-- Message Text -->
+            <Text fx:id="messageTextRS" wrappingWidth="300.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+      
+            <!-- Create Account Button -->
+            <Button fx:id="createAccount" mnemonicParsing="false" onAction="#CreateAccountButtonClicked" prefHeight="30.0" prefWidth="200.0" text="Create Account">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+      
+            <!-- Already have an account -->
+            <VBox alignment="CENTER">
+               <Text text="Already have an account ?">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Text>
+               <Hyperlink onAction="#Login_RedirectBttn" text="Login" underline="true">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Hyperlink>
+            </VBox>
+      
+         </children>
       </VBox>
-
    </children>
-</VBox>
+</AnchorPane>

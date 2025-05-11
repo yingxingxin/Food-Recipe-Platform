@@ -10,6 +10,9 @@ import com.google.firebase.cloud.FirestoreClient;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * FirestoreContext -> class to access firebase
+ */
 public class FirestoreContext {
 
     public Firestore firebase() {
@@ -32,4 +35,4 @@ public class FirestoreContext {
     }
 
 
-}
+} // End FirestoreContext class

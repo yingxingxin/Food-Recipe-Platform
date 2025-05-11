@@ -3,18 +3,23 @@ package org.example.foodrecipeplatform.Controller;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
+import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 import org.example.foodrecipeplatform.CardData;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.MealDbAPI;
@@ -25,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * RecipeSearchScreenController -> Class to search for recipes within the food API DB
@@ -41,10 +48,8 @@ public class RecipeSearchScreenController
     public ComboBox<String> CountryComboBox;
     @FXML
     public TextField searchTextField;
-//    @FXML
-//    public TextField IngredientTextField;
-//    @FXML
-//    public Hyperlink shoppingHyperlink;
+    @FXML
+    public Hyperlink shoppingHyperlink;
     @FXML
     public Hyperlink HomePageHyperlink;
     @FXML
@@ -65,6 +70,10 @@ public class RecipeSearchScreenController
 
     MealDbAPI api;
 
+    // Introduce an ExecutorService to manage background threads
+    private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+
     /**
      * Helper Method to call Alert
      * @param title -> title of alert
@@ -72,11 +81,13 @@ public class RecipeSearchScreenController
      * @param content -> content body of alert
      */
     private void showAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(title);
+            alert.setHeaderText(header);
+            alert.setContentText(content);
+            alert.showAndWait();
+        });
     } // End showAlert method
 
     /**
@@ -208,12 +219,17 @@ public class RecipeSearchScreenController
                 ingredientRecipe(selected);
             }
         });
+
+        // Ensure the executor service is shut down when the application stops
+        //Platform.runLater(executorService::shutdownNow);
+
     }
 
 
     @FXML
     void searchButtonClicked(ActionEvent event)
     {
+        popNode(searchButton);
         System.out.println("Get Button clicked");
         getRecipe();
     }
@@ -221,6 +237,7 @@ public class RecipeSearchScreenController
     @FXML
     void randomFoodButtonClicked(ActionEvent event)
     {
+        popNode(RandomFoodButton);
         System.out.println("Random Food Button Clicked");
         randomRecipe();
     }
@@ -245,6 +262,10 @@ public class RecipeSearchScreenController
 
     @FXML
     private void setGrid(List<CardData> inputCardList) {
+
+        Platform.runLater(() -> {
+
+
         // testing grid
         resultGridPlain.getChildren().clear();
         //cards.addAll(getData());
@@ -284,45 +305,198 @@ public class RecipeSearchScreenController
             System.out.println("General error in initialize");
             e.printStackTrace();
         }
+
+        });
     }
 
     // gets recipe based on the search bar which calls the recipe api that searches based on the name
     public void getRecipe()
     {
-        List<CardData> results = null; // = api.searchMealsByName(searchTextField.getText());
 
-        if (searchTextField.getText().length() == 1)
-        {
-            results = api.getMealsByFirstLetter(searchTextField.getText().charAt(0));
+        String query = searchTextField.getText();
+        if (query == null || query.trim().isEmpty()) {
+            showAlert("Input Missing", "Please enter a recipe name or a letter.", null);
+            return;
         }
-        // uses name search if input is more than one letter
-        else
-        {
-            results = api.searchMealsByName(searchTextField.getText());
-        }
-        setGrid(results); // TESTING
+
+        Task<List<CardData>> getRecipeTask = new Task<>() {
+            @Override
+            protected List<CardData> call() throws Exception {
+                // This code runs on a background thread
+                if (query.length() == 1) {
+                    return api.getMealsByFirstLetter(query.charAt(0));
+                } else {
+                    return api.searchMealsByName(query);
+                }
+            }
+        };
+
+        getRecipeTask.setOnSucceeded(event -> {
+            // This code runs on the JavaFX Application Thread
+            List<CardData> results = getRecipeTask.getValue();
+            if (results == null || results.isEmpty()) {
+                showAlert("No Results", "No recipes found for your search.", null);
+                setGrid(new ArrayList<>()); // Clear previous results
+            } else {
+                setGrid(results); // Update the UI with results
+            }
+        });
+
+        getRecipeTask.setOnFailed(event -> {
+            // This code runs on the JavaFX Application Thread
+            Throwable exception = getRecipeTask.getException();
+            showAlert("API Error", "Failed to fetch recipes.", exception.getMessage());
+            setGrid(new ArrayList<>()); // Clear previous results on error
+        });
+
+        executorService.submit(getRecipeTask);
+
+
+//        List<CardData> results = null; // = api.searchMealsByName(searchTextField.getText());
+//
+//        if (searchTextField.getText().length() == 1)
+//        {
+//            results = api.getMealsByFirstLetter(searchTextField.getText().charAt(0));
+//        }
+//        // uses name search if input is more than one letter
+//        else
+//        {
+//            results = api.searchMealsByName(searchTextField.getText());
+//        }
+//        setGrid(results); // TESTING
     }
 
     // uses api to get & display a random recipe
-    public void randomRecipe()
-    {
-        List<CardData> results = api.getRandomMeal();
-        setGrid(results); // TESTING
+    public void randomRecipe() {
+        Task<List<CardData>> randomRecipeTask = new Task<>() {
+            @Override
+            protected List<CardData> call() throws Exception {
+                return api.getRandomMeal();
+            }
+        };
+
+        randomRecipeTask.setOnSucceeded(event -> {
+            // This code runs on the JavaFX Application Thread
+            List<CardData> results = randomRecipeTask.getValue();
+            if (results == null || results.isEmpty()) {
+                showAlert("No Results", "Could not fetch a random recipe.", null);
+                setGrid(new ArrayList<>()); // Clear previous results
+            } else {
+                setGrid(results); // Update the UI with results
+            }
+        });
+
+        randomRecipeTask.setOnFailed(event -> {
+            // This code runs on the JavaFX Application Thread
+            Throwable exception = randomRecipeTask.getException();
+            showAlert("API Error", "Failed to fetch a random recipe.", exception.getMessage());
+            setGrid(new ArrayList<>()); // Clear previous results on error
+        });
+
+        executorService.submit(randomRecipeTask);
+
+
+//        List<CardData> results = api.getRandomMeal();
+//        setGrid(results); // TESTING
     }
 
     public void countryRecipe(String country)
     {
-        System.out.println("HERE " + country);
 
-        List<CardData> results = api.getMealsByCountry(country);
-        setGrid(results); // TESTING
+        if (country == null || country.trim().isEmpty() || country.equals("Off")) {
+            setGrid(new ArrayList<>()); // Clear results if "Off" is selected or input is invalid
+            return;
+        }
+
+        Task<List<CardData>> countryRecipeTask = new Task<>() {
+            @Override
+            protected List<CardData> call() throws Exception {
+                // This code runs on a background thread
+                System.out.println("Fetching recipes for country: " + country);
+                return api.getMealsByCountry(country);
+            }
+        };
+
+        countryRecipeTask.setOnSucceeded(event -> {
+            // This code runs on the JavaFX Application Thread
+            List<CardData> results = countryRecipeTask.getValue();
+            if (results == null || results.isEmpty()) {
+                showAlert("No Results", "No recipes found for the selected country.", null);
+                setGrid(new ArrayList<>()); // Clear previous results
+            } else {
+                setGrid(results); // Update the UI with results
+            }
+        });
+
+        countryRecipeTask.setOnFailed(event -> {
+            // This code runs on the JavaFX Application Thread
+            Throwable exception = countryRecipeTask.getException();
+            showAlert("API Error", "Failed to fetch recipes by country.", exception.getMessage());
+            setGrid(new ArrayList<>()); // Clear previous results on error
+        });
+
+        executorService.submit(countryRecipeTask);
+
+
+//        System.out.println("HERE " + country);
+//
+//        List<CardData> results = api.getMealsByCountry(country);
+//        setGrid(results); // TESTING
     }
 
     public void ingredientRecipe(String ingredient)
     {
-        System.out.println("ingredientRecipe: " + ingredient);
-        List<CardData> results = api.getMealsByIngredient(ingredient);
 
-        setGrid(results); // TESTING
+        if (ingredient == null || ingredient.trim().isEmpty()) {
+            setGrid(new ArrayList<>()); // Clear results if input is invalid
+            return;
+        }
+
+        Task<List<CardData>> ingredientRecipeTask = new Task<>() {
+            @Override
+            protected List<CardData> call() throws Exception {
+                // This code runs on a background thread
+                System.out.println("Fetching recipes for ingredient: " + ingredient);
+                return api.getMealsByIngredient(ingredient);
+            }
+        };
+
+        ingredientRecipeTask.setOnSucceeded(event -> {
+            // This code runs on the JavaFX Application Thread
+            List<CardData> results = ingredientRecipeTask.getValue();
+            if (results == null || results.isEmpty()) {
+                showAlert("No Results", "No recipes found with that ingredient.", null);
+                setGrid(new ArrayList<>()); // Clear previous results
+            } else {
+                setGrid(results); // Update the UI with results
+            }
+        });
+
+        ingredientRecipeTask.setOnFailed(event -> {
+            // This code runs on the JavaFX Application Thread
+            Throwable exception = ingredientRecipeTask.getException();
+            showAlert("API Error", "Failed to fetch recipes by ingredient.", exception.getMessage());
+            setGrid(new ArrayList<>()); // Clear previous results on error
+        });
+
+        executorService.submit(ingredientRecipeTask);
+
+
+//        System.out.println("ingredientRecipe: " + ingredient);
+//        List<CardData> results = api.getMealsByIngredient(ingredient);
+//
+//        setGrid(results); // TESTING
     }
+
+    private void popNode(Node node) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), node);
+        st.setFromX(1.0);
+        st.setFromY(1.0);
+        st.setToX(1.2);
+        st.setToY(1.2);
+        st.setAutoReverse(true);
+        st.setCycleCount(2);
+        st.play();
+    }
+
 } // End RecipeSearchScreenController class
