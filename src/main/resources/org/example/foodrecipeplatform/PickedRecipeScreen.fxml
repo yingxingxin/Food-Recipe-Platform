@@ -43,7 +43,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Picked recipe screen" wrappingWidth="457.13671875">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Picked recipe screen" textAlignment="CENTER" wrappingWidth="600.0">
                                  <font>
                                     <Font name="System Bold" size="50.0" />
                                  </font>

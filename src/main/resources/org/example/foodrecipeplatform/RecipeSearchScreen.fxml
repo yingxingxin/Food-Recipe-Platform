@@ -31,7 +31,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></TextField>
-                  <Text layoutX="425.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Generator" wrappingWidth="341.0843811035156">
+                  <Text layoutX="307.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Generator" textAlignment="CENTER" wrappingWidth="600.0">
                      <font>
                         <Font name="System Bold" size="48.0" />
                      </font>
