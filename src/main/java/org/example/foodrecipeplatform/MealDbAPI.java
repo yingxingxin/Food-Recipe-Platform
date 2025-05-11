@@ -12,6 +12,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * MealDbAPI -> class to access food db
+ */
 public class MealDbAPI {
 
     private static final String API_BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
@@ -312,4 +315,4 @@ public class MealDbAPI {
 
         return response.toString();
     }
-}
+} // End MealDbAPI class

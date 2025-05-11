@@ -208,7 +208,6 @@ public class ShoppingList {
         }
     }
 
-
     @FXML
     void back_to_home_Button(ActionEvent event) throws IOException {
         FoodRecipePlatform.setRoot("HomeScreen");
