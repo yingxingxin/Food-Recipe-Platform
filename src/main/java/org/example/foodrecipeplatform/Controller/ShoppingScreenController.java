@@ -24,26 +24,23 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * ShoppingScreenController class ->  make list of ingredients
+ */
 public class ShoppingScreenController implements Initializable {
 
     @FXML
     private TableView<ShoppingItem> shoppingTable;
-
     @FXML
     private TableColumn<ShoppingItem, String> ingredientColumn;
-
     @FXML
     private TableColumn<ShoppingItem, String> quantityColumn;
-
     @FXML
     private TableColumn<ShoppingItem, Boolean> checkedColumn;
-
     @FXML
     private Button clearAllButton;
-
     @FXML
     private Button refreshButton;
-
     @FXML
     private Button backButton;
 
@@ -229,4 +226,4 @@ public class ShoppingScreenController implements Initializable {
         st.setCycleCount(2);
         st.play();
     }
-}
+} // End ShoppingScreenController class

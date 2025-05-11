@@ -12,7 +12,9 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-// testing commit to see if it still hides the key
+/**
+ * FoodRecipePlatform -> init screen
+ */
 public class FoodRecipePlatform extends Application {
     public static Scene scene;
     public static Firestore fstore;
@@ -68,8 +70,9 @@ public class FoodRecipePlatform extends Application {
         return fxmlLoader.load();
     }
 
-
+    // main method
     public static void main(String[] args) {
         launch(args);
-    }
-}
+    } // End main method
+
+} // End FoodRecipePlatform class
