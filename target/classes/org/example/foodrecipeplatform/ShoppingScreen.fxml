@@ -37,7 +37,7 @@
             <columns>
                 <TableColumn fx:id="ingredientColumn" prefWidth="245.6665859222412" text="Ingredient" />
                 <TableColumn fx:id="quantityColumn" prefWidth="154.0" text="Quantity" />
-                <TableColumn fx:id="checkedColumn" prefWidth="158.66671752929688" style="-fx-alignment: CENTER;" text="Purchased"  />
+                <TableColumn fx:id="checkedColumn" prefWidth="158.66671752929688" text="Purchased"  />
             </columns>
             <BorderPane.margin>
                 <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

@@ -51,7 +51,7 @@
          <children>
             <VBox>
                <children>
-                  <ImageView fx:id="ProfilePicture" fitHeight="275.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ProfilePicture" fitHeight="275.0" fitWidth="275.0" pickOnBounds="true">
                      <effect>
                         <InnerShadow />
                      </effect>

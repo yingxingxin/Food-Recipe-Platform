@@ -27,7 +27,7 @@
                            <children>
                               <Pane prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <ImageView id="profileImageView" fx:id="UserProfilePhoto" fitHeight="70.0" fitWidth="70.0" layoutX="11.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView id="profileImageView" fx:id="UserProfilePhoto" fitHeight="70.0" fitWidth="70.0" layoutX="11.0" layoutY="2.0" pickOnBounds="true">
                                        <image>
                                           <Image url="@../../../images/download.png" />
                                        </image>
@@ -161,7 +161,7 @@
                   </Hyperlink>
                   <Button fx:id="backButton" layoutX="9.0" layoutY="107.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Back" />
                   <Button fx:id="favoriteButton" layoutX="9.0" layoutY="162.0" mnemonicParsing="false" onAction="#favoriteButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Favorite ⭐" />
-                  <Button fx:id="shoppinglistButton" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" onAction="#shoppinglistButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Add to Shopping List" />
+                  <Button fx:id="shoppinglistButton" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" onAction="#shoppinglistButtonClicked" prefHeight="30.0" prefWidth="180.0" text="Add to Shopping List" />
                </children>
             </AnchorPane>
          </left>

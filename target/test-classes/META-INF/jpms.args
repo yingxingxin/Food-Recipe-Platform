@@ -1,4 +1,0 @@
---patch-module
-org.example.foodrecipeplatform=_
---add-reads
-org.example.foodrecipeplatform=ALL-UNNAMED
