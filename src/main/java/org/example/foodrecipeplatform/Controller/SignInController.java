@@ -140,6 +140,7 @@ public class SignInController {
 
                     if (username.equals(user) && password.equals(pass)) {
                         SessionManager.setUserId(document.getId());
+                        SessionManager.setUserDisplayName(document.getString("DisplayName"));
                         System.out.println("Logged in as: " + user + " (Doc ID: " + document.getId() + ")");
                         return true;
                     }
