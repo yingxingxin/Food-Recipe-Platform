@@ -17,52 +17,42 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeSearchScreenController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.RecipeSearchScreenController">
    <children>
-      <BorderPane prefHeight="800.0" prefWidth="1000.0">
+      <BorderPane prefHeight="800.0" prefWidth="1200.0">
          <top>
-            <AnchorPane prefHeight="142.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="100.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="searchButton" layoutX="271.0" layoutY="88.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="30.0" prefWidth="90.0" text="Search">
+                  <Button fx:id="searchButton" layoutX="399.0" layoutY="73.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="30.0" prefWidth="80.0" text="Search">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="15.0" />
                      </font></Button>
-                  <TextField fx:id="searchTextField" layoutX="371.0" layoutY="84.0" prefHeight="35.0" prefWidth="281.0" promptText="Enter recipe name">
+                  <TextField fx:id="searchTextField" layoutX="492.0" layoutY="73.0" prefHeight="30.0" prefWidth="300.0" promptText="Enter recipe name">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="15.0" />
                      </font></TextField>
-                  <Text layoutX="304.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Generator" wrappingWidth="391.2033386230469">
+                  <Text layoutX="307.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Generator" textAlignment="CENTER" wrappingWidth="600.0">
                      <font>
                         <Font name="System Bold" size="48.0" />
                      </font>
                   </Text>
-                  <Hyperlink fx:id="DisplayUserName" layoutX="23.0" layoutY="86.0" onAction="#profileHyperlink" text="Profile">
+                  <Hyperlink fx:id="DisplayUserName" layoutX="19.0" layoutY="88.0" onAction="#profileHyperlink" text="Profile">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink fx:id="shoppingHyperlink" layoutX="879.0" layoutY="85.0" onAction="#setHomePageHyperlinkClicked" text="Shopping List">
+                  <Hyperlink fx:id="shoppingHyperlink" alignment="CENTER" layoutX="1072.0" layoutY="88.0" onAction="#setHomePageHyperlinkClicked" prefHeight="27.0" prefWidth="125.0" text="Shopping List" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font></Hyperlink>
-                  <Hyperlink fx:id="HomePageHyperlink" layoutX="120.0" layoutY="85.0" onAction="#homePageHyperlinkClicked" text="Home Page">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Hyperlink>
-                  <ImageView fx:id="Profile_photo" fitHeight="60.0" fitWidth="60.0" layoutX="21.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="Profile_photo" fitHeight="70.0" fitWidth="70.0" layoutX="7.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/download.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="902.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="1110.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/basket-cart-icon-27.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="136.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/home.png" />
                      </image>
                   </ImageView>
                </children>
@@ -71,36 +61,52 @@
          <center>
             <AnchorPane prefHeight="435.0" prefWidth="884.0" BorderPane.alignment="CENTER">
                <children>
-                  <ScrollPane fx:id="resultScrollPlain" layoutX="-2.0" prefHeight="610.0" prefWidth="765.0">
+                  <ScrollPane fx:id="resultScrollPlain" layoutX="-2.0" prefHeight="648.0" prefWidth="809.0">
                      <content>
-                        <GridPane fx:id="resultGridPlain" prefHeight="530.0" prefWidth="813.0">
+                        <GridPane fx:id="resultGridPlain" prefHeight="646.0" prefWidth="811.0">
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                         </GridPane>
                      </content>
                   </ScrollPane>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="919.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/home.png" />
+                     </image>
+                  </ImageView>
+                  <Hyperlink fx:id="HomePageHyperlink" layoutX="905.0" layoutY="98.0" onAction="#homePageHyperlinkClicked" text="Home Page">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Hyperlink>
                </children>
             </AnchorPane>
          </center>
          <left>
-            <AnchorPane prefHeight="452.0" prefWidth="126.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="700.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="RandomFoodButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#randomFoodButtonClicked" text="Random food" />
-                  <ComboBox fx:id="CountryComboBox" layoutX="19.0" layoutY="88.0" prefHeight="26.0" prefWidth="86.0" promptText="Off" />
-                  <Text id="CountryText" layoutX="14.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Country" wrappingWidth="97.33676147460938">
+                  <Button fx:id="RandomFoodButton" layoutX="33.0" layoutY="36.0" mnemonicParsing="false" onAction="#randomFoodButtonClicked" prefHeight="30.0" prefWidth="120.0" text="Random food">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="15.0" />
+                     </font></Button>
+                  <ComboBox fx:id="CountryComboBox" layoutX="32.0" layoutY="129.0" prefHeight="30.0" prefWidth="120.0" promptText="Off" />
+                  <Text id="CountryText" layoutX="11.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Country" textAlignment="CENTER" wrappingWidth="160.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
                      </font></Text>
-                  <VBox layoutX="16.0" layoutY="185.0" prefHeight="222.0" prefWidth="92.0">
+                  <VBox layoutX="10.0" layoutY="245.0" prefHeight="400.0" prefWidth="180.0">
                      <children>
-                        <TextField fx:id="ingredientTextField" prefHeight="26.0" prefWidth="73.0" />
-                        <ListView fx:id="ingredientListView" prefHeight="198.0" prefWidth="92.0" />
+                        <TextField fx:id="ingredientTextField" prefHeight="40.0" prefWidth="170.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font></TextField>
+                        <ListView fx:id="ingredientListView" prefHeight="360.0" prefWidth="170.0" />
                      </children>
                   </VBox>
-                  <Label layoutX="20.0" layoutY="162.0" prefHeight="18.0" prefWidth="84.0" text="Ingredients">
+                  <Label alignment="CENTER" layoutX="28.0" layoutY="218.0" prefHeight="26.0" prefWidth="139.0" text="Ingredients" textAlignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
                </children>

@@ -9,69 +9,63 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="recipeNameText" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.PickedRecipeScreenController">
+<AnchorPane id="recipeNameText" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.PickedRecipeScreenController">
    <children>
-      <BorderPane prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="95.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="100.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox prefHeight="100.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ImageView id="profileImageView" fx:id="UserProfilePhoto" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../images/download.png" />
-                                 </image>
-                              </ImageView>
-                              <Hyperlink fx:id="profileHyperLink" onAction="#profileHyperLinkClicked" text="Profile">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Hyperlink>
+                              <Pane prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView id="profileImageView" fx:id="UserProfilePhoto" fitHeight="70.0" fitWidth="70.0" layoutX="11.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/download.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Hyperlink fx:id="profileHyperLink" layoutX="20.0" layoutY="68.0" onAction="#profileHyperLinkClicked" text="Profile">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Hyperlink>
+                                 </children>
+                              </Pane>
                            </children>
                         </VBox>
-                        <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../images/home.png" />
-                                 </image>
-                              </ImageView>
-                              <Hyperlink fx:id="homeHyperLink" onAction="#homeHyperLinkClicked" text="Home Page">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Picked recipe screen" textAlignment="CENTER" wrappingWidth="600.0">
                                  <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Hyperlink>
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Picked recipe screen" wrappingWidth="457.13671875">
-                                 <font>
-                                    <Font name="System Bold" size="48.0" />
+                                    <Font name="System Bold" size="50.0" />
                                  </font>
                               </Text>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="80.0" HBox.hgrow="ALWAYS" />
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ImageView id="shoppingImageView" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../images/basket-cart-icon-27.png" />
-                                 </image>
-                              </ImageView>
-                              <Hyperlink fx:id="shoppingHyperLink" onAction="#shoppingHyperLinkClicked" text="Shopping Lists">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Hyperlink>
+                              <Pane prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Hyperlink fx:id="shoppingHyperLink" layoutX="79.0" layoutY="73.0" onAction="#shoppingHyperLinkClicked" text="Shopping Lists">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Hyperlink>
+                                    <ImageView id="shoppingImageView" fitHeight="70.0" fitWidth="70.0" layoutX="98.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/basket-cart-icon-27.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
                            </children>
                         </VBox>
                      </children>
@@ -80,38 +74,38 @@
             </AnchorPane>
          </top>
          <center>
-            <AnchorPane prefHeight="591.0" prefWidth="607.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="500.0" prefWidth="772.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="areaText" layoutX="10.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="area" wrappingWidth="153.2734375">
+                  <Text fx:id="areaText" layoutX="-1.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="area" wrappingWidth="153.2734375">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <ImageView fx:id="recipeImageView" fitHeight="420.0" fitWidth="420.0" layoutX="154.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="categoryText" layoutX="10.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="category" wrappingWidth="137.06640625">
+                  <ImageView fx:id="recipeImageView" fitHeight="420.0" fitWidth="420.0" layoutX="161.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
+                  <Text fx:id="categoryText" layoutX="-1.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="category" wrappingWidth="140.33990478515625">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Label layoutX="10.0" layoutY="283.0" text="Category:">
+                  <Label layoutX="-1.0" layoutY="241.0" prefHeight="26.0" prefWidth="130.0" text="Category:">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="178.0" text="Area:">
+                  <Label layoutX="-1.0" layoutY="113.0" prefHeight="26.0" prefWidth="99.0" text="Area:">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="87.0" layoutY="14.0" text="Name:">
+                  <Label prefHeight="26.0" prefWidth="109.0" text="Name:">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <HBox id="nameHBox" layoutX="163.0" layoutY="14.0" prefHeight="29.0" prefWidth="441.0">
+                  <HBox id="nameHBox" alignment="CENTER" layoutX="162.0" layoutY="-1.0" prefHeight="29.0" prefWidth="603.0">
                      <children>
-                        <TextFlow maxWidth="440.0" prefHeight="29.0" prefWidth="440.0">
-                        <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="441.0">
+                        <TextFlow maxWidth="700.0" prefHeight="29.0" prefWidth="700.0">
+                        <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="179.874267578125">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -123,14 +117,14 @@
             </AnchorPane>
          </center>
          <bottom>
-            <AnchorPane prefHeight="219.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="300.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="402.0" layoutY="-3.0" text="Instructions:">
+                  <Label layoutX="541.0" layoutY="-4.0" text="Instructions:">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="instructionsTextArea" layoutX="38.0" layoutY="39.0" prefHeight="166.0" prefWidth="925.0">
+                  <TextArea fx:id="instructionsTextArea" layoutX="10.0" layoutY="36.0" prefHeight="256.0" prefWidth="1180.0">
                      <font>
                         <Font size="18.0" />
                      </font></TextArea>
@@ -138,14 +132,14 @@
             </AnchorPane>
          </bottom>
          <right>
-            <AnchorPane prefHeight="486.0" prefWidth="211.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="500.0" prefWidth="211.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="14.0" layoutY="-3.0" text="Ingredients:">
+                  <Label layoutX="46.0" layoutY="-1.0" text="Ingredients:">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="ingredientTextArea" layoutX="-32.0" layoutY="32.0" prefHeight="456.0" prefWidth="204.0">
+                  <TextArea fx:id="ingredientTextArea" layoutX="4.0" layoutY="27.0" prefHeight="423.0" prefWidth="200.0">
                      <font>
                         <Font size="18.0" />
                      </font></TextArea>
@@ -153,11 +147,21 @@
             </AnchorPane>
          </right>
          <left>
-            <AnchorPane prefHeight="464.0" prefWidth="104.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="500.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="backButton" layoutX="16.0" layoutY="31.0" mnemonicParsing="false" onAction="#backButtonClicked" text="Back" />
-                  <Button fx:id="favoriteButton" layoutX="16.0" layoutY="86.0" mnemonicParsing="false" onAction="#favoriteButtonClicked" text="Favorite ⭐" />
-                  <Button fx:id="shoppinglistButton" layoutX="13.0" layoutY="140.0" mnemonicParsing="false" onAction="#shoppinglistButtonClicked" text="Add to Shopping List" />
+                  <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="11.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/home.png" />
+                     </image>
+                  </ImageView>
+                  <Hyperlink fx:id="homeHyperLink" layoutX="5.0" layoutY="71.0" onAction="#homeHyperLinkClicked" text="Home Page">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Hyperlink>
+                  <Button fx:id="backButton" layoutX="9.0" layoutY="107.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Back" />
+                  <Button fx:id="favoriteButton" layoutX="9.0" layoutY="162.0" mnemonicParsing="false" onAction="#favoriteButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Favorite ⭐" />
+                  <Button fx:id="shoppinglistButton" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" onAction="#shoppinglistButtonClicked" prefHeight="30.0" prefWidth="150.0" text="Add to Shopping List" />
                </children>
             </AnchorPane>
          </left>

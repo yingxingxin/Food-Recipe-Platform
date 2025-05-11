@@ -27,6 +27,9 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+/**
+ * RegistrationScreenController -> class - register user , add in db
+ */
 public class RegistrationScreenController {
 
     @javafx.fxml.FXML

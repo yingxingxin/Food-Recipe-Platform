@@ -1,5 +1,7 @@
 package org.example.foodrecipeplatform.Controller;
 
+import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -7,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,6 +18,7 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import javafx.util.converter.DefaultStringConverter;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.Model.ShoppingItem;
@@ -118,10 +122,19 @@ public class ShoppingScreenController implements Initializable {
         loadShoppingItems();
 
         // Event handlers for buttons
-        clearAllButton.setOnAction(event -> clearAllItems());
+        clearAllButton.setOnAction(event -> {
+            Platform.runLater(() -> {
+                popNode(clearAllButton);
+                clearAllItems();
+            });
+        });
+
         refreshButton.setOnAction(event -> {
-            removeCheckedItems();
-            loadShoppingItems();
+            Platform.runLater(() -> {
+                popNode(refreshButton);
+                removeCheckedItems();
+                loadShoppingItems();
+            });
         });
 
     }
@@ -310,4 +323,16 @@ public class ShoppingScreenController implements Initializable {
         shoppingList.addIngredients(mealId);
         loadShoppingItems(); // Refreshes the list after adding
     }
+
+    private void popNode(Node node) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), node);
+        st.setFromX(1.0);
+        st.setFromY(1.0);
+        st.setToX(1.2);
+        st.setToY(1.2);
+        st.setAutoReverse(true);
+        st.setCycleCount(2);
+        st.play();
+    }
+
 }

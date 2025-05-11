@@ -9,7 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-// Testing class for shopping list functionality
+/**
+ * Testing class for shopping list functionality
+ */
 public class ShoppingListTest extends Application {
 
     @Override
@@ -50,4 +52,4 @@ public class ShoppingListTest extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-}
+} // End ShoppingListTest class
