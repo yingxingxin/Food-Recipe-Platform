@@ -13,7 +13,6 @@ import java.io.IOException;
 // testing commit to see if it still hides the key
 public class FoodRecipePlatform extends Application {
     public static Scene scene;
-
     public static Firestore fstore;
     public static FirebaseAuth fauth;
     private final FirestoreContext contxtFirebase = new FirestoreContext();
@@ -22,25 +21,25 @@ public class FoodRecipePlatform extends Application {
     public void start(Stage stage) throws IOException {
         fstore = contxtFirebase.firebase();
         fauth = FirebaseAuth.getInstance();
-
         scene = new Scene(loadFXML("SignIn"), 1200, 800); // RecipeSearchScreen
-
         stage.setTitle("The Flavor Vault !");
-
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
     }
-
     // need public static Scene, loadFXML
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
-
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FoodRecipePlatform.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
+
+
+
+
+
 
     public static void main(String[] args) {
         launch(args);

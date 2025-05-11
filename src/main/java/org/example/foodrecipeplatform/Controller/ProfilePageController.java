@@ -67,6 +67,8 @@ public class ProfilePageController {
     private Button myBio;
     @FXML
     private Button myURL;
+    @FXML
+    private Text noFavText;
 
 
     List<CardData> cards = new ArrayList<>();             // cards lists -> array
@@ -392,6 +394,9 @@ public class ProfilePageController {
         cards = inputCardList;
 
         System.out.println("Cards to display = " + cards.size());
+        if (cards.size() > 0) {
+            noFavText.setDisable(true);
+        }
 
 
         int row = 1;
