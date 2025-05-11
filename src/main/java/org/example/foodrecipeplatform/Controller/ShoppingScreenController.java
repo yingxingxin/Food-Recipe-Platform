@@ -1,16 +1,20 @@
 package org.example.foodrecipeplatform.Controller;
 
+import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import javafx.util.Duration;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 import org.example.foodrecipeplatform.Model.ShoppingItem;
 import org.example.foodrecipeplatform.ShoppingList;
@@ -40,6 +44,9 @@ public class ShoppingScreenController implements Initializable {
     @FXML
     private Button refreshButton;
 
+    @FXML
+    private Button backButton;
+
 
     private ObservableList<ShoppingItem> shoppingItemsList;
     private ShoppingList shoppingList;
@@ -62,18 +69,34 @@ public class ShoppingScreenController implements Initializable {
         loadShoppingItems();
 
         // Event handlers for buttons
-        clearAllButton.setOnAction(event -> clearAllItems());
-        refreshButton.setOnAction(event -> loadShoppingItems());
+        clearAllButton.setOnAction(event ->
+                Platform.runLater(() -> {
+                    popNode(clearAllButton);
+                    clearAllItems();
+                })
+        );
+        refreshButton.setOnAction(event ->
+                Platform.runLater(() -> {
+                    popNode(refreshButton);
+                    loadShoppingItems();
+                    showAlert("Success", "Shopping List Refreshed", "All items have been refreshed from your shopping list");
+                })
+        );
 
     }
 
-//    private void navigateHome() {
-//
-//    }
 
     @FXML
     void back_to_home_Button(ActionEvent event) throws IOException {
-        FoodRecipePlatform.setRoot("HomeScreen");
+        Platform.runLater(() -> {
+            popNode(backButton);
+            try {
+                FoodRecipePlatform.setRoot("HomeScreen");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        //FoodRecipePlatform.setRoot("HomeScreen");
     }
 
     private void loadShoppingItems() {
@@ -190,7 +213,20 @@ public class ShoppingScreenController implements Initializable {
 
     // Method to add ingredients from a recipe by ID
     public void addIngredientsFromMeal(String mealId) {
+
         shoppingList.addIngredients(mealId);
         loadShoppingItems(); // Refreshes the list after adding
+
+    }
+
+    private void popNode(Node node) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), node);
+        st.setFromX(1.0);
+        st.setFromY(1.0);
+        st.setToX(1.2);
+        st.setToY(1.2);
+        st.setAutoReverse(true);
+        st.setCycleCount(2);
+        st.play();
     }
 }
