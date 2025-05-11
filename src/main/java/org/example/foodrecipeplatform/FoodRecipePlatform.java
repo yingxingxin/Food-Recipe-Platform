@@ -33,6 +33,8 @@ public class FoodRecipePlatform extends Application {
         scene = new Scene(splashRoot, 1200, 800);
 
         stage.setTitle("The Flavor Vault !");
+        String css = getClass().getResource("/css/default.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

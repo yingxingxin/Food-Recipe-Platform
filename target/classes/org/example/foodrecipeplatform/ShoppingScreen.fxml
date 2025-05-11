@@ -11,15 +11,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.text.Text?>
 <BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.foodrecipeplatform.Controller.ShoppingScreenController">
     <top>
         <VBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Your Shopping List" textAlignment="CENTER">
+                <Text fx:id="displayUsername" text="Your Shopping List" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="40.0" />
                     </font>
-                </Label>
+                </Text>
                 <Label text="Ingredients saved from your favorite recipes" textFill="#757575">
                     <font>
                         <Font size="30.0" />
@@ -36,7 +37,7 @@
             <columns>
                 <TableColumn fx:id="ingredientColumn" prefWidth="245.6665859222412" text="Ingredient" />
                 <TableColumn fx:id="quantityColumn" prefWidth="154.0" text="Quantity" />
-                <TableColumn fx:id="checkedColumn" prefWidth="158.66671752929688" text="Purchased" />
+                <TableColumn fx:id="checkedColumn" prefWidth="158.66671752929688" style="-fx-alignment: CENTER;" text="Purchased"  />
             </columns>
             <BorderPane.margin>
                 <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
