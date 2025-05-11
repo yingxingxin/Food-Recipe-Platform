@@ -7,6 +7,8 @@ public class SessionManager {
 
     private static String userId;
 
+    private static Object displayName;
+
     public static void setUserId(String uid) {
         userId = uid;
     }
@@ -15,4 +17,8 @@ public class SessionManager {
         return userId;
     }
 
+    public static Object getUserDisplayName() { return displayName;}
+
+    public static void setUserDisplayName(String display) {displayName = display;
+    }
 } // End SessionManager class

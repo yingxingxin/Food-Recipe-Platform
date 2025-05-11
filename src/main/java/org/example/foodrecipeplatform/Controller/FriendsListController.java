@@ -33,11 +33,14 @@ public class FriendsListController {
     public Button addButton;
     @FXML
     public TextField inputTextField;
+    @FXML
+    private Label welcomeLabel;
 
     String userId = SessionManager.getUserId();
 
     @FXML
     public void initialize() throws ExecutionException, InterruptedException {
+        welcomeLabel.setText("Welcome, " + SessionManager.getUserDisplayName());
         addButton.setOnAction(e -> onAddFriendClicked());
         displayPending();
         displayFriends();
