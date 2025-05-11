@@ -16,6 +16,9 @@ import org.example.foodrecipeplatform.MealDbAPI;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * RecipeCardController -> class
+ */
 public class RecipeCardController {
     @FXML
     public AnchorPane rootPane;
@@ -93,4 +96,4 @@ public class RecipeCardController {
     }
 
 
-}
+} // End RecipeCardController class

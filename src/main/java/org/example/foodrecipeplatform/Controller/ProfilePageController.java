@@ -67,6 +67,8 @@ public class ProfilePageController {
     private Button myBio;
     @FXML
     private Button myURL;
+    @FXML
+    private Text noFavText;
 
 
     List<CardData> cards = new ArrayList<>();             // cards lists -> array
@@ -392,6 +394,9 @@ public class ProfilePageController {
         cards = inputCardList;
 
         System.out.println("Cards to display = " + cards.size());
+        if (cards.size() > 0) {
+            noFavText.setDisable(true);
+        }
 
 
         int row = 1;
@@ -497,6 +502,15 @@ public class ProfilePageController {
         st.setAutoReverse(true);
         st.setCycleCount(2);
         st.play();
+    }
+
+    private void shakeNode(Node node) {
+        TranslateTransition tt = new TranslateTransition(Duration.millis(50), node);
+        tt.setFromX(0);
+        tt.setByX(10);
+        tt.setCycleCount(6);
+        tt.setAutoReverse(true);
+        tt.play();
     }
 
 } // End ProfilePageController

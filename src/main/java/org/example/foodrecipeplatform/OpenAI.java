@@ -8,6 +8,9 @@ import java.io.OutputStream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * OpenAI -> class to implement ai
+ */
 public class OpenAI {
 
     // Replace with your actual API key (consider moving to env var for safety)
@@ -69,4 +72,4 @@ public class OpenAI {
             return "Sorry, an error occurred while fetching food information.";
         }
     }
-}
+} // End OpenAI class
