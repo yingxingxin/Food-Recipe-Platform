@@ -3,8 +3,12 @@ package org.example.foodrecipeplatform.Controller;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -14,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import javafx.util.Duration;
 import org.example.foodrecipeplatform.Controller.SessionManager;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 
@@ -55,6 +60,15 @@ public class SignInController {
 
     } // End initialize method
 
+    private void shakeNode(Node node) {
+        TranslateTransition tt = new TranslateTransition(Duration.millis(50), node);
+        tt.setFromX(0);
+        tt.setByX(10);
+        tt.setCycleCount(6);
+        tt.setAutoReverse(true);
+        tt.play();
+    }
+
 
     // to make sure the buttons are connected to the method, add onAction to the button in fxml
     @FXML
@@ -68,15 +82,31 @@ public class SignInController {
         if (signIn(username, password))
         {
             System.out.println(username + " is in database");
-            try {
-                switchToPrimary();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            // Pop animation
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), sign_inButton);
+            st.setFromX(1.0);
+            st.setFromY(1.0);
+            st.setToX(1.2);
+            st.setToY(1.2);
+            st.setAutoReverse(true);
+            st.setCycleCount(2);
+
+            st.setOnFinished(e -> {
+                try {
+                    switchToPrimary();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            st.play();
+
         }
         else {
+
             System.out.println(username + " is not in database or password wrong");
         }
+
     } // End sign_inButtonClicked method
 
 
@@ -115,15 +145,27 @@ public class SignInController {
                         return true;
                     }
 
-                    // optional: you can store if username was found but password wrong
+                    // check if username was found but password wrong
                     if (username.equals(user) && !password.equals(pass)) {
-                        showAlert("Incorrect Sign In", "Sign in clicked!", username + " has entered an Incorrect Password");
+
+                        Platform.runLater(() -> {
+                            shakeNode(sign_inButton);
+                            shakeNode(MainVbox);
+                            showAlert("Incorrect Sign In", "Sign in clicked!", username + " has entered an Incorrect Password");
+
+                        });
                         return false;
                     }
                 }
 
                 // if no match found after checking all
-                showAlert("Incorrect Sign In", "Sign in clicked!", "Sorry, incorrect Username or Password");
+                Platform.runLater(() -> {
+                    shakeNode(sign_inButton);
+                    shakeNode(MainVbox);
+                    showAlert("Incorrect Sign In", "Sign in clicked!", "Sorry, incorrect Username or Password");
+                });
+
+
             }
             else
             {
@@ -140,7 +182,24 @@ public class SignInController {
 
     @FXML
     void registerButtonClicked (ActionEvent event) throws IOException {
-        switchToRegisterScreen();
+        // Pop animation
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), registerButton);
+        st.setFromX(1.0);
+        st.setFromY(1.0);
+        st.setToX(1.2);
+        st.setToY(1.2);
+        st.setAutoReverse(true);
+        st.setCycleCount(2);
+        // Call switchToRegisterScreen() only after animation finishes
+        st.setOnFinished(e -> {
+            try {
+                switchToRegisterScreen();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        st.play();
+
     } // End registerButtonClicked button
 
     private void switchToPrimary() throws IOException {

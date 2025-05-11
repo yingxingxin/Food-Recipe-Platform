@@ -6,13 +6,18 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 
 import java.io.IOException;
@@ -35,6 +40,8 @@ public class RegistrationScreenController {
     private TextField DisplayName;
     @FXML
     private Text messageTextRS;
+    @FXML
+    private Button createAccount;
 
     public String getDefauly_PFP_URL() {
         return defauly_PFP_URL;
@@ -82,18 +89,36 @@ public class RegistrationScreenController {
     - password needs to be at least 6 letters long
     */
     public boolean registerUser() {
+        String email = EmailTextField.getText().trim();
         try
         {
             // If the fields are empty
             if (Pass1TextField.getText().isEmpty() || Pass2TextField.getText().isEmpty() ||
                     DisplayName.getText().isEmpty() || EmailTextField.getText().isEmpty() )
             {
-             showAlert( "Please fill all the fields", "Error", "Please fill all the fields");
+                Platform.runLater(() -> {
+                    shakeNode(createAccount);
+                    showAlert( "Please fill all the fields", "Error", "Please fill all the fields");
+                });
                 return false;
             }
 
             if (Pass1TextField.getText().length() < 6 || Pass2TextField.getText().length() < 6){
-                showAlert( "Please fix Password", "Error", "Password length must be > 6");
+                //showAlert( "Please fix Password", "Error", "Password length must be > 6");
+                Platform.runLater(() -> {
+                    shakeNode(createAccount);
+                    showAlert( "Please fix Password", "Error", "Password length must be > 6");
+                });
+                return false;
+            }
+
+            // Incorrect UserName format
+            if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")){
+                //showAlert( "Please fix Password", "Error", "Password length must be > 6");
+                Platform.runLater(() -> {
+                    shakeNode(createAccount);
+                    showAlert( "Please fix Email", "Error", "Must enter a valid email");
+                });
                 return false;
             }
 
@@ -109,11 +134,14 @@ public class RegistrationScreenController {
                         .setDisabled(false);
 
                 UserRecord userRecord;
-
                 userRecord = FoodRecipePlatform.fauth.createUser(request);
-                System.out.println("Successfully created new user with Firebase Uid: " + userRecord.getUid()
-                        + " check Firebase > Authentication > Users tab");
-                showAlert("Successfully Registered","Registration","Successfully created new user");
+
+                Platform.runLater(() -> {
+                    popNode(createAccount);
+                    System.out.println("Successfully created new user with Firebase Uid: " + userRecord.getUid()
+                            + " check Firebase > Authentication > Users tab");
+                    showAlert("Successfully Registered","Registration","Successfully created new user");
+                });
                 return true;
             }
             else { // if Passwords don't Match
@@ -135,7 +163,6 @@ public class RegistrationScreenController {
                 showAlert("Error", "Registration Failed", errorMessage); // Show the full error message
                 messageTextRS.setText("Registration failed. Please try again."); //set the message.
             }
-
             return false;
         } // End Catch Block
     } // End registerUser method
@@ -170,5 +197,25 @@ public class RegistrationScreenController {
     } // End catch
 
     } // End addUser method
+
+    private void popNode(Node node) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), node);
+        st.setFromX(1.0);
+        st.setFromY(1.0);
+        st.setToX(1.2);
+        st.setToY(1.2);
+        st.setAutoReverse(true);
+        st.setCycleCount(2);
+        st.play();
+    }
+
+    private void shakeNode(Node node) {
+        TranslateTransition tt = new TranslateTransition(Duration.millis(50), node);
+        tt.setFromX(0);
+        tt.setByX(10);
+        tt.setCycleCount(6);
+        tt.setAutoReverse(true);
+        tt.play();
+    }
 
 } // End RegistrationScreenController
