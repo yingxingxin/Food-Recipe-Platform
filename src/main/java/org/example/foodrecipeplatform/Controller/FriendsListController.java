@@ -2,303 +2,292 @@ package org.example.foodrecipeplatform.Controller;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.google.firebase.cloud.FirestoreClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import org.example.foodrecipeplatform.FoodRecipePlatform;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class FriendsListController {
+    @FXML
+    public ListView<String[]> friendsListView;
+    @FXML
+    public ListView<String[]> pendingListView;
+    @FXML
+    public Button addButton;
+    @FXML
+    public TextField inputTextField;
+
+    String userId = SessionManager.getUserId();
 
     @FXML
-    private ListView<String> friendsListView;
-
-    @FXML
-    private TextField addFriendTextField;
-
-    @FXML
-    private Button addFriendButton;
-
-    @FXML
-    private Button removeFriendButton;
-
-    @FXML
-    private Label messageLabel;
-
-    @FXML
-    private Button acceptButton; // For accepting friend requests
-    @FXML
-    private Button declineButton; // For declining friend requests
-    @FXML
-    private ListView<String> pendingRequestsListView; // To show pending friend requests
-
-    private ObservableList<String> friendsList;
-    private ObservableList<String> pendingRequestsList;
-
-    @FXML
-    public void initialize() {
-        friendsList = FXCollections.observableArrayList();
-        friendsListView.setItems(friendsList);
-        loadFriends();
-
-        pendingRequestsList = FXCollections.observableArrayList();
-        pendingRequestsListView.setItems(pendingRequestsList);
-        loadPendingRequests();
+    public void initialize() throws ExecutionException, InterruptedException {
+        addButton.setOnAction(e -> onAddFriendClicked());
+        displayPending();
+        displayFriends();
     }
 
-    private void loadFriends() {
-        friendsList.clear();
+    public void onAddFriendClicked() {
+        String userNameToSearch = inputTextField.getText().trim();
+        if (userNameToSearch.isEmpty()) return;
 
-        String currentUserId = SessionManager.getUserId();
-        if (currentUserId == null) {
-            messageLabel.setText("Error: No user logged in.");
-            return;
-        }
-
-        CollectionReference friendsRef = FoodRecipePlatform.fstore.collection("Users")
-                .document(currentUserId)
-                .collection("Friends");
-
-        ApiFuture<QuerySnapshot> future = friendsRef.get();
+        Firestore db = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = db.collection("Users")
+                .whereEqualTo("UserName", userNameToSearch)
+                .get();
 
         try {
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-            for (QueryDocumentSnapshot doc : documents) {
-                String friendName = doc.getString("DisplayName");
-                if (friendName != null) {
-                    friendsList.add(friendName);
-                }
+            if (documents.isEmpty()) {
+                System.out.println("No user found");
+                return;
             }
+            DocumentSnapshot targetDoc = documents.get(0);
+            String targetUserId = targetDoc.getId();
+
+            if (targetUserId.equals(userId)) {
+                System.out.println("You cannot send a friend request to yourself.");
+                return;
+            }
+
+            ApiFuture<QuerySnapshot> existingRequest = db.collection("FriendRequests")
+                    .whereEqualTo("senderId", userId)
+                    .whereEqualTo("receiverId", targetUserId)
+                    .get();
+
+            if (!existingRequest.get().isEmpty()) {
+                System.out.println("Friend request already sent.");
+                return;
+            }
+
+            sendFriendRequest(userId, targetUserId);
+            System.out.println("Friend request sent to: " + userNameToSearch);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendFriendRequest(String senderId, String receiverId) {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> requestData = new HashMap<>();
+        requestData.put("senderId", senderId);
+        requestData.put("receiverId", receiverId);
+        requestData.put("timestamp", FieldValue.serverTimestamp());
+
+        ApiFuture<DocumentReference> future = db.collection("FriendRequests").add(requestData);
+
+        try {
+            DocumentReference docRef = future.get();
+            System.out.println("Request sent: " + docRef.getId());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
 
-    private void loadPendingRequests() {
-        pendingRequestsList.clear();
+    public void acceptRequest(String currentUserId, String senderId) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
 
-        String currentUserId = SessionManager.getUserId();
-        if (currentUserId == null) {
-            messageLabel.setText("Error: No user logged in.");
-            return;
+        db.collection("users").document(currentUserId)
+                .collection("Friends").document(senderId)
+                .set(Map.of("userId", senderId));
+
+        db.collection("users").document(senderId)
+                .collection("Friends").document(currentUserId)
+                .set(Map.of("userId", currentUserId));
+
+        QuerySnapshot snapshot = db.collection("FriendRequests")
+                .whereEqualTo("senderId", senderId)
+                .whereEqualTo("receiverId", currentUserId)
+                .get().get();
+
+        for (DocumentSnapshot doc : snapshot.getDocuments()) {
+            db.collection("FriendRequests").document(doc.getId()).delete();
+        }
+    }
+
+    public void declineRequest(String currentUserId, String senderId) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        QuerySnapshot snapshot = db.collection("FriendRequests")
+                .whereEqualTo("senderId", senderId)
+                .whereEqualTo("receiverId", currentUserId)
+                .get().get();
+
+        for (DocumentSnapshot doc : snapshot.getDocuments()) {
+            db.collection("FriendRequests").document(doc.getId()).delete();
+        }
+    }
+
+    public void removeFriend(String userId1, String userId2) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+
+        db.collection("users").document(userId1)
+                .collection("Friends").document(userId2).delete();
+
+        db.collection("users").document(userId2)
+                .collection("Friends").document(userId1).delete();
+    }
+
+    public void displayFriends() throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = db.collection("users")
+                .document(userId).collection("Friends")
+                .get();
+        List<QueryDocumentSnapshot> friendDocs = future.get().getDocuments();
+
+        List<String[]> friendsData = new ArrayList<>();
+        for (DocumentSnapshot friendDoc : friendDocs) {
+            String friendId = friendDoc.getId();
+            DocumentSnapshot userSnap = db.collection("Users").document(friendId).get().get();
+            String name = userSnap.getString("UserName");
+            String imageUrl = userSnap.contains("ProfilePicture") ? userSnap.getString("ProfilePicture") : "https://via.placeholder.com/50";
+            friendsData.add(new String[]{name, imageUrl, friendId});
         }
 
-        CollectionReference requestsRef = FoodRecipePlatform.fstore.collection("FriendRequests");
+        ObservableList<String[]> friends = FXCollections.observableArrayList(friendsData);
+        friendsListView.setItems(friends);
 
-        ApiFuture<QuerySnapshot> future = requestsRef
-                .whereEqualTo("receiverId", currentUserId)
-                .whereEqualTo("status", "pending")
-                .get();
+        friendsListView.setCellFactory(list -> new ListCell<>() {
+            protected void updateItem(String[] person, boolean empty) {
+                super.updateItem(person, empty);
+                if (empty || person == null) {
+                    setGraphic(null);
+                    return;
+                }
 
-        try {
-            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-            for (QueryDocumentSnapshot doc : documents) {
-                String senderId = doc.getString("senderId");
-                if (senderId != null) {
-                    // Fetch the sender's display name and display it as a pending request
-                    DocumentReference senderRef = FoodRecipePlatform.fstore.collection("Users").document(senderId);
-                    ApiFuture<DocumentSnapshot> senderDoc = senderRef.get();
+                String name = person[0];
+                String imagePath = person[1];
+                String friendId = person[2];
 
-                    String senderName = senderDoc.get().getString("DisplayName");
-                    if (senderName != null) {
-                        pendingRequestsList.add(senderName);
+                ImageView imageView = new ImageView();
+                try {
+                    imageView.setImage(new Image(imagePath, 50, 50, true, true));
+                } catch (Exception e) {
+                    System.err.println("Failed to load image: " + imagePath);
+                }
+                imageView.setFitWidth(50);
+                imageView.setFitHeight(50);
+
+                Label nameLabel = new Label(name);
+                nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14;");
+
+                Button delete = new Button("Remove");
+                delete.setStyle("-fx-background-color: #E4E6EB;");
+                delete.setOnAction(e -> {
+                    System.out.println("Removed friend: " + name);
+                    getListView().getItems().remove(person);
+                    try {
+                        removeFriend(userId, friendId);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
-                }
+                });
+
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                HBox row = new HBox(10, imageView, nameLabel, spacer, delete);
+                row.setAlignment(Pos.CENTER_LEFT);
+                row.setStyle("-fx-padding: 10;");
+                setGraphic(row);
             }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
-    @FXML
-    private void addFriendButtonClicked() {
-        String friendDisplayName = addFriendTextField.getText().trim();
-        if (friendDisplayName.isEmpty()) {
-            messageLabel.setText("Enter a display name.");
-            return;
-        }
-
-        String currentUserId = SessionManager.getUserId();
-        if (currentUserId == null) {
-            messageLabel.setText("Error: No user logged in.");
-            return;
-        }
-
-        CollectionReference usersRef = FoodRecipePlatform.fstore.collection("Users");
-        Query query = usersRef.whereEqualTo("DisplayName", friendDisplayName);
-        ApiFuture<QuerySnapshot> querySnapshot = query.get();
-
-        try {
-            List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
-            if (!documents.isEmpty()) {
-                DocumentSnapshot friendDoc = documents.get(0);
-                String friendUserId = friendDoc.getId();
-
-                // Create a friend request document
-                Map<String, Object> requestData = new HashMap<>();
-                requestData.put("senderId", currentUserId);
-                requestData.put("receiverId", friendUserId);
-                requestData.put("status", "pending");
-
-                // Store the friend request in the FriendRequests collection
-                String requestId = UUID.randomUUID().toString();
-                FoodRecipePlatform.fstore.collection("FriendRequests")
-                        .document(requestId)
-                        .set(requestData);
-
-                messageLabel.setText("Friend request sent!");
-                addFriendTextField.clear();
-            } else {
-                messageLabel.setText("User not found.");
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            messageLabel.setText("Error sending friend request.");
-        }
-    }
-
-    @FXML
-    private void removeFriendButtonClicked() {
-        String selectedFriend = friendsListView.getSelectionModel().getSelectedItem();
-        if (selectedFriend == null) {
-            messageLabel.setText("Select a friend to remove.");
-            return;
-        }
-
-        String currentUserId = SessionManager.getUserId();
-        if (currentUserId == null) {
-            messageLabel.setText("Error: No user logged in.");
-            return;
-        }
-
-        CollectionReference friendsRef = FoodRecipePlatform.fstore.collection("Users")
-                .document(currentUserId)
-                .collection("Friends");
-
-        Query query = friendsRef.whereEqualTo("DisplayName", selectedFriend);
-        ApiFuture<QuerySnapshot> querySnapshot = query.get();
-
-        try {
-            List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
-            if (!documents.isEmpty()) {
-                for (QueryDocumentSnapshot doc : documents) {
-                    doc.getReference().delete();
-                }
-                friendsList.remove(selectedFriend);
-                messageLabel.setText("Friend removed!");
-            } else {
-                messageLabel.setText("Friend not found.");
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            messageLabel.setText("Error removing friend.");
-        }
-    }
-
-    @FXML
-    private void acceptFriendRequest() {
-        String selectedRequest = pendingRequestsListView.getSelectionModel().getSelectedItem();
-        if (selectedRequest == null) {
-            messageLabel.setText("Select a friend request to accept.");
-            return;
-        }
-
-        String currentUserId = SessionManager.getUserId();
-        if (currentUserId == null) {
-            messageLabel.setText("Error: No user logged in.");
-            return;
-        }
-
-        // Find the friend request from the current user’s perspective
-        CollectionReference requestsRef = FoodRecipePlatform.fstore.collection("FriendRequests");
-        ApiFuture<QuerySnapshot> future = requestsRef
-                .whereEqualTo("receiverId", currentUserId)
-                .whereEqualTo("status", "pending")
+    public void displayPending() throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = db.collection("FriendRequests")
+                .whereEqualTo("receiverId", userId)
                 .get();
+        List<QueryDocumentSnapshot> pendingDocs = future.get().getDocuments();
 
-        try {
-            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-            for (QueryDocumentSnapshot doc : documents) {
-                String senderId = doc.getString("senderId");
-                if (senderId != null && selectedRequest.equals(doc.getString("senderId"))) {
-                    // Update the request to "accepted"
-                    doc.getReference().update("status", "accepted");
-
-                    // Add to both users' Friends collection
-                    Map<String, Object> friendData = new HashMap<>();
-                    friendData.put("DisplayName", selectedRequest); // Add their name as friend
-                    friendData.put("UserID", senderId); // Store their userID as a friend
-
-                    // Add friend to current user's Friends collection
-                    FoodRecipePlatform.fstore.collection("Users")
-                            .document(currentUserId)
-                            .collection("Friends")
-                            .document(UUID.randomUUID().toString())
-                            .set(friendData);
-
-                    // Add current user to friend's Friends collection
-                    friendData.put("DisplayName", SessionManager.getUserDisplayName());
-                    friendData.put("UserID", currentUserId);
-                    FoodRecipePlatform.fstore.collection("Users")
-                            .document(senderId)
-                            .collection("Friends")
-                            .document(UUID.randomUUID().toString())
-                            .set(friendData);
-
-                    messageLabel.setText("Friend request accepted!");
-                    loadFriends(); // Refresh friends list
-                    loadPendingRequests(); // Refresh pending requests list
-                    break;
-                }
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            messageLabel.setText("Error accepting friend request.");
+        List<String[]> pendingData = new ArrayList<>();
+        for (DocumentSnapshot pendingDoc : pendingDocs) {
+            String senderId = pendingDoc.getString("senderId");
+            DocumentSnapshot userSnap = db.collection("Users").document(senderId).get().get();
+            String name = userSnap.getString("UserName");
+            String imageUrl = userSnap.contains("ProfilePicture") ? userSnap.getString("ProfilePicture") : "https://via.placeholder.com/50";
+            pendingData.add(new String[]{name, imageUrl, senderId});
         }
+
+        ObservableList<String[]> pendingList = FXCollections.observableArrayList(pendingData);
+        pendingListView.setItems(pendingList);
+
+        pendingListView.setCellFactory(list -> new ListCell<>() {
+            protected void updateItem(String[] person, boolean empty) {
+                super.updateItem(person, empty);
+                if (empty || person == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                String name = person[0];
+                String imagePath = person[1];
+                String senderId = person[2];
+
+                ImageView imageView = new ImageView();
+                try {
+                    imageView.setImage(new Image(imagePath, 50, 50, true, true));
+                } catch (Exception e) {
+                    System.err.println("Failed to load image: " + imagePath);
+                }
+                imageView.setFitWidth(50);
+                imageView.setFitHeight(50);
+
+                Label nameLabel = new Label(name);
+                nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14;");
+
+                Button accept = new Button("Accept");
+                accept.setStyle("-fx-background-color: #90EE90;");
+                accept.setOnAction(e -> {
+                    try {
+                        acceptRequest(userId, senderId);
+                        getListView().getItems().remove(person);
+                        displayFriends();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
+
+                Button decline = new Button("Decline");
+                decline.setStyle("-fx-background-color: #FFCCCB;");
+                decline.setOnAction(e -> {
+                    try {
+                        declineRequest(userId, senderId);
+                        getListView().getItems().remove(person);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
+
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                HBox row = new HBox(10, imageView, nameLabel, spacer, accept, decline);
+                row.setAlignment(Pos.CENTER_LEFT);
+                row.setStyle("-fx-padding: 10;");
+                setGraphic(row);
+            }
+        });
     }
-
     @FXML
-    private void declineFriendRequest() {
-        String selectedRequest = pendingRequestsListView.getSelectionModel().getSelectedItem();
-        if (selectedRequest == null) {
-            messageLabel.setText("Select a friend request to decline.");
-            return;
-        }
-
-        String currentUserId = SessionManager.getUserId();
-        if (currentUserId == null) {
-            messageLabel.setText("Error: No user logged in.");
-            return;
-        }
-
-        CollectionReference requestsRef = FoodRecipePlatform.fstore.collection("FriendRequests");
-        ApiFuture<QuerySnapshot> future = requestsRef
-                .whereEqualTo("receiverId", currentUserId)
-                .whereEqualTo("status", "pending")
-                .get();
-
-        try {
-            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-            for (QueryDocumentSnapshot doc : documents) {
-                String senderId = doc.getString("senderId");
-                if (senderId != null && selectedRequest.equals(doc.getString("senderId"))) {
-                    // Remove the request document from Firestore
-                    doc.getReference().delete();
-
-                    messageLabel.setText("Friend request declined!");
-                    loadPendingRequests(); // Refresh the pending requests list
-                    break;
-                }
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            messageLabel.setText("Error declining friend request.");
-        }
+    void goBackToProfile(ActionEvent Event) throws IOException {
+        FoodRecipePlatform.setRoot("ProfilePage");
     }
 }
