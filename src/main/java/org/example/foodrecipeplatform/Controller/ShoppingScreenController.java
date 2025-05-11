@@ -119,7 +119,10 @@ public class ShoppingScreenController implements Initializable {
 
         // Event handlers for buttons
         clearAllButton.setOnAction(event -> clearAllItems());
-        refreshButton.setOnAction(event -> loadShoppingItems());
+        refreshButton.setOnAction(event -> {
+            removeCheckedItems();
+            loadShoppingItems();
+        });
 
     }
 
@@ -219,6 +222,35 @@ public class ShoppingScreenController implements Initializable {
 
         } catch (InterruptedException | ExecutionException e) {
             showAlert("Error", "Failed to clear shopping list", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void removeCheckedItems() {
+        String userId = SessionManager.getUserId();
+        if (userId == null || userId.isEmpty()) {
+            showAlert("Error", "No user signed in", "Please sign in to manage your shopping list");
+            return;
+        }
+
+        try {
+            // Delete all checked shopping list items from Firestore
+            CollectionReference shoppingListRef = FoodRecipePlatform.fstore
+                    .collection("Users")
+                    .document(userId)
+                    .collection("ShoppingList");
+
+            ApiFuture<QuerySnapshot> future = shoppingListRef.whereEqualTo("checked", true).get();
+            QuerySnapshot querySnapshot = future.get();
+
+            int count = 0;
+            for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                document.getReference().delete();
+                count++;
+            }
+
+        } catch (InterruptedException | ExecutionException e) {
+            showAlert("Error", "Failed to remove checked items", e.getMessage());
             e.printStackTrace();
         }
     }
