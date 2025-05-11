@@ -1,0 +1,124 @@
+ /* Application-wide styles */
+ .root {
+     -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     -fx-font-size: 14px;
+ }
+
+ /* Button styles */
+ .button {
+     -fx-background-color: #4e73df;
+     -fx-text-fill: white;
+     -fx-font-weight: bold;
+     -fx-background-radius: 5px;
+ }
+
+ /* Alert dialog customization */
+ .dialog-pane {
+     -fx-background-color: #f8f9fa;
+ }
+
+ .dialog-pane .header-panel {
+     -fx-background-color: #4e73df;
+ }
+
+ .dialog-pane .header-panel .label {
+     -fx-text-fill: white;
+     -fx-font-weight: bold;
+ }
+
+ .dialog-pane .button {
+     -fx-background-color: #4e73df;
+     -fx-text-fill: white;
+     -fx-wrap-text: true;
+     -fx-cursor: hand;
+ }
+
+ .dialog-pane .button:hover {
+     -fx-background-color: #3a5ccc;
+ }
+
+ /* Shopping list specific styles */
+ .shopping-screen {
+     -fx-background-color: white;
+     -fx-background-radius: 10;
+     -fx-padding: 20;
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 1);
+ }
+
+ .shopping-header {
+     -fx-font-size: 24px;
+     -fx-font-weight: bold;
+     -fx-text-fill: #5a5c69;
+     -fx-padding: 0 0 20 0;
+ }
+
+ .ingredient-checked {
+     -fx-strikethrough: true;
+     -fx-text-fill: #b7b9cc;
+ }
+
+ /* Table styles for shopping list */
+ .table-view {
+     -fx-background-color: white;
+     -fx-background-radius: 5px;
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+     -fx-padding: 0;
+ }
+
+ .table-view .column-header-background {
+     -fx-background-color: #4e73df;
+     -fx-background-radius: 5px 5px 0 0;
+     -fx-padding: 0 0 5px 0;
+ }
+
+ .table-view .column-header, .table-view .filler {
+     -fx-size: 35px;
+     -fx-border-width: 0 0 1 0;
+     -fx-background-color: transparent;
+ }
+
+ .table-view .column-header .label {
+     -fx-font-size: 14px;
+     -fx-font-weight: bold;
+     -fx-text-fill: white;
+     -fx-alignment: CENTER_LEFT;
+ }
+
+ .table-row-cell {
+     -fx-cell-size: 40px;
+ }
+
+ .table-row-cell:odd {
+     -fx-background-color: #f8f9fc;
+ }
+
+ .table-row-cell:even {
+     -fx-background-color: white;
+ }
+
+ .table-row-cell:selected {
+     -fx-background-color: #e8eafc;
+ }
+
+ .table-row-cell:hover {
+     -fx-background-color: #eaecf4;
+ }
+
+ /* CheckBox in TableView */
+ .table-cell .check-box {
+     -fx-opacity: 1;
+ }
+
+ .table-cell .check-box .box {
+     -fx-background-color: white;
+     -fx-border-color: #d1d3e2;
+     -fx-border-radius: 3px;
+ }
+
+ .table-cell .check-box:selected .mark {
+     -fx-background-color: white;
+ }
+
+ .table-cell .check-box:selected .box {
+     -fx-background-color: #4e73df;
+ }
