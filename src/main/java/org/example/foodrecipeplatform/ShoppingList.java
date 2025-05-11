@@ -77,11 +77,102 @@ public class ShoppingList {
                 shoppingList.put(idIngredient, item);
                 saveShoppingItemToFirebase(idIngredient, item);
             } else {
-                System.out.print("Ingredient already exists.");
-                // Will aggregate quantities next
+                ShoppingItem existingItem = shoppingList.get(idIngredient);
+                String aggregatedQuantity = aggregateQuantities(existingItem.getQuantity(), quantity);
+
+                existingItem.setQuantity(aggregatedQuantity);
+
+                updateQuantityInFirebase(idIngredient, aggregatedQuantity);
+
+                System.out.println("Aggregated quantities for: " + ingredient);
             }
         }
         System.out.println("Added ingredients to shopping list: " + shoppingList.keySet());
+    }
+
+    private void updateQuantityInFirebase(String idIngredient, String newQuantity) {
+        String userId = SessionManager.getUserId();
+
+        if (userId == null || userId.isEmpty()) {
+            System.out.println("No user is signed in. Cannot update shopping item.");
+            return;
+        }
+
+        try {
+            DocumentReference docRef = FirestoreClient.getFirestore()
+                    .collection("Users")
+                    .document(userId)
+                    .collection("ShoppingList")
+                    .document(idIngredient);
+
+            ApiFuture<WriteResult> result = docRef.update("quantity", newQuantity);
+            WriteResult writeResult = result.get();
+            System.out.println("Updated quantity in Firestore for ingredient ID: " + idIngredient);
+
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("Failed to update quantity for ingredient ID: " + idIngredient);
+            e.printStackTrace();
+        }
+    }
+
+    // Method to combine quantities
+    private String aggregateQuantities(String existing, String toAdd) {
+        if (existing == null || existing.trim().isEmpty()) {
+            return toAdd;
+        }
+        if (toAdd == null || toAdd.trim().isEmpty()) {
+            return existing;
+        }
+
+        try {
+            double existingNum = extractNumber(existing);
+            double toAddNum = extractNumber(toAdd);
+
+            if (existingNum > 0 && toAddNum > 0) {
+                String unit = extractUnit(existing);
+                if (unit.equals(extractUnit(toAdd))) {
+                    return String.format("%.2f %s", existingNum + toAddNum, unit).trim();
+                }
+            }
+        } catch (NumberFormatException e) {
+        }
+
+        return existing + " + " + toAdd;
+    }
+
+    // Helper method to extract a number from a quantity string
+    private double extractNumber(String quantity) {
+        if (quantity == null || quantity.isEmpty()) {
+            return 0;
+        }
+
+        String[] parts = quantity.trim().split("\\s+");
+        if (parts.length > 0) {
+            try {
+                if (parts[0].contains("/")) {
+                    String[] fraction = parts[0].split("/");
+                    if (fraction.length == 2) {
+                        return Double.parseDouble(fraction[0]) / Double.parseDouble(fraction[1]);
+                    }
+                }
+                return Double.parseDouble(parts[0]);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    private String extractUnit(String quantity) {
+        if (quantity == null || quantity.isEmpty()) {
+            return "";
+        }
+
+        String[] parts = quantity.trim().split("\\s+");
+        if (parts.length > 1) {
+            return parts[1];
+        }
+        return "";
     }
 
     // saves shopping item to Firebase
