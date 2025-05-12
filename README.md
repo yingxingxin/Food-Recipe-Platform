@@ -31,5 +31,5 @@ This application is for foodies devoloped by foodies. Enjoy
 - Frontend: JavaFX, CSS
 - Back End: Java
 - Database: Firebase Database
-- API's: Chat GPT, food api ?
+- API: TheMealDB
 - Tools: Figma, GitHub, Intellij
